@@ -1,44 +1,244 @@
+---
+import { strings, assessmentPath, type Lang } from "../i18n/strings";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "tr" } = Astro.props;
+const t = strings[lang].hero;
+const assessmentHref = assessmentPath(lang);
+---
+
 <section class="hero">
-  <p class="eyebrow">AI FOR HR. BY HR.</p>
 
-  <h1>
-    HR AI Use Cases Prepared by HR.
-  </h1>
+  <div class="hero-inner">
 
-  <p class="lead">
-    Practical examples from real HR operations.
-    No theory. No vendor language.
-  </p>
+    <p class="eyebrow">{t.eyebrow}</p>
+
+    <h1 class="hero-title">
+      {t.titleLine1}<br>
+      <span class="accent">{t.titleLine2Accent}</span>
+    </h1>
+
+    <div class="hero-rule"></div>
+
+    <p class="lead">
+      {t.lead1}<br>
+      {t.lead2}
+    </p>
+
+    <p class="lead">
+      {t.lead3}
+    </p>
+
+    <div class="hero-actions">
+      <a href="#bulten" class="hero-button">{t.ctaPrimary}</a>
+      <a href={assessmentHref} class="hero-link">{t.ctaSecondary}</a>
+    </div>
+
+  </div>
+
+  <div class="proof-strip">
+
+    <span>{t.proof1}</span>
+    <span class="dot"></span>
+    <span>{t.proof2}</span>
+    <span class="dot"></span>
+    <span>{t.proof3}</span>
+
+  </div>
+
 </section>
 
 <style>
-  .hero {
-    padding-block: var(--space-xl);
+.hero {
+  background: var(--color-ink);
+  color: var(--color-white);
+
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+
+  padding-block: 0;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-inner {
+  width: min(100% - 3rem, 1400px);
+
+  margin-inline: auto;
+
+  padding-top: clamp(0.65rem, 1.3vw, 1.1rem);
+  padding-bottom: clamp(1rem, 2vw, 1.6rem);
+}
+
+.hero-title {
+  max-width: 10ch;
+
+  margin-bottom: 2rem;
+
+  font-size: clamp(2.8rem, 9vw, 6.5rem);
+
+  line-height: 0.92;
+  letter-spacing: -0.04em;
+
+  color: #ffffff !important;
+}
+
+.hero-title * {
+  color: inherit;
+}
+
+.hero-title .accent {
+  color: var(--color-teal) !important;
+}
+
+
+.hero-rule {
+  width: 5rem;
+  height: 3px;
+
+  margin-bottom: 2rem;
+
+  background: var(--color-teal);
+}
+
+.lead {
+  max-width: 55rem;
+
+  margin-bottom: 1rem;
+
+  font-size: clamp(1.05rem, 2vw, 1.4rem);
+  line-height: 1.5;
+
+  color: #ffffff;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  gap: 1.25rem 2rem;
+}
+
+.hero-button {
+  display: inline-flex;
+  align-items: center;
+
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+
+  color: #ffffff;
+}
+
+.hero-button:hover {
+  text-decoration: underline;
+}
+
+.hero-link {
+  display: inline-flex;
+  align-items: center;
+
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+
+  color: var(--color-teal);
+}
+
+.hero-link:hover {
+  text-decoration: underline;
+}
+
+.hero-meta {
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+
+  color: rgba(248,248,245,0.72);
+}
+
+.proof-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  gap: 1.75rem;
+
+  padding: 1.25rem 2rem;
+
+  border-top: 0.5px solid rgba(255,255,255,0.1);
+
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+
+  text-align: center;
+
+  color: var(--color-white);
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 999px;
+
+  background: var(--color-teal);
+}
+
+@media (max-width: 820px) {
+
+  .hero-inner {
+    width: min(100% - 2rem, 1400px);
+
+    padding-top: 0.65rem;
+    padding-bottom: 1rem;
   }
 
-  .eyebrow {
-    margin-bottom: var(--space-sm);
+  .hero-title {
+    max-width: 11ch;
 
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
+    font-size: clamp(2.4rem, 10vw, 4rem);
 
-    color: var(--color-teal);
-  }
-
-  h1 {
-    max-width: 10ch;
-    margin-bottom: var(--space-md);
-
-    font-size: clamp(4rem, 10vw, 5.5rem);
     line-height: 0.95;
-    letter-spacing: -0.04em;
+
+    color: #ffffff !important;
   }
 
   .lead {
-    max-width: 38rem;
+    font-size: 1rem;
+  }
 
-    font-size: 1.25rem;
+  .hero-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-button {
+    width: 100%;
+  }
+
+  .proof-strip {
+    justify-content: flex-start;
+
+    gap: 1rem;
+
+    padding: 1.25rem 1rem;
+
+    font-size: 0.72rem;
     line-height: 1.5;
   }
+
+  .dot {
+    display: none;
+  }
+
+}
 </style>

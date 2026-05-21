@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HR AI Fluency · You &amp; Your Company</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230a0a0a'/%3E%3Ctext x='16' y='22.5' font-family='Inter,sans-serif' font-size='22' font-weight='900' fill='%2300897b' text-anchor='middle'%3En%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #fafaf8;
+    --surface: #ffffff;
+    --surface2: #f1f1ee;
+    --you: #00897b;
+    --you-soft: rgba(0,137,123,0.07);
+    --you-line: rgba(0,137,123,0.32);
+    --company: #0a0a0a;
+    --company-soft: rgba(10,10,10,0.05);
+    --company-line: rgba(10,10,10,0.20);
+    --text: #0a0a0a;
+    --muted: #5c5c5a;
+    --muted2: #9a9a98;
+    --brand: #00897b;
+    --border: rgba(0,0,0,0.08);
+    --border-strong: rgba(0,0,0,0.18);
+    --radius: 4px;
+    --radius-lg: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-feature-settings: "ss01", "cv11"; }
+
+  body {
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(0,137,123,0.04) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 110%, rgba(10,10,10,0.02) 0%, transparent 60%);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: -0.005em;
+  }
+
+  .shell { width: 100%; max-width: 760px; }
+
+  /* ---------- Editorial header ---------- */
+  .masthead {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 24px;
+    margin-bottom: 56px;
+    border-bottom: 1px solid var(--border);
+  }
+  a.wordmark, .wordmark {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+    transition: opacity 0.18s ease;
+  }
+  a.wordmark:hover { opacity: 0.7; }
+  .wordmark .brand { color: var(--brand); }
+  .masthead-meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--muted2);
+    font-weight: 500;
+  }
+
+  /* ---------- Intro ---------- */
+  #intro { animation: fadeUp 0.6s ease both; }
+
+  .eyebrow {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+  .eyebrow .sep { color: var(--muted2); margin: 0 10px; }
+
+  h1.display {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.4rem, 6vw, 3.8rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 28px;
+  }
+  h1.display .you { color: var(--you); }
+  h1.display .amp {
+    font-style: italic;
+    font-weight: 300;
+    color: var(--muted);
+  }
+  h1.display .co { color: var(--company); }
+
+  .lede {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--muted);
+    font-size: 1.2rem;
+    line-height: 1.6;
+    max-width: 560px;
+    margin-bottom: 56px;
+  }
+
+  .intro-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 22px 0;
+    margin-bottom: 40px;
+  }
+  .intro-meta {
+    display: flex;
+    gap: 28px;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  .intro-meta span { display: inline-flex; align-items: center; gap: 8px; }
+  .intro-meta .num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--text);
+    font-weight: 400;
+  }
+  @media(max-width: 520px) {
+    .intro-row { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .intro-meta { flex-wrap: wrap; gap: 18px; }
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn {
+    background: var(--text);
+    color: var(--bg);
+    border: 1px solid var(--text);
+    padding: 14px 28px;
+    border-radius: 100px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn:hover { background: transparent; color: var(--text); }
+  .btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .btn:disabled:hover { background: var(--text); color: var(--bg); }
+
+  .btn .arrow { transition: transform 0.2s ease; }
+  .btn:hover .arrow { transform: translateX(3px); }
+
+  .btn.ghost {
+    background: transparent;
+    color: var(--muted);
+    border: 1px solid var(--border-strong);
+  }
+  .btn.ghost:hover { color: var(--text); border-color: var(--text); background: transparent; }
+
+  .btn.co {
+    background: var(--company);
+    color: var(--bg);
+    border-color: var(--company);
+  }
+  .btn.co:hover { background: transparent; color: var(--company); }
+
+  .cta-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .cta-stack .btn {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 16px 28px;
+    text-align: left;
+  }
+  .cta-stack .btn .cta-main {
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+  .cta-stack .btn .cta-sub {
+    font-size: 0.78rem;
+    font-weight: 400;
+    opacity: 0.7;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+  }
+  @media(max-width: 520px) {
+    .cta-stack { width: 100%; }
+    .cta-stack .btn { width: 100%; }
+  }
+
+  /* ---------- Quiz ---------- */
+  #quiz { display: none; animation: fadeUp 0.5s ease both; }
+
+  .phase-row {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    padding-bottom: 18px;
+    margin-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+  .phase-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--muted2);
+    flex-shrink: 0;
+  }
+  .phase-num.you { color: var(--you); }
+  .phase-num.co  { color: var(--company); }
+  .phase-text { flex: 1; min-width: 0; }
+  .phase-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  .phase-sub {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .progress-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    color: var(--muted2);
+    font-weight: 500;
+  }
+  .progress-row .dim { color: var(--muted); }
+  .progress-bar {
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 40px;
+    position: relative;
+  }
+  .progress-fill {
+    position: absolute;
+    top: 0; left: 0;
+    height: 1px;
+    background: var(--text);
+    transition: width 0.4s ease;
+  }
+  .progress-fill.you { background: var(--you); }
+  .progress-fill.co  { background: var(--company); }
+
+  .question-text {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.35rem, 3vw, 1.7rem);
+    font-weight: 500;
+    line-height: 1.35;
+    letter-spacing: -0.015em;
+    margin-bottom: 36px;
+    color: var(--text);
+  }
+
+  .options { display: flex; flex-direction: column; gap: 1px; margin-bottom: 40px; background: var(--border); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+  .option {
+    background: var(--bg);
+    border: none;
+    border-left: 1px solid transparent;
+    padding: 18px 20px;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 18px;
+    text-align: left;
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.94rem;
+    color: var(--text);
+    font-weight: 400;
+    line-height: 1.55;
+  }
+  .option:hover { background: var(--surface); }
+  .option.selected-you { background: var(--you-soft); border-left-color: var(--you); }
+  .option.selected-co  { background: var(--company-soft); border-left-color: var(--company); }
+
+  .opt-num {
+    flex-shrink: 0;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 0.9rem;
+    color: var(--muted2);
+    width: 22px;
+    line-height: 1.55;
+  }
+  .option.selected-you .opt-num { color: var(--you); }
+  .option.selected-co  .opt-num { color: var(--company); }
+
+  .nav-row { display: flex; justify-content: space-between; align-items: center; }
+
+  /* ---------- Result ---------- */
+  #result { display: none; animation: fadeUp 0.6s ease both; }
+
+  .result-head { margin-bottom: 56px; }
+  .result-head .eyebrow { margin-bottom: 18px; }
+  .result-head h2 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .result-head h2 .sep { color: var(--muted2); font-weight: 300; font-style: italic; padding: 0 4px; }
+  .result-head h2 .you { color: var(--you); }
+  .result-head h2 .co { color: var(--company); }
+  .result-head .deck {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.5;
+  }
+
+  .section { padding: 40px 0; border-top: 1px solid var(--border); }
+  .section:last-of-type { border-bottom: 1px solid var(--border); }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    margin-bottom: 32px;
+  }
+  .section-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 1.4rem;
+    color: var(--muted2);
+    line-height: 1;
+  }
+  .section-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  /* Profile cards */
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border-left: 1px solid var(--border);
+  }
+  .profile-grid.solo { grid-template-columns: 1fr; }
+  .profile-grid.solo .profile-card-solo { padding-right: 28px; max-width: 540px; }
+  @media(max-width: 580px) { .profile-grid { grid-template-columns: 1fr; } }
+
+  .profile-card {
+    padding: 28px 28px 28px 0;
+    padding-left: 28px;
+    border-right: 1px solid var(--border);
+  }
+  @media(max-width: 580px) {
+    .profile-card { border-right: none; border-bottom: 1px solid var(--border); padding: 28px 0 28px 28px; }
+    .profile-card:last-child { border-bottom: none; }
+  }
+
+  .profile-who {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 18px;
+  }
+  .profile-who .accent { color: var(--text); }
+  .profile-who.you-w .accent { color: var(--you); }
+  .profile-who.co-w .accent { color: var(--company); }
+
+  .profile-name {
+    font-family: 'Fraunces', serif;
+    font-size: 1.9rem;
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+  }
+  .profile-score {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--muted);
+    margin-bottom: 18px;
+    font-feature-settings: "tnum";
+  }
+  .profile-score .num {
+    color: var(--text);
+    font-weight: 500;
+  }
+  .profile-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  /* Radar */
+  .radar-block {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: center;
+  }
+  @media(max-width: 720px) { .radar-block { grid-template-columns: 1fr; gap: 24px; } }
+
+  .radar-svg-wrap { display: flex; justify-content: center; }
+  .radar-svg { max-width: 420px; width: 100%; height: auto; display: block; }
+
+  .compare-list { display: flex; flex-direction: column; }
+  .compare-row {
+    padding: 16px 0;
+    border-top: 1px solid var(--border);
+  }
+  .compare-row:first-child { border-top: none; padding-top: 0; }
+  .compare-row:last-child { padding-bottom: 0; }
+
+  .compare-row-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+  }
+  .compare-row-label .dim-name {
+    font-size: 0.86rem;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -0.005em;
+  }
+  .compare-row-label .scores {
+    display: flex;
+    gap: 14px;
+    font-family: 'Fraunces', serif;
+    font-size: 0.85rem;
+    font-feature-settings: "tnum";
+    font-weight: 400;
+  }
+  .compare-row-label .scores .you-pct { color: var(--you); }
+  .compare-row-label .scores .co-pct  { color: var(--company); }
+
+  .bar-group { display: flex; flex-direction: column; gap: 4px; }
+  .bar-track { height: 2px; background: var(--surface2); position: relative; }
+  .bar-fill { position: absolute; top: 0; left: 0; height: 2px; transition: width 1s ease 0.2s; width: 0%; }
+  .bar-fill.you { background: var(--you); }
+  .bar-fill.co  { background: var(--company); }
+
+  /* Recommendations */
+  .reco-headline {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.4rem, 3vw, 1.85rem);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin-bottom: 18px;
+  }
+  .reco-deck {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 36px;
+    max-width: 600px;
+  }
+
+  .reco-steps { list-style: none; padding: 0; margin: 0 0 48px 0; }
+  .reco-step {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    gap: 16px;
+    align-items: baseline;
+    padding: 22px 0;
+    border-top: 1px solid var(--border);
+    font-size: 0.96rem;
+    line-height: 1.6;
+    color: var(--text);
+  }
+  .reco-step:first-child { border-top: none; }
+  .reco-step:last-child { border-bottom: 1px solid var(--border); padding-bottom: 22px; }
+  .reco-step-num {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 1.6rem;
+    color: var(--muted2);
+    line-height: 1;
+    font-feature-settings: "tnum";
+  }
+
+  .resources-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+  .resources-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  @media(max-width: 580px) { .resources-grid { grid-template-columns: 1fr; } }
+
+  .resource-card {
+    display: block;
+    background: var(--bg);
+    padding: 18px 20px;
+    text-decoration: none;
+    color: var(--text);
+    transition: background 0.18s ease, color 0.18s ease;
+  }
+  .resource-card:hover { background: var(--surface); }
+  .resource-card:hover .resource-card-arrow { transform: translateX(3px); color: var(--you); }
+  .resource-card-label {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 0.78rem;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .resource-card-title {
+    font-size: 0.92rem;
+    font-weight: 500;
+    line-height: 1.4;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+  }
+  .resource-card-arrow {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    color: var(--muted2);
+    transition: transform 0.18s ease, color 0.18s ease;
+    flex-shrink: 0;
+  }
+
+  /* CTA + footer */
+  .final-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 32px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-note {
+    font-size: 0.7rem;
+    color: var(--muted2);
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+  <header class="masthead">
+    <a href="/" class="wordmark" aria-label="Back to newhr.ai homepage">new<span class="brand">hr.ai</span></a>
+    <div class="masthead-meta">HR AI Fluency · Beta</div>
+  </header>
+
+  <!-- ============ INTRO ============ -->
+  <div id="intro">
+    <div class="eyebrow">Self-Assessment<span class="sep">·</span>For HR Professionals</div>
+    <h1 class="display">
+      <span class="you">You</span> <span class="amp">&amp;</span> <span class="co">Your Company</span>
+    </h1>
+    <p class="lede">
+      Where do you stand on AI fluency in HR? Assess yourself alone, or compare your skills against your organisation. Five dimensions, up to fifteen questions.
+    </p>
+
+    <div class="intro-row">
+      <div class="intro-meta">
+        <span><span class="num">5</span> dimensions</span>
+        <span>Five-level scale</span>
+        <span>No sign-up required</span>
+      </div>
+    </div>
+
+    <div class="cta-stack">
+      <button class="btn" onclick="startQuiz('self')">
+        <span class="cta-main">Assess Me Only</span>
+        <span class="cta-sub">10 questions · 3 minutes</span>
+      </button>
+      <button class="btn ghost" onclick="startQuiz('both')">
+        <span class="cta-main">Compare Me &amp; My Company</span>
+        <span class="cta-sub">15 questions · 5 minutes</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ============ QUIZ ============ -->
+  <div id="quiz">
+    <div class="phase-row">
+      <div id="phase-num" class="phase-num you">01</div>
+      <div class="phase-text">
+        <div id="phase-title" class="phase-title">You</div>
+        <div id="phase-sub" class="phase-sub">Answer based on your own skills and habits</div>
+      </div>
+    </div>
+
+    <div class="progress-row">
+      <span id="q-counter">Question 01 / 10</span>
+      <span id="dim-display" class="dim"></span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill you" id="prog" style="width:10%"></div></div>
+
+    <div class="question-text" id="q-text"></div>
+    <div class="options" id="options-wrap"></div>
+
+    <div class="nav-row">
+      <button class="btn ghost" id="back-btn" onclick="prevQ()" style="display:none">← Back</button>
+      <span></span>
+      <button class="btn" id="next-btn" onclick="nextQ()" disabled>Continue<span class="arrow">→</span></button>
+    </div>
+  </div>
+
+  <!-- ============ RESULT ============ -->
+  <div id="result">
+    <div class="result-head">
+      <div class="eyebrow">HR AI Fluency<span class="sep">·</span>Your Results</div>
+      <h2>
+        <span class="you">You</span> <span class="sep">—</span> <span class="co">Your Company</span> <span class="sep">—</span> The gap
+      </h2>
+      <p class="deck">Your personal fluency, your organisation's maturity, and what the gap means.</p>
+    </div>
+
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <span class="section-title">Profile</span>
+      </div>
+      <div class="profile-grid" id="profile-grid"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <span class="section-title">Comparison Across 5 Dimensions</span>
+      </div>
+      <div class="radar-block">
+        <div class="radar-svg-wrap" id="radar-container"></div>
+        <div class="compare-list" id="compare-dims"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <span class="section-title">Recommendations</span>
+      </div>
+      <h3 class="reco-headline" id="reco-title"></h3>
+      <p class="reco-deck" id="reco-text"></p>
+      <ol class="reco-steps" id="reco-steps"></ol>
+      <div class="resources-title">Recommended Resources</div>
+      <div class="resources-grid" id="reco-resources"></div>
+    </section>
+
+    <div class="final-row">
+      <div class="footer-note">newhr.ai · Self-assessment method</div>
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button class="btn ghost" onclick="restartQuiz()">Start Over</button>
+        <button class="btn" onclick="shareResult()">Share on LinkedIn<span class="arrow">→</span></button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ---------- 5 dimensions ----------
+const DIMENSIONS = [
+  { key: "strategy",   label: "Strategy & Governance",    color: "#4338ca" },
+  { key: "recruiting", label: "AI in Recruiting",         color: "#6d28d9" },
+  { key: "ed_ld",      label: "Employee Experience & L&D", color: "#047857" },
+  { key: "analytics",  label: "People Analytics",         color: "#a16207" },
+  { key: "fluency",    label: "HR Team AI Fluency",       color: "#c2410c" },
+];
+
+const youQuestions = [
+  { dim: "strategy", text: "How familiar are you with AI governance principles in HR — data privacy, bias, and regulatory compliance?", options: [
+    { text: "I haven't really thought about it yet", score: 0 },
+    { text: "I've read some articles or attended a session on it", score: 1 },
+    { text: "I could explain the core principles to a colleague tomorrow", score: 2 },
+    { text: "I've adapted an AI governance framework for HR processes and communicated it to leadership and my team", score: 3 },
+  ]},
+  { dim: "strategy", text: "In the past six months, have you raised an AI risk or opportunity within the HR function?", options: [
+    { text: "No", score: 0 },
+    { text: "Once or twice, informally", score: 1 },
+    { text: "Yes, and I pushed for concrete changes", score: 2 },
+    { text: "I've made AI risks and opportunities a regular agenda item and driven real decisions as a result", score: 3 },
+  ]},
+  { dim: "recruiting", text: "Do you use AI when writing or improving job descriptions?", options: [
+    { text: "Never — I write from scratch or use templates", score: 0 },
+    { text: "Sometimes, for first drafts", score: 1 },
+    { text: "Every time, with my own structured prompt and a review process", score: 2 },
+    { text: "I've built a standard prompt library for the team and we continuously improve it", score: 3 },
+  ]},
+  { dim: "recruiting", text: "How do you use AI in candidate screening?", options: [
+    { text: "I don't use AI for screening", score: 0 },
+    { text: "I paste CVs into a chat tool for quick summaries", score: 1 },
+    { text: "I use AI to compare CVs against structured criteria and I understand its limitations", score: 2 },
+    { text: "I've designed an AI-assisted screening system, documented bias risks, and shared it with the team", score: 3 },
+  ]},
+  { dim: "ed_ld", text: "Have you used AI to build a personalised learning path — for yourself or someone on your team?", options: [
+    { text: "Never", score: 0 },
+    { text: "I've tried it for my own development", score: 1 },
+    { text: "I've created personalised plans for others using AI-based analysis", score: 2 },
+    { text: "I've built a team-wide AI-driven personalised learning system and I measure its impact", score: 3 },
+  ]},
+  { dim: "ed_ld", text: "When an employee comes to you with a development question, do you use AI in your response?", options: [
+    { text: "No", score: 0 },
+    { text: "Sometimes, to structure my thinking", score: 1 },
+    { text: "Yes — I openly use AI with them to explore options together", score: 2 },
+    { text: "I have a structured approach to AI-assisted development coaching and I share it with others", score: 3 },
+  ]},
+  { dim: "analytics", text: "How comfortable are you reading and questioning a people analytics dashboard?", options: [
+    { text: "I rarely look at one", score: 0 },
+    { text: "I can read it but I don't always trust the numbers", score: 1 },
+    { text: "I can spot when a metric is misleading and I know what questions to ask", score: 2 },
+    { text: "I go beyond dashboards: I query data with AI, discover new patterns, and connect findings to business decisions", score: 3 },
+  ]},
+  { dim: "analytics", text: "Have you used AI to analyse HR data — attrition, engagement, performance?", options: [
+    { text: "Never", score: 0 },
+    { text: "Once or twice for a specific question", score: 1 },
+    { text: "Yes, I regularly use AI to explore patterns in HR data", score: 2 },
+    { text: "I use it regularly and I report my findings to guide HR decisions", score: 3 },
+  ]},
+  { dim: "fluency", text: "How would you rate your prompt-writing skills?", options: [
+    { text: "I type questions like I'm using a search engine", score: 0 },
+    { text: "I know the basics: role, task, format", score: 1 },
+    { text: "I write structured prompts with examples and iterate on them", score: 2 },
+    { text: "I write complex, multi-step prompts and I've built a shared prompt library for my team", score: 3 },
+  ]},
+  { dim: "fluency", text: "When AI gives you an answer, what do you do?", options: [
+    { text: "I accept it and move on", score: 0 },
+    { text: "I check it if something feels off", score: 1 },
+    { text: "I always verify critical outputs against a second source", score: 2 },
+    { text: "I have a systematic verification process and I've taught the team which outputs to verify and how", score: 3 },
+  ]},
+];
+
+const coQuestions = [
+  { dim: "strategy", text: "Does your HR function have a written AI policy or usage guide?", options: [
+    { text: "No, or I don't know", score: 0 },
+    { text: "There's an informal understanding, nothing written", score: 1 },
+    { text: "Yes — written, shared, and reviewed regularly", score: 2 },
+    { text: "Written, reviewed, integrated into all HR processes — including a breach mechanism", score: 3 },
+  ]},
+  { dim: "recruiting", text: "Does your recruiting team use AI tools consistently?", options: [
+    { text: "No, or only one person has tried something", score: 0 },
+    { text: "Some recruiters use AI when they feel like it", score: 1 },
+    { text: "The team uses AI in at least 3 stages of recruiting with shared standards", score: 2 },
+    { text: "AI is integrated across the full recruiting process; impact is measured and the process is continuously improved", score: 3 },
+  ]},
+  { dim: "ed_ld", text: "Does your L&D team use AI to personalise learning content?", options: [
+    { text: "No — we use general catalogues or static pathways", score: 0 },
+    { text: "We ran a small pilot", score: 1 },
+    { text: "Yes — learning is adapted based on skill gaps or role", score: 2 },
+    { text: "AI-powered personalisation is our standard practice; impact is measured and content is continuously updated", score: 3 },
+  ]},
+  { dim: "analytics", text: "Does your HR function use predictive models for attrition, engagement, or hiring outcomes?", options: [
+    { text: "No", score: 0 },
+    { text: "We're exploring it, nothing live yet", score: 1 },
+    { text: "At least one model is live and influencing decisions", score: 2 },
+    { text: "Multiple models are live; their impact is measured and integrated into our HR strategy", score: 3 },
+  ]},
+  { dim: "fluency", text: "How does your HR team share AI knowledge and practice?", options: [
+    { text: "No sharing — everyone figures it out on their own", score: 0 },
+    { text: "Occasional chat messages or tips here and there", score: 1 },
+    { text: "Regular sessions: demos, training, a shared library", score: 2 },
+    { text: "AI learning culture is embedded: regular demos, a documented library, an internal training programme", score: 3 },
+  ]},
+];
+
+const RESOURCE_BANK = {
+  fundamentals:      { label: 'Fundamentals', title: 'AI for HR 101: Get Started in 5 Minutes',              url: 'https://newhr.ai/fundamentals' },
+  hr_starter:        { label: 'Sprint',        title: '30-Day HR AI Starter Programme',                       url: 'https://newhr.ai/sprint' },
+  governance:        { label: 'Governance',    title: 'One-Page AI Usage Guide Template for HR',              url: 'https://newhr.ai/governance' },
+  skill_building:    { label: 'Skill',         title: 'Prompt Writing for HR · Practical Workshop',           url: 'https://newhr.ai/workshop' },
+  prompt_library:    { label: 'Library',       title: 'Ready-to-Use HR Prompts · 25 Use Cases',              url: 'https://newhr.ai/prompts' },
+  self_paced:        { label: 'Self-Study',    title: '4-Week Individual AI Fluency Path',                    url: 'https://newhr.ai/path' },
+  change_leadership: { label: 'Leadership',    title: 'Lead the AI Change in Your Organisation',              url: 'https://newhr.ai/change' },
+  business_case:     { label: 'Business Case', title: 'Sell an AI Pilot to Leadership · Template',           url: 'https://newhr.ai/pilot-template' },
+  job_market:        { label: 'Career',        title: 'AI-Mature HR Organisations · List',                   url: 'https://newhr.ai/career' },
+  scaling:           { label: 'Scale',         title: 'From Individual to System: Building AI Culture',       url: 'https://newhr.ai/scale' },
+  maturity_model:    { label: 'Maturity',      title: 'HR AI Maturity Model · 4 Levels',                     url: 'https://newhr.ai/maturity' },
+};
+
+const LADDER = [
+  { min: 0,  max: 33,  name: "Explorer",     color: "#5c5c5a", youDesc: "You're at the starting point. Awareness is there, practice is thin. The fastest growth happens from exactly this position. One real AI task this week is all it takes to build momentum.", coDesc: "The organisation is behind the curve. No structured initiative yet. Urgency required: assign an owner, start a small pilot." },
+  { min: 34, max: 59,  name: "Practitioner", color: "#4338ca", youDesc: "You use AI regularly and you're building your own method. The next step: consistency and structured prompt sets you can share with others.", coDesc: "Early pilots exist but they're scattered. What's missing is structure: a framework, an owner, and metrics to scale what's working." },
+  { min: 60, max: 83,  name: "Architect",    color: "#6d28d9", youDesc: "AI is part of how you work. You're in the top tier of HR professionals. Now it's time to lead others: build systems, libraries, and training.", coDesc: "AI is a real presence in the HR function. Strong foundation. Next level: strategic alignment, governance, and scale." },
+  { min: 84, max: 100, name: "Guide",        color: "#a16207", youDesc: "You're at the frontier. Skills, perspective, and habits are all in place. Your next impact: shaping the direction of your organisation and the profession.", coDesc: "The organisation is a reference point. AI is embedded in strategy, governance, and daily operations. Focus: sustain and share with the sector." },
+];
+
+// ---------- State ----------
+let mode = 'both';
+let phase = 'you';
+let current = 0;
+let youAnswers = new Array(youQuestions.length).fill(null);
+let coAnswers  = new Array(coQuestions.length).fill(null);
+
+function currentSet()     { return phase === 'you' ? youQuestions : coQuestions; }
+function currentAnswers() { return phase === 'you' ? youAnswers   : coAnswers; }
+
+function dimLabel(key) { return DIMENSIONS.find(d => d.key === key).label; }
+function pad2(n) { return String(n).padStart(2, '0'); }
+
+// ---------- Flow ----------
+function startQuiz(chosenMode) {
+  mode = chosenMode || 'both';
+  phase = 'you';
+  current = 0;
+  youAnswers = new Array(youQuestions.length).fill(null);
+  coAnswers  = new Array(coQuestions.length).fill(null);
+  document.getElementById('intro').style.display = 'none';
+  document.getElementById('quiz').style.display  = 'block';
+  renderQ();
+}
+
+function renderQ() {
+  const q       = currentSet()[current];
+  const answers = currentAnswers();
+  const total   = currentSet().length;
+  const isYou   = phase === 'you';
+
+  const phaseNumEl = document.getElementById('phase-num');
+  if (mode === 'self') {
+    phaseNumEl.style.display = 'none';
+  } else {
+    phaseNumEl.style.display = '';
+    phaseNumEl.textContent = isYou ? '01' : '02';
+    phaseNumEl.className = 'phase-num ' + phase;
+  }
+  document.getElementById('phase-title').textContent = isYou ? 'You' : 'Your Company';
+  document.getElementById('phase-sub').textContent  = isYou
+    ? 'Answer based on your own skills and habits'
+    : 'Answer based on what your organisation actually does';
+
+  document.getElementById('q-counter').textContent = `Question ${pad2(current + 1)} / ${pad2(total)}`;
+
+  const dimEl = document.getElementById('dim-display');
+  dimEl.textContent = dimLabel(q.dim);
+
+  const prog = document.getElementById('prog');
+  prog.style.width = `${((current + 1) / total) * 100}%`;
+  prog.className = 'progress-fill ' + phase;
+
+  document.getElementById('q-text').textContent = q.text;
+
+  const wrap = document.getElementById('options-wrap');
+  wrap.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    const sel = answers[current] === i ? ` selected-${phase}` : '';
+    btn.className = `option${sel}`;
+    btn.innerHTML = `<span class="opt-num">${pad2(i+1)}</span><span>${opt.text}</span>`;
+    btn.onclick = () => selectOpt(i);
+    wrap.appendChild(btn);
+  });
+
+  const nextBtn = document.getElementById('next-btn');
+  nextBtn.disabled = answers[current] === null;
+  nextBtn.className = `btn ${phase === 'co' ? 'co' : ''}`;
+
+  const isLastOfPhase = current === currentSet().length - 1;
+  const isLastOverall = (mode === 'self' && isLastOfPhase) || (phase === 'co' && isLastOfPhase);
+  const labelText = isLastOverall ? 'See My Results' : (isLastOfPhase && mode === 'both' ? 'Go to Part 02' : 'Continue');
+  nextBtn.innerHTML = `${labelText}<span class="arrow">→</span>`;
+
+  document.getElementById('back-btn').style.display = (current > 0 || phase === 'co') ? 'inline-flex' : 'none';
+}
+
+function selectOpt(i) {
+  const answers = currentAnswers();
+  answers[current] = i;
+  document.querySelectorAll('.option').forEach((el, idx) => {
+    el.className = `option${idx === i ? ' selected-' + phase : ''}`;
+  });
+  document.getElementById('next-btn').disabled = false;
+}
+
+function nextQ() {
+  const answers = currentAnswers();
+  if (answers[current] === null) return;
+  if (current < currentSet().length - 1) {
+    current++;
+    renderQ();
+  } else if (phase === 'you' && mode === 'both') {
+    phase = 'co';
+    current = 0;
+    renderQ();
+  } else {
+    showResult();
+  }
+}
+
+function prevQ() {
+  if (current > 0) {
+    current--;
+  } else if (phase === 'co') {
+    phase = 'you';
+    current = youQuestions.length - 1;
+  }
+  renderQ();
+}
+
+// ---------- Scoring ----------
+function calcScores(questions, answers) {
+  const byDim = {};
+  let raw = 0, max = 0;
+  questions.forEach((q, i) => {
+    const score = answers[i] !== null ? q.options[answers[i]].score : 0;
+    if (!byDim[q.dim]) byDim[q.dim] = { raw: 0, max: 0 };
+    byDim[q.dim].raw += score;
+    byDim[q.dim].max += 3;
+    raw += score;
+    max += 3;
+  });
+  for (const k in byDim) {
+    byDim[k].pct = Math.round((byDim[k].raw / byDim[k].max) * 100);
+  }
+  return { raw, max, pct: Math.round((raw / max) * 100), byDim };
+}
+
+function getProfile(pct) {
+  return LADDER.find(p => pct >= p.min && pct <= p.max);
+}
+
+// ---------- Result rendering ----------
+function showResult() {
+  document.getElementById('quiz').style.display   = 'none';
+  document.getElementById('result').style.display = 'block';
+
+  const you = calcScores(youQuestions, youAnswers);
+  const co  = mode === 'both' ? calcScores(coQuestions, coAnswers) : null;
+  const youProfile = getProfile(you.pct);
+  const coProfile  = co ? getProfile(co.pct) : null;
+
+  const headEl = document.querySelector('.result-head h2');
+  const deckEl = document.querySelector('.result-head .deck');
+  if (mode === 'self') {
+    headEl.innerHTML = `<span class="you">You</span> <span class="sep">—</span> Your Personal AI Fluency`;
+    deckEl.textContent = 'Your personal fluency across five dimensions and your next step.';
+  } else {
+    headEl.innerHTML = `<span class="you">You</span> <span class="sep">—</span> <span class="co">Your Company</span> <span class="sep">—</span> The gap`;
+    deckEl.textContent = 'Your personal fluency, your organisation\'s maturity, and what the gap means.';
+  }
+
+  const grid = document.getElementById('profile-grid');
+  if (mode === 'self') {
+    grid.innerHTML = `
+      <div class="profile-card profile-card-solo">
+        <div class="profile-who you-w"><span class="accent">You</span> · Personal Fluency</div>
+        <div class="profile-name" style="color:${youProfile.color}">${youProfile.name}</div>
+        <div class="profile-score"><span class="num">${you.raw}</span> / ${you.max} · <span class="num">${you.pct}</span>/100</div>
+        <div class="profile-desc">${youProfile.youDesc}</div>
+      </div>`;
+    grid.classList.add('solo');
+  } else {
+    grid.classList.remove('solo');
+    grid.innerHTML = `
+      <div class="profile-card">
+        <div class="profile-who you-w"><span class="accent">You</span> · Personal Fluency</div>
+        <div class="profile-name" style="color:${youProfile.color}">${youProfile.name}</div>
+        <div class="profile-score"><span class="num">${you.raw}</span> / ${you.max} · <span class="num">${you.pct}</span>/100</div>
+        <div class="profile-desc">${youProfile.youDesc}</div>
+      </div>
+      <div class="profile-card">
+        <div class="profile-who co-w"><span class="accent">Your Company</span> · Maturity</div>
+        <div class="profile-name" style="color:${coProfile.color}">${coProfile.name}</div>
+        <div class="profile-score"><span class="num">${co.raw}</span> / ${co.max} · <span class="num">${co.pct}</span>/100</div>
+        <div class="profile-desc">${coProfile.coDesc}</div>
+      </div>`;
+  }
+
+  const dimSectionTitle = document.querySelector('.section:nth-of-type(2) .section-title');
+  if (dimSectionTitle) dimSectionTitle.textContent = mode === 'self' ? 'Your Profile Across 5 Dimensions' : 'Comparison Across 5 Dimensions';
+
+  renderRadar(you, co);
+
+  const cmp = document.getElementById('compare-dims');
+  cmp.innerHTML = '';
+  DIMENSIONS.forEach(d => {
+    const yp = you.byDim[d.key].pct;
+    const cp = co ? co.byDim[d.key].pct : null;
+    const row = document.createElement('div');
+    row.className = 'compare-row';
+    if (mode === 'self') {
+      row.innerHTML = `
+        <div class="compare-row-label">
+          <span class="dim-name">${d.label}</span>
+          <span class="scores">
+            <span class="you-pct">${yp}</span>
+          </span>
+        </div>
+        <div class="bar-group">
+          <div class="bar-track"><div class="bar-fill you" data-pct="${yp}"></div></div>
+        </div>`;
+    } else {
+      row.innerHTML = `
+        <div class="compare-row-label">
+          <span class="dim-name">${d.label}</span>
+          <span class="scores">
+            <span class="you-pct">${yp}</span>
+            <span class="co-pct">${cp}</span>
+          </span>
+        </div>
+        <div class="bar-group">
+          <div class="bar-track"><div class="bar-fill you" data-pct="${yp}"></div></div>
+          <div class="bar-track"><div class="bar-fill co" data-pct="${cp}"></div></div>
+        </div>`;
+    }
+    cmp.appendChild(row);
+  });
+  setTimeout(() => {
+    cmp.querySelectorAll('.bar-fill').forEach(el => { el.style.width = el.dataset.pct + '%'; });
+  }, 200);
+
+  const reco = mode === 'self' ? buildSelfRecommendations(you) : buildRecommendations(you, co);
+  document.getElementById('reco-title').textContent = reco.title;
+  document.getElementById('reco-text').textContent  = reco.text;
+
+  const stepsEl = document.getElementById('reco-steps');
+  stepsEl.innerHTML = '';
+  reco.steps.forEach((step, i) => {
+    const li = document.createElement('li');
+    li.className = 'reco-step';
+    li.innerHTML = `<div class="reco-step-num">${pad2(i+1)}</div><div>${step}</div>`;
+    stepsEl.appendChild(li);
+  });
+
+  const resEl = document.getElementById('reco-resources');
+  resEl.innerHTML = '';
+  reco.resources.forEach(rkey => {
+    const r = RESOURCE_BANK[rkey];
+    if (!r) return;
+    const card = document.createElement('a');
+    card.className = 'resource-card';
+    card.href = r.url;
+    card.target = '_blank';
+    card.rel = 'noopener';
+    card.innerHTML = `
+      <div class="resource-card-label">${r.label}</div>
+      <div class="resource-card-title">
+        <span>${r.title}</span>
+        <span class="resource-card-arrow">→</span>
+      </div>`;
+    resEl.appendChild(card);
+  });
+}
+
+// ---------- Radar ----------
+function renderRadar(youData, coData) {
+  const size = 360;
+  const cx = size / 2;
+  const cy = size / 2;
+  const radius = 110;
+  const N = DIMENSIONS.length;
+  const angles = DIMENSIONS.map((d, i) => -Math.PI / 2 + (2 * Math.PI * i) / N);
+
+  let svg = `<svg class="radar-svg" viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">`;
+
+  [0.25, 0.5, 0.75, 1.0].forEach(scale => {
+    const points = angles.map(a => {
+      const x = cx + Math.cos(a) * radius * scale;
+      const y = cy + Math.sin(a) * radius * scale;
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    }).join(' ');
+    svg += `<polygon points="${points}" fill="none" stroke="rgba(0,0,0,0.07)" stroke-width="1"/>`;
+  });
+
+  angles.forEach(a => {
+    const x = cx + Math.cos(a) * radius;
+    const y = cy + Math.sin(a) * radius;
+    svg += `<line x1="${cx}" y1="${cy}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="rgba(0,0,0,0.07)" stroke-width="1"/>`;
+  });
+
+  const youPoints = DIMENSIONS.map((d, i) => {
+    const a = angles[i];
+    const r = (youData.byDim[d.key].pct / 100) * radius;
+    return `${(cx + Math.cos(a) * r).toFixed(1)},${(cy + Math.sin(a) * r).toFixed(1)}`;
+  }).join(' ');
+  svg += `<polygon points="${youPoints}" fill="rgba(0,137,123,0.12)" stroke="#00897b" stroke-width="1.5"/>`;
+
+  if (coData) {
+    const coPoints = DIMENSIONS.map((d, i) => {
+      const a = angles[i];
+      const r = (coData.byDim[d.key].pct / 100) * radius;
+      return `${(cx + Math.cos(a) * r).toFixed(1)},${(cy + Math.sin(a) * r).toFixed(1)}`;
+    }).join(' ');
+    svg += `<polygon points="${coPoints}" fill="rgba(10,10,10,0.06)" stroke="#0a0a0a" stroke-width="1.5"/>`;
+  }
+
+  DIMENSIONS.forEach((d, i) => {
+    const a = angles[i];
+    const ry = (youData.byDim[d.key].pct / 100) * radius;
+    svg += `<circle cx="${(cx + Math.cos(a) * ry).toFixed(1)}" cy="${(cy + Math.sin(a) * ry).toFixed(1)}" r="2.5" fill="#00897b"/>`;
+    if (coData) {
+      const rc = (coData.byDim[d.key].pct / 100) * radius;
+      svg += `<circle cx="${(cx + Math.cos(a) * rc).toFixed(1)}" cy="${(cy + Math.sin(a) * rc).toFixed(1)}" r="2.5" fill="#0a0a0a"/>`;
+    }
+  });
+
+  DIMENSIONS.forEach((d, i) => {
+    const a = angles[i];
+    const labelDist = radius + 24;
+    const x = cx + Math.cos(a) * labelDist;
+    const y = cy + Math.sin(a) * labelDist;
+    let anchor = 'middle';
+    if (Math.cos(a) > 0.3) anchor = 'start';
+    else if (Math.cos(a) < -0.3) anchor = 'end';
+    const words = d.label.split(' ');
+    let lines = [d.label];
+    if (d.label.length > 16) {
+      const mid = Math.ceil(words.length / 2);
+      lines = [words.slice(0, mid).join(' '), words.slice(mid).join(' ')];
+    }
+    lines.forEach((line, li) => {
+      svg += `<text x="${x.toFixed(1)}" y="${(y + li * 13).toFixed(1)}" fill="rgba(10,10,10,0.65)" font-size="10.5" text-anchor="${anchor}" dominant-baseline="middle" style="font-family:'Inter',sans-serif;font-weight:500;letter-spacing:0.02em">${line}</text>`;
+    });
+  });
+
+  svg += `</svg>`;
+  document.getElementById('radar-container').innerHTML = svg;
+}
+
+// ---------- Recommendations (self-only) ----------
+function buildSelfRecommendations(you) {
+  const yp = you.pct;
+  const dimByKey = key => DIMENSIONS.find(d => d.key === key).label;
+  const sortAsc  = obj => Object.entries(obj).sort((a, b) => a[1].pct - b[1].pct);
+  const sortDesc = obj => Object.entries(obj).sort((a, b) => b[1].pct - a[1].pct);
+  const weakestYou   = dimByKey(sortAsc(you.byDim)[0][0]);
+  const strongestYou = dimByKey(sortDesc(you.byDim)[0][0]);
+
+  let scenario;
+  if (yp <= 33)      scenario = 'explorer';
+  else if (yp <= 59) scenario = 'practitioner';
+  else if (yp <= 83) scenario = 'architect';
+  else               scenario = 'guide';
+
+  const recos = {
+    explorer: {
+      title: "You're at the start. This is where momentum begins.",
+      text: "You're at the Explorer level: awareness is there, practice is thin. The good news is that the fastest growth happens from exactly this point. One concrete win in the next thirty days is enough to start moving toward Practitioner.",
+      steps: [
+        `Your weakest dimension: ${weakestYou}. This week, pick a real HR task in that area and do it with an AI tool.`,
+        `Start a prompt library. One note file, three prompts. That's enough to begin.`,
+        `For one week, ask yourself before every HR task: "Could AI help here?" You don't have to say yes every time.`,
+      ],
+      resources: ['fundamentals', 'self_paced', 'prompt_library', 'skill_building']
+    },
+    practitioner: {
+      title: "You're a Practitioner. Next step: consistency and structure.",
+      text: "You use AI regularly and you're building your own method. The next obstacle is moving from ad-hoc use to structured practice. Architect level begins when you can pass your personal practices on to others.",
+      steps: [
+        `Your weakest dimension: ${weakestYou}. Go deep in that area over the next thirty days, then share what you learn with one person on your team.`,
+        `Your strongest dimension: ${strongestYou}. Turn your prompts from that area into a structured library and give it to someone else.`,
+        `Build a quality-check process: write down which AI outputs need verification and how.`,
+      ],
+      resources: ['skill_building', 'prompt_library', 'self_paced', 'maturity_model']
+    },
+    architect: {
+      title: "You're an Architect. Top tier — time to lead others.",
+      text: "AI is part of how you work. You're in the top tier of HR professionals. The next impact is moving from personal practice to systemic influence: teach the team, build a library, set standards.",
+      steps: [
+        `Turn your practices in ${strongestYou} into a playbook: the why, the method, real examples.`,
+        `Start a monthly "AI Hour" in the HR team: one person demos, one asks questions, one brings a new use case.`,
+        `${weakestYou} is your open opportunity. Close that gap and the move to Guide level is within reach.`,
+      ],
+      resources: ['change_leadership', 'scaling', 'maturity_model', 'prompt_library']
+    },
+    guide: {
+      title: "You're a Guide. You're at the frontier.",
+      text: "Skills, perspective, and habits are all in place. Your next impact goes beyond your company: influence the profession, mentor other HR leaders, produce content. There are very few people at your level.",
+      steps: [
+        `Share your method: a LinkedIn series, a talk, or a podcast. Start with your approach in ${strongestYou}.`,
+        `Open up one-hour mentoring sessions with three HR leaders. Help accelerate their path to Architect.`,
+        `Take your company's AI roadmap to sector level: a publication, a working group, a certification programme.`,
+      ],
+      resources: ['change_leadership', 'scaling', 'business_case', 'maturity_model']
+    }
+  };
+
+  return recos[scenario];
+}
+
+// ---------- Recommendations (compare mode) ----------
+function buildRecommendations(you, co) {
+  const yp = you.pct;
+  const cp = co.pct;
+  const gap = yp - cp;
+
+  const dimByKey = key => DIMENSIONS.find(d => d.key === key).label;
+  const sortAsc = obj => Object.entries(obj).sort((a, b) => a[1].pct - b[1].pct);
+  const weakestYou = dimByKey(sortAsc(you.byDim)[0][0]);
+  const weakestCo  = dimByKey(sortAsc(co.byDim)[0][0]);
+
+  let scenario;
+  if (yp <= 33 && cp <= 33) scenario = 'both_low';
+  else if (gap >= 15)       scenario = 'you_ahead';
+  else if (gap <= -15)      scenario = 'you_behind';
+  else                      scenario = 'aligned';
+
+  const recos = {
+    both_low: {
+      title: "Both of you are at the start. This is a journey to take together.",
+      text: "Both you and your organisation are at the Explorer level. The good news: the competition is still early too. One small win in a single HR process over the next thirty days builds momentum for both of you. Time is an advantage right now.",
+      steps: [
+        `Try one AI tool for one task this week. Your weakest dimension: ${weakestYou}. Start there.`,
+        `Propose a thirty-minute "AI experiment" session to your HR team. One use case is enough. Run a demo.`,
+        `The fastest organisational win: a written AI usage guide. One page, shared with the team. It creates immediate impact in ${weakestCo}.`,
+      ],
+      resources: ['fundamentals', 'hr_starter', 'governance', 'prompt_library']
+    },
+    you_behind: {
+      title: `Your company is ${Math.abs(gap)} points ahead of you. Time to catch up.`,
+      text: "Your organisation is building structure and you're not developing at the same pace. The risk of falling behind is real: colleagues who adopted AI earlier will take on the strategic HR work. The tools your company already uses are there for you to leverage. The resources are available — the move is yours.",
+      steps: [
+        `Your weakest dimension: ${weakestYou}. This week, do two hours of real practice in that area using a real HR task.`,
+        `Shadow a colleague in your company who already uses AI: one hour observing, one hour using it together. Ask questions.`,
+        `Over thirty days, start a personal prompt library. Add two prompts per week from your own work. Solo is fine.`,
+      ],
+      resources: ['skill_building', 'prompt_library', 'self_paced', 'fundamentals']
+    },
+    you_ahead: {
+      title: `You're ${gap} points ahead of your company. This isn't sustainable.`,
+      text: "Your skills are well ahead of your organisation's maturity. You have two choices: either you drive the change, or you find an organisation that moves faster. Staying at your current pace is not a third option — it ends in frustration.",
+      steps: [
+        `First thirty days — start the change: propose a small AI pilot. ${weakestCo} is the clearest opportunity. Go to leadership with a business case.`,
+        `Ninety days — build a roadmap: draft an HR AI roadmap for the next quarter with you leading. If it's rejected, the signal is clear.`,
+        `If there's no movement in ninety days — scan the market. More advanced organisations are hiring for HR roles. Add this assessment to your CV and use it in interviews.`,
+      ],
+      resources: ['change_leadership', 'business_case', 'job_market', 'scaling']
+    },
+    aligned: {
+      title: "You and your company are at a similar level. You can move forward together.",
+      text: "Your personal fluency and your organisation's maturity are closely matched. This is rare alignment. When the individual and the institution move together, transformation accelerates. Your opportunity: be the bridge that turns personal practices into systemic decisions.",
+      steps: [
+        `Your company's weakest dimension: ${weakestCo}. Propose a small standard in that area. A one-page template, a shared practice.`,
+        `Your weakest dimension: ${weakestYou}. Go deep in that area over thirty days, then teach it back to the team.`,
+        `Set up an "AI Hour": thirty minutes per week in the team. Demos, library, discussion. Culture grows from here.`,
+      ],
+      resources: ['scaling', 'maturity_model', 'governance', 'prompt_library']
+    }
+  };
+
+  return recos[scenario];
+}
+
+// ---------- Share / restart ----------
+function shareResult() {
+  const cards = document.querySelectorAll('.profile-card');
+  const youName = cards[0] ? cards[0].querySelector('.profile-name').textContent : '';
+  let text;
+  if (mode === 'self' || cards.length < 2) {
+    text = `I just completed the HR AI Fluency self-assessment.\n\nMy personal profile: ${youName}\n\nIf you work in HR and want to measure your own AI fluency, take the free assessment:`;
+  } else {
+    const coName = cards[1].querySelector('.profile-name').textContent;
+    text = `I just completed the HR AI Fluency self-assessment.\n\nMe: ${youName}\nMy company: ${coName}\n\nThe gap between the two scores was eye-opening. Take the free assessment:`;
+  }
+  if (navigator.share) {
+    navigator.share({ title: 'HR AI Fluency · You & Your Company', text }).catch(() => {});
+  } else if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => alert('Text copied. Paste it into LinkedIn.'));
+  } else {
+    alert(text);
+  }
+}
+
+function restartQuiz() {
+  phase = 'you';
+  current = 0;
+  youAnswers = new Array(youQuestions.length).fill(null);
+  coAnswers  = new Array(coQuestions.length).fill(null);
+  document.getElementById('result').style.display = 'none';
+  document.getElementById('intro').style.display  = 'block';
+}
+</script>
+</body>
+</html>

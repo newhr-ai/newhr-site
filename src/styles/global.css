@@ -1,9 +1,16 @@
 :root {
-  --color-ink: #0a0a0a;
-  --color-paper: #f8f8f5;
-  --color-teal: #5de3d3;
+  --color-ink: #0A0A0A;
+  --color-paper: #F8F8F5;
+  --color-teal: #5DE3D3;
+  --color-bone: #EDEDE8;
+  --color-white: #FFFFFF;
 
-  --font-primary: Inter, sans-serif;
+  --font-primary:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 
   --container-width: 1200px;
 
@@ -11,31 +18,81 @@
   --space-sm: 1rem;
   --space-md: 2rem;
   --space-lg: 4rem;
-  --space-xl: 8rem;
+  --space-xl: 3rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 html {
   font-family: var(--font-primary);
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--color-paper);
   color: var(--color-ink);
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
-main {
-  width: min(100% - 2rem, var(--container-width));
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+.container {
+  width: min(100% - 3rem, var(--container-width));
   margin-inline: auto;
-  padding-block: var(--space-lg);
+}
+
+section {
+  padding-block: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  letter-spacing: -0.04em;
+  line-height: 0.95;
 }
 
 h1 {
-  font-size: 4rem;
-  line-height: 1;
+  font-size: clamp(4rem, 10vw, 6rem);
+  font-weight: 800;
+}
+
+h2 {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 700;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.eyebrow {
+  margin-bottom: 1rem;
+
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+
+  color: var(--color-teal);
 }

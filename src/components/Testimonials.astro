@@ -1,0 +1,175 @@
+---
+import { strings, type Lang } from "../i18n/strings";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "tr" } = Astro.props;
+const t = strings[lang].testimonials;
+---
+
+<section class="testimonials" id="referanslar">
+
+  <div class="testimonials-inner">
+
+    <p class="eyebrow">{t.eyebrow}</p>
+
+    <h2>{t.heading}</h2>
+
+    <div class="testimonials-grid">
+
+      <article class="testimonial-card">
+        <p class="sector">{t.sector1}</p>
+        <blockquote>{t.quote1}</blockquote>
+
+        <div class="testimonial-footer">
+          <div>
+            <p class="name">{t.name1}</p>
+            <p class="role">{t.role1}</p>
+          </div>
+          <a href="/">{t.linkedIn}</a>
+        </div>
+      </article>
+
+      <article class="testimonial-card">
+        <p class="sector">{t.sector2}</p>
+        <blockquote>{t.quote2}</blockquote>
+
+        <div class="testimonial-footer">
+          <div>
+            <p class="name">{t.name2}</p>
+            <p class="role">{t.role2}</p>
+          </div>
+          <a href="/">{t.linkedIn}</a>
+        </div>
+      </article>
+
+      <article class="testimonial-card">
+        <p class="sector">{t.sector3}</p>
+        <blockquote>{t.quote3}</blockquote>
+
+        <div class="testimonial-footer">
+          <div>
+            <p class="name">{t.name3}</p>
+            <p class="role">{t.role3}</p>
+          </div>
+          <a href="/">{t.linkedIn}</a>
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+<style>
+  .testimonials {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  .testimonials-inner {
+    width: min(100% - 4rem, 1400px);
+
+    margin-inline: auto;
+
+    padding-block: 2.5rem;
+  }
+
+  .testimonials h2 {
+    margin-top: 1rem;
+    margin-bottom: 4rem;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 1.5rem;
+  }
+
+  .testimonial-card {
+    padding: 2rem;
+
+    background: white;
+
+    border-top: 2px solid var(--color-ink);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    min-height: 460px;
+  }
+
+  .sector {
+    margin-bottom: 2rem;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+
+    color: var(--color-teal);
+  }
+
+  blockquote {
+    font-size: 2rem;
+    line-height: 1.25;
+    font-weight: 700;
+  }
+
+  .testimonial-footer {
+    margin-top: 3rem;
+
+    padding-top: 2rem;
+
+    border-top: 1px solid #E8E8E2;
+  }
+
+  .name {
+    margin-bottom: 0.25rem;
+
+    font-weight: 700;
+  }
+
+  .role {
+    margin-bottom: 1.5rem;
+
+    font-size: 0.9rem;
+    line-height: 1.5;
+
+    color: rgba(0,0,0,0.65);
+  }
+
+  .testimonial-footer a {
+    color: var(--color-ink);
+
+    text-decoration: none;
+
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+
+  @media (max-width: 900px) {
+
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .testimonial-card {
+    min-height: auto;
+  }
+
+  blockquote {
+    font-size: 1.5rem;
+  }
+
+  .testimonials-inner {
+    padding-block: 2rem;
+  }
+
+}
+</style>

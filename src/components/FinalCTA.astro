@@ -1,0 +1,86 @@
+---
+import { strings, type Lang } from "../i18n/strings";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "tr" } = Astro.props;
+const t = strings[lang].finalCta;
+const mailHref = `mailto:hello@newhr.ai?subject=${encodeURIComponent(t.mailSubject)}`;
+---
+
+<section class="final-cta" id="iletisim">
+
+  <div class="final-cta-inner">
+
+    <p class="eyebrow">{t.eyebrow}</p>
+
+    <h2>{t.heading}</h2>
+
+    <p class="final-cta-text">{t.body}</p>
+
+    <a href={mailHref} class="final-cta-button">
+      {t.cta}
+    </a>
+
+  </div>
+
+</section>
+
+<style>
+  .final-cta {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  .final-cta-inner {
+    width: min(100% - 4rem, 1000px);
+
+    margin-inline: auto;
+
+    padding-block: 3rem;
+
+    text-align: center;
+  }
+
+  .final-cta h2 {
+    max-width: 14ch;
+
+    margin-inline: auto;
+
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .final-cta-text {
+    max-width: 42rem;
+
+    margin-inline: auto;
+    margin-bottom: 3rem;
+
+    font-size: 1.15rem;
+    line-height: 1.8;
+
+    color: rgba(0,0,0,0.75);
+  }
+
+  .final-cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 1.2rem 2.4rem;
+
+    background: var(--color-ink);
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: 700;
+  }
+
+  .final-cta-button:hover {
+    opacity: 0.92;
+  }
+</style>

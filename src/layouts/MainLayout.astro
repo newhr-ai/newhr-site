@@ -1,29 +1,44 @@
 ---
 import Header from "../components/Header.astro";
+import type { Lang } from "../i18n/strings";
 
 import "../styles/global.css";
 
 interface Props {
   title?: string;
+  lang?: Lang;
 }
 
 const {
   title = "New HR AI",
+  lang = "tr",
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <title>{title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap"
+    />
   </head>
 
-<body>
-  <main>
-    <Header />
-    <slot />
-  </main>
-</body>
+  <body>
+    <main class="site-main">
+      <Header lang={lang} />
+      <slot />
+    </main>
+  </body>
 </html>
+
+<style is:global>
+  .site-main {
+    width: 100%;
+  }
+</style>
