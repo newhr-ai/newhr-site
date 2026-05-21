@@ -19,7 +19,7 @@ const {
 <html lang={lang}>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -27,6 +27,31 @@ const {
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap"
     />
+    <script is:inline>
+      (function () {
+        try {
+          var path = location.pathname;
+          var isEn = path === "/en" || path.indexOf("/en/") === 0;
+          var stored = localStorage.getItem("nh_lang");
+
+          if (stored === "tr" || stored === "en") {
+            if (stored === "en" && !isEn) {
+              location.replace("/en/" + location.search + location.hash);
+            } else if (stored === "tr" && isEn) {
+              location.replace("/" + location.search + location.hash);
+            }
+            return;
+          }
+
+          if (isEn) return;
+
+          var nav = (navigator.language || navigator.userLanguage || "").toLowerCase();
+          if (!nav.startsWith("tr")) {
+            location.replace("/en/" + location.search + location.hash);
+          }
+        } catch (e) {}
+      })();
+    </script>
   </head>
 
   <body>

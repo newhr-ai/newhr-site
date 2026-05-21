@@ -32,8 +32,8 @@ const assessmentHref = assessmentPath(lang);
       </a>
 
       <nav class="lang-toggle">
-        <a href="/" aria-current={lang === "tr" ? "true" : "false"}>TR</a>
-        <a href="/en/" aria-current={lang === "en" ? "true" : "false"}>EN</a>
+        <a href="/" data-lang="tr" aria-current={lang === "tr" ? "true" : "false"}>TR</a>
+        <a href="/en/" data-lang="en" aria-current={lang === "en" ? "true" : "false"}>EN</a>
       </nav>
 
     </div>
@@ -194,3 +194,13 @@ const assessmentHref = assessmentPath(lang);
     }
   }
 </style>
+
+<script is:inline>
+  document.querySelectorAll(".lang-toggle a[data-lang]").forEach(function (a) {
+    a.addEventListener("click", function () {
+      try {
+        localStorage.setItem("nh_lang", a.getAttribute("data-lang"));
+      } catch (e) {}
+    });
+  });
+</script>
