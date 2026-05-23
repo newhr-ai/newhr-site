@@ -205,7 +205,11 @@ const assessmentHref = assessmentPath(lang);
   document.querySelectorAll(".lang-toggle a[data-lang]").forEach(function (a) {
     a.addEventListener("click", function () {
       try {
-        localStorage.setItem("nh_lang", a.getAttribute("data-lang"));
+        var l = a.getAttribute("data-lang");
+        localStorage.setItem("nh_lang", l);
+        // Cookie so the Netlify Edge Function on / respects the manual choice
+        // on subsequent visits (Edge Functions cannot read localStorage).
+        document.cookie = "nh_lang=" + l + "; path=/; max-age=" + 60 * 60 * 24 * 365 + "; SameSite=Lax";
       } catch (e) {}
     });
   });

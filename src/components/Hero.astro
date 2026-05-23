@@ -139,7 +139,10 @@ const assessmentHref = assessmentPath(lang);
   color: #fff;
   line-height: 1.6;
   margin-bottom: 36px;
-  max-width: 480px;
+  /* 560px keeps the English lead1 ("Real examples. Senior HR operator.
+     One workflow at a time.") on a single line at common widths while
+     still wrapping naturally on narrow mobile viewports. */
+  max-width: 560px;
   margin-left: auto;
   margin-right: auto;
 }
