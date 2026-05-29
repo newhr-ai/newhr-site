@@ -1,7 +1,9 @@
 export type Lang = "tr" | "en";
 
 export const assessmentPath = (lang: Lang) =>
-  lang === "en" ? "/en/assessment/index.html" : "/degerlendirme/index.html";
+  lang === "en"
+    ? "https://newhr-assessment.netlify.app/en/assessment"
+    : "https://newhr-assessment.netlify.app/tr/assessment";
 
 export const strings = {
   tr: {
@@ -13,7 +15,7 @@ export const strings = {
       hakkinda: "Hakkında",
       referanslar: "Referanslar",
       iletisim: "İletişim",
-      assessmentCta: "HR AI Fluency Test",
+      assessmentCta: "Değerlendirmeye Başla",
     },
     hero: {
       eyebrow: "AI FOR HR. BY HR.",
@@ -21,7 +23,7 @@ export const strings = {
       lead1: "Her hafta gerçek uygulanabilir HR örnek uygulamaları.",
       lead2: "Eğitimden işe alıma. Vendor satışı değil, pratik.",
       ctaPrimary: "Bültene Kaydol →",
-      ctaSecondary: "AI Fluency Testini Yap →",
+      ctaSecondary: "Değerlendirmeye Başla →",
       stat1Num: "15+",
       stat1Label: "Yıl İK Tecrübesi",
       stat2Num: "2",
@@ -115,7 +117,7 @@ export const strings = {
       hakkinda: "About",
       referanslar: "References",
       iletisim: "Contact",
-      assessmentCta: "HR AI Fluency Test",
+      assessmentCta: "Take the assessment",
     },
     hero: {
       eyebrow: "AI FOR HR. BY HR.",
@@ -123,7 +125,7 @@ export const strings = {
       lead1: "Real examples. Senior HR operator. One workflow at a time.",
       lead2: "Not theory. Not vendor pitches.",
       ctaPrimary: "Join the Newsletter →",
-      ctaSecondary: "Take the AI Fluency Test →",
+      ctaSecondary: "Take the assessment →",
       stat1Num: "15+",
       stat1Label: "Years in HR",
       stat2Num: "2",
