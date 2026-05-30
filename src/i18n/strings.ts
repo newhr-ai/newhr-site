@@ -1,9 +1,8 @@
 export type Lang = "tr" | "en";
 
-export const assessmentPath = (lang: Lang) =>
-  lang === "en"
-    ? "https://newhr-assessment.netlify.app/en/assessment"
-    : "https://newhr-assessment.netlify.app/tr/assessment";
+// Turkish assessment not translated yet — both locales point to the English assessment for now.
+export const assessmentPath = (_lang: Lang) =>
+  "https://newhr-assessment.netlify.app/en/assessment";
 
 export const strings = {
   tr: {
@@ -117,7 +116,7 @@ export const strings = {
       hakkinda: "About",
       referanslar: "References",
       iletisim: "Contact",
-      assessmentCta: "Take the assessment",
+      assessmentCta: "Take Assessment",
     },
     hero: {
       eyebrow: "AI FOR HR. BY HR.",
@@ -125,7 +124,7 @@ export const strings = {
       lead1: "Real examples. Senior HR operator. One workflow at a time.",
       lead2: "Not theory. Not vendor pitches.",
       ctaPrimary: "Join the Newsletter →",
-      ctaSecondary: "Take the assessment →",
+      ctaSecondary: "Take Assessment →",
       stat1Num: "15+",
       stat1Label: "Years in HR",
       stat2Num: "2",
