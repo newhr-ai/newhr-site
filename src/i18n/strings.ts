@@ -2,7 +2,7 @@ export type Lang = "tr" | "en";
 
 // Turkish assessment not translated yet — both locales point to the English assessment for now.
 export const assessmentPath = (_lang: Lang) =>
-  "https://newhr-assessment.netlify.app/en/assessment";
+  "https://assessment.newhr.ai/en/assessment";
 
 export const strings = {
   tr: {
