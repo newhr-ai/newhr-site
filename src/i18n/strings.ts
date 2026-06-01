@@ -1,8 +1,8 @@
 export type Lang = "tr" | "en";
 
-// Turkish assessment not translated yet — both locales point to the English assessment for now.
-export const assessmentPath = (_lang: Lang) =>
-  "https://assessment.newhr.ai/en/assessment";
+// Route each locale to its own assessment (Turkish translated 2026-06-01).
+export const assessmentPath = (lang: Lang) =>
+  `https://assessment.newhr.ai/${lang === "tr" ? "tr" : "en"}/assessment`;
 
 export const strings = {
   tr: {
