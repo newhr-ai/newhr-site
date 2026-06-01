@@ -24,6 +24,8 @@ const mailHref = `mailto:hello@newhr.ai?subject=${encodeURIComponent(t.mailSubje
       {t.cta}
     </a>
 
+    <p class="final-cta-trust">{t.trustLine}</p>
+
   </div>
 
 </section>
@@ -82,5 +84,15 @@ const mailHref = `mailto:hello@newhr.ai?subject=${encodeURIComponent(t.mailSubje
 
   .final-cta-button:hover {
     opacity: 0.92;
+  }
+
+  .final-cta-trust {
+    margin-top: 1.5rem;
+
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+
+    color: var(--color-ink);
   }
 </style>

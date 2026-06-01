@@ -1,5 +1,5 @@
 ---
-import { strings, type Lang } from "../i18n/strings";
+import { strings, assessmentPath, type Lang } from "../i18n/strings";
 
 interface Props {
   lang?: Lang;
@@ -7,6 +7,7 @@ interface Props {
 
 const { lang = "tr" } = Astro.props;
 const t = strings[lang].steps;
+const assessmentHref = assessmentPath(lang);
 ---
 
 <section class="steps" id="yaklasim">
@@ -17,12 +18,15 @@ const t = strings[lang].steps;
 
     <h2>{t.heading}</h2>
 
+    <p class="steps-intro">{t.intro}</p>
+
     <div class="steps-grid">
 
       <article class="step-card">
         <p class="step-number">{t.step1Number}</p>
         <h3>{t.step1Title}</h3>
         <p>{t.step1Body}</p>
+        <a href={assessmentHref} class="step-link">{t.step1Link}</a>
       </article>
 
       <article class="step-card">
@@ -59,9 +63,41 @@ const t = strings[lang].steps;
 
   .steps h2 {
     margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    max-width: 16ch;
+  }
+
+  .steps-intro {
     margin-bottom: 4rem;
 
-    max-width: 14ch;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+
+    color: var(--color-ink);
+  }
+
+  .step-link {
+    display: inline-flex;
+    align-items: center;
+
+    margin-top: 1.5rem;
+
+    color: var(--color-ink);
+
+    text-decoration: none;
+
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    border-bottom: 1px solid var(--color-teal);
+
+    padding-bottom: 0.25rem;
+  }
+
+  .step-link:hover {
+    color: var(--color-teal);
   }
 
   .steps-grid {

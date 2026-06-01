@@ -4,6 +4,10 @@ export type Lang = "tr" | "en";
 export const assessmentPath = (lang: Lang) =>
   `https://assessment.newhr.ai/${lang === "tr" ? "tr" : "en"}/assessment`;
 
+// LinkedIn newsletter follow (quiet tertiary link in the hero).
+export const newsletterUrl =
+  "https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7463181925256445953";
+
 export const strings = {
   tr: {
     site: {
@@ -12,17 +16,19 @@ export const strings = {
     nav: {
       yaklasim: "Yaklaşım",
       hakkinda: "Hakkında",
-      referanslar: "Referanslar",
+      referanslar: "Ne diyorlar",
       iletisim: "İletişim",
       assessmentCta: "Değerlendirmeye Başla",
     },
     hero: {
-      eyebrow: "AI FOR HR. BY HR.",
-      heroTitle: "İK ekibinizin devreye aldığı tek bir AI süreci bile yoksa, AI dönüşümünün parçası değilsiniz. Sadece izliyorsunuz.",
-      lead1: "Her hafta gerçek uygulanabilir HR örnek uygulamaları.",
-      lead2: "Eğitimden işe alıma. Vendor satışı değil, pratik.",
-      ctaPrimary: "Bültene Kaydol →",
-      ctaSecondary: "Değerlendirmeye Başla →",
+      eyebrow: "UYGULANABİLİR AI YETKİNLİĞİ. İK'DAN İK'YA.",
+      heroTitle:
+        "İK ekibiniz hayata geçirdiği tek bir AI iş akışını söyleyemiyorsa, AI'ı uygulamıyorsunuz. İzliyorsunuz.",
+      heroEmphasis: "İzliyorsunuz",
+      subline:
+        "Gerçek AI kullanım örnekleri, yarım günlük tek bir oturumda İK işinize yerleşir. İki bankada fonksiyonu yöneten bir İK liderinden, bir yazılım firmasından değil.",
+      ctaAssessment: "Değerlendirmeye Başla →",
+      ctaNewsletter: "Bültene Kaydol →",
       stat1Num: "15+",
       stat1Label: "Yıl İK Tecrübesi",
       stat2Num: "2",
@@ -32,78 +38,130 @@ export const strings = {
     },
     steps: {
       eyebrow: "NASIL ÇALIŞIR",
-      heading: "Üç adımda uygulamaya geçin.",
-      step1Number: "01 — ÖLÇÜM",
-      step1Title: "Mevcut seviyeyi ölçeriz.",
+      heading: "HR AI Workbench. Fikirden uygulamaya üç adım.",
+      intro: "Tek bir sistem. Ölç. Hedefle. Uygula.",
+      step1Number: "01. ÖLÇ",
+      step1Title: "Nerede olduğunuzu ölçeriz.",
       step1Body:
-        "HR AI Maturity Audit ile ekibinizin mevcut seviyesini süreç ve davranış düzeyinde ölçüyoruz. Konuşmadan önce veriyle başlıyoruz.",
-      step2Number: "02 — HEDEFLEME",
+        "HR AI Maturity Audit ile ekibinizi süreç ve davranış düzeyinde ölçeriz. Konuşmayla değil, veriyle başlarız. İlk adımınız bu, ve aşağıdaki değerlendirmedir.",
+      step1Link: "Ölç ile başlayın →",
+      step2Number: "02. HEDEFLE",
       step2Title: "Doğru kesiti birlikte seçeriz.",
       step2Body:
-        "İK süreçlerinizden AI'ın en yüksek getiriyi sağlayacağı iki ya da üç alanı birlikte seçiyoruz. Tam liste değil, doğru kesit.",
-      step3Number: "03 — UYGULAMA",
-      step3Title: "Sürecin içine oturturuz.",
+        "AI'ın en yüksek getiriyi sağlayacağı iki üç İK alanını seçeriz. Uzun bir liste değil. Doğru kesit.",
+      step3Number: "03. UYGULA",
+      step3Title: "Sürece gömeriz.",
       step3Body:
-        "Çalışan playbook'lar ve atölyelerle AI'ı sürecin içine oturtuyoruz. Slayt değil, kullanılabilir prompt setleri ve iş akışları.",
+        "Çalışan playbook'lar ve uygulamalı bir oturumla AI'ı işin içine koyarız. Slayt değil. Ekibinizin ertesi sabah kullanacağı prompt setleri ve iş akışları.",
+    },
+    offer: {
+      eyebrow: "OTURUM",
+      heading: "Workbench: İK ekibiniz için yarım günlük bir çalışma oturumu.",
+      items: [
+        {
+          label: "Kimler için",
+          text: "Bankacılık, fintech ve büyüme dönemindeki şirketlerin İK ekipleri.",
+        },
+        {
+          label: "Oturumda ne olur",
+          text: "Ölç, Hedefle ve Uygula adımlarını gerçek İK işiniz üzerinde, canlı ve tek bir oturumda uygulamalı yürütürüz.",
+        },
+        {
+          label: "Ne ile çıkarsınız",
+          text: "Ekibinizin sahiplendiği iki üç çalışan AI iş akışı, bir prompt seti ve net bir sonraki adım.",
+        },
+        {
+          label: "Format",
+          text: "Yarım gün, online veya yerinde, Türkçe veya İngilizce.",
+        },
+      ],
+      caption:
+        "Fiyat, ekip büyüklüğü ve kapsama göre kısa bir görüşme sonrası paylaşılır.",
+      cta: "Ekibinize uygun mu, görelim →",
     },
     testimonials: {
-      eyebrow: "REFERANSLAR",
-      heading: "HR AI Demolardan Yorumlar",
+      eyebrow: "NE DİYORLAR",
+      heading: "İK liderleri oturumdan sonra ne diyor.",
       sector1: "DİJİTAL BANKA",
       quote1:
-        "“Araçları konuşmak için girdik ama asıl keşif, ekip olarak hepimizin AI'a farklı yerden baktığıydı.”",
+        "“Araçları konuşmaya gelmiştik. Asıl keşif, her birimizin AI'a farklı bir yerden baktığıydı.”",
       name1: "Ilgı Karakuş",
       role1: "People & Culture Senior Manager, Colendibank",
       sector2: "BANKACILIK",
       quote2:
-        "“HR AI'ı kendi işimize entegre edip günlük operasyona yansıtma zamanı.”",
+        "“HR AI'ı işimize entegre edip gündelik operasyona taşımanın zamanı.”",
       name2: "Okan Tunalı",
       role2: "HR Head Turkey, Rabobank",
       sector3: "SİGORTA",
       quote3:
-        "“İşe alımdan onboarding'e, performans süreçlerinden günlük operasyonlara kadar birçok başlıkta somut örnekleri ve gerçek kullanım senaryolarını birlikte değerlendirdik.”",
-      name3: "Barış Özkane",
+        "“İşe alımdan oryantasyona, performanstan gündelik operasyona, somut örnekleri ve gerçek kullanım senaryolarını birlikte çalıştık.”",
+      name3: "Barış Özkaner",
       role3: "Head of People & Culture, Polaris",
-      linkedIn: "LinkedIn'de gör →",
     },
     assessment: {
-      label: "HR AI FLUENCY ASSESSMENT · BETA",
-      headingPart1: "Kendinizi ve şirketinizi",
+      label: "HR AI FLUENCY DEĞERLENDİRMESİ · BETA",
+      headingPart1: "Ölç adımıyla başlayın. Kendinizi ve şirketinizi",
       headingAccent: "değerlendirin.",
-      body: "İki katmanlı bir öz değerlendirme. Bir İK profesyoneli olarak kendi AI yetkinliğinizi ve organizasyonunuzun AI olgunluğunu 5 dakika içinde ölçün.",
+      body: "Bu, Workbench'in birinci adımıdır. İki katmanlı bir öz değerlendirme: beş dakikada hem kendi AI yetkinliğinizi hem kurumunuzun AI olgunluğunu ölçün.",
       list1: "Kişisel AI Fluency skorunuz",
-      list2: "Şirketinizin AI olgunluk seviyesi",
-      list3: "Kendiniz için 3 gelişim alanı",
-      list4: "Şirketiniz için 3 öncelikli aksiyon",
+      list2: "Şirketinizin AI olgunluk düzeyi",
+      list3: "Size özel üç gelişim alanı",
+      list4: "Şirketiniz için üç öncelikli aksiyon",
       cardLabel: "DEĞERLENDİRMEYE BAŞLA",
       cardText:
         "5 dakika sürer. Sonuçla birlikte kişisel ve kurumsal yol haritanızı alırsınız.",
-      cardCta: "Değerlendirmeye başla →",
-      cardNote: "Beta sürüm: erken kullanıcı geri bildirimine ihtiyacımız var.",
+      cardCta: "Değerlendirmeyi başlatın →",
+      cardNote: "5 dakika sürer. Beta: erken kullanıcı geri bildirimi istiyoruz.",
     },
     about: {
       eyebrow: "HAKKINDA",
       heading: "NEW HR AI'ın arkasındaki kişi",
-      body: "Tolga Temtek, Bank of China Türkiye ve Colendi Bank'ta İK fonksiyonunu sıfırdan kuran 15+ yıllık bir İK lideri. NEW HR AI, bu pratiğin AI dönemine taşınmış halidir.",
+      body: "Tolga Temtek, Bank of China Türkiye ve Colendi Bank'ta İK fonksiyonunu sıfırdan kuran 15+ yıllık bir İK liderdir. NEW HR AI, bu pratiğin AI çağına taşınmış halidir.",
       link: "Tolga Temtek hakkında →",
+    },
+    faq: {
+      eyebrow: "SIKÇA SORULAN SORULAR",
+      heading: "Yazmadan önce merak edilenler.",
+      items: [
+        { q: "Oturum ne kadar sürer?", a: "Yarım gün." },
+        {
+          q: "Online mı, yerinde mi?",
+          a: "Varsayılan online. Talebe göre yerinde.",
+        },
+        { q: "Türkçe mi, İngilizce mi?", a: "İkisi de." },
+        {
+          q: "Verimiz güvende mi?",
+          a: "Kullanım örneklerinizi, verinizi kendi ortamınızdan çıkarmadan çalışırız.",
+        },
+        {
+          q: "Nasıl başlarız?",
+          a: "Değerlendirmeyi çözün, ardından kısa bir kapsam görüşmesi ayarlarız.",
+        },
+        {
+          q: "Maliyeti nedir?",
+          a: "Fiyat, ekip büyüklüğü ve kapsama göre kısa bir görüşme sonrası paylaşılır.",
+        },
+      ],
     },
     finalCta: {
       eyebrow: "SONRAKİ ADIM",
-      heading: "Şirketiniz için doğru AI başlangıç noktasını birlikte belirleyelim.",
-      body: "Şirketinizi, mevcut AI kullanımınızı ve çözmek istediğiniz alanları paylaşın. İlk değerlendirmeyi birlikte yapalım.",
-      cta: "Durumunuzu paylaşın →",
-      mailSubject: "NEW HR AI — Durum paylaşımı",
+      heading: "Ekibinizin ilk AI hamlesini birlikte bulalım.",
+      body: "Tolga ile kısa bir tanışma. Ücretsiz, taahhüt yok. İK ekibiniz için somut bir sonraki adımla ayrılırsınız.",
+      cta: "Tolga ile görüşme ayarlayın →",
+      trustLine: "Online · Türkçe veya İngilizce",
+      mailSubject: "NEW HR AI — Tanışma görüşmesi",
     },
     footer: {
-      tagline: "AI FOR HR. BY HR.",
+      tagline: "İK'DAN İK'YA.",
       pagesLabel: "SAYFALAR",
       home: "Ana Sayfa",
-      assessment: "Assessment",
+      workbench: "Workbench",
+      assessment: "Değerlendirme",
       about: "Hakkında",
       contact: "İletişim",
       contactLabel: "İLETİŞİM",
       copyright: "© 2026 NEW HR AI",
-      mantra: "Built for practical AI adoption in HR.",
+      mantra: "İK'da uygulanabilir AI için.",
     },
   },
 
@@ -114,17 +172,19 @@ export const strings = {
     nav: {
       yaklasim: "Approach",
       hakkinda: "About",
-      referanslar: "References",
+      referanslar: "What they say",
       iletisim: "Contact",
       assessmentCta: "Take Assessment",
     },
     hero: {
       eyebrow: "AI FOR HR. BY HR.",
-      heroTitle: "If your HR team can't name one AI workflow they shipped, you're watching. Not adopting.",
-      lead1: "Real examples. Senior HR operator. One workflow at a time.",
-      lead2: "Not theory. Not vendor pitches.",
-      ctaPrimary: "Join the Newsletter →",
-      ctaSecondary: "Take Assessment →",
+      heroTitle:
+        "If your HR team can't name one AI workflow they shipped, you're watching. Not adopting.",
+      heroEmphasis: "watching",
+      subline:
+        "Real AI use cases, built into your HR work in one half-day session. From an HR leader who ran the function at two banks, not a software vendor.",
+      ctaAssessment: "Take Assessment →",
+      ctaNewsletter: "Join the Newsletter →",
       stat1Num: "15+",
       stat1Label: "Years in HR",
       stat2Num: "2",
@@ -134,26 +194,53 @@ export const strings = {
     },
     steps: {
       eyebrow: "HOW IT WORKS",
-      heading: "Three steps from idea to application.",
-      step1Number: "01 — MEASURE",
+      heading: "The HR AI Workbench. Three steps from idea to application.",
+      intro: "One named system. Measure. Target. Apply.",
+      step1Number: "01. MEASURE",
       step1Title: "We measure where you are.",
       step1Body:
-        "With the HR AI Maturity Audit we measure your team's current level at the process and behaviour layer. We start with data, not conversation.",
-      step2Number: "02 — TARGET",
+        "With the HR AI Maturity Audit we measure your team at the process and behaviour layer. We start with data, not conversation. This is your first step, and it is the assessment below.",
+      step1Link: "Start with Measure →",
+      step2Number: "02. TARGET",
       step2Title: "We pick the right cut together.",
       step2Body:
-        "We pick the two or three HR areas where AI will deliver the highest return. Not a full list — the right cut.",
-      step3Number: "03 — APPLY",
+        "We choose the two or three HR areas where AI delivers the highest return. Not a full list. The right cut.",
+      step3Number: "03. APPLY",
       step3Title: "We embed it in the process.",
       step3Body:
-        "Through working playbooks and workshops, we embed AI in the process itself. Not slides — usable prompt sets and workflows.",
+        "Through working playbooks and a hands-on session, we put AI into the work itself. Not slides. Usable prompt sets and workflows your team runs the next morning.",
+    },
+    offer: {
+      eyebrow: "THE SESSION",
+      heading: "The Workbench: a half-day working session for your HR team.",
+      items: [
+        {
+          label: "Who it's for",
+          text: "HR and People teams in banking, fintech and scaling companies.",
+        },
+        {
+          label: "What happens",
+          text: "We run Measure, Target and Apply live, on your real HR work, in one focused session.",
+        },
+        {
+          label: "What you leave with",
+          text: "Two or three working AI workflows your team owns, a prompt set, and a clear next step.",
+        },
+        {
+          label: "Format",
+          text: "Half a day, online or on-site, in Turkish or English.",
+        },
+      ],
+      caption:
+        "Pricing shared after a short scoping call, based on team size and scope.",
+      cta: "See if your team is a fit →",
     },
     testimonials: {
-      eyebrow: "REFERENCES",
-      heading: "What HR Leaders Said After the Demo",
+      eyebrow: "WHAT THEY SAY",
+      heading: "What HR leaders say after the session.",
       sector1: "DIGITAL BANKING",
       quote1:
-        "“We came in to talk about tools, but the real discovery was that every one of us looked at AI from a different angle.”",
+        "“We came in to talk about tools. The real discovery was that each of us approached AI from a different place.”",
       name1: "Ilgı Karakuş",
       role1: "People & Culture Senior Manager, Colendibank",
       sector2: "BANKING",
@@ -164,15 +251,14 @@ export const strings = {
       sector3: "INSURANCE",
       quote3:
         "“From hiring and onboarding to performance and daily operations, we walked through concrete examples and real use cases together.”",
-      name3: "Barış Özkane",
+      name3: "Barış Özkaner",
       role3: "Head of People & Culture, Polaris",
-      linkedIn: "View on LinkedIn →",
     },
     assessment: {
       label: "HR AI FLUENCY ASSESSMENT · BETA",
-      headingPart1: "Assess yourself and",
+      headingPart1: "Start with Measure. Assess yourself and",
       headingAccent: "your company.",
-      body: "A two-layer self-assessment. As an HR professional, measure your own AI fluency and your organisation's AI maturity in five minutes.",
+      body: "This is step one of the Workbench. A two-layer self-assessment: measure your own AI fluency and your organisation's AI maturity in five minutes.",
       list1: "Your personal AI Fluency score",
       list2: "Your company's AI maturity level",
       list3: "3 development areas for you",
@@ -181,7 +267,7 @@ export const strings = {
       cardText:
         "Takes 5 minutes. You'll receive your personal and organisational roadmap with the results.",
       cardCta: "Start the assessment →",
-      cardNote: "Beta release: we need early user feedback.",
+      cardNote: "Takes 5 minutes. Beta: we want early user feedback.",
     },
     about: {
       eyebrow: "ABOUT",
@@ -189,17 +275,43 @@ export const strings = {
       body: "Tolga Temtek is a 15+ year HR leader who built the HR function from scratch at Bank of China Türkiye and Colendi Bank. NEW HR AI is that practice, carried into the AI era.",
       link: "About Tolga Temtek →",
     },
+    faq: {
+      eyebrow: "FAQ",
+      heading: "Before you reach out.",
+      items: [
+        { q: "How long is the session?", a: "Half a day." },
+        {
+          q: "Online or on-site?",
+          a: "Online by default. On-site on request.",
+        },
+        { q: "Turkish or English?", a: "Both." },
+        {
+          q: "Is our data safe?",
+          a: "We work on your use cases without taking your data out of your own environment.",
+        },
+        {
+          q: "How do we start?",
+          a: "Take the assessment, then we book a short scoping call.",
+        },
+        {
+          q: "What does it cost?",
+          a: "Pricing after a short scoping call, based on team size and scope.",
+        },
+      ],
+    },
     finalCta: {
       eyebrow: "NEXT STEP",
-      heading: "Let's find the right AI starting point for your company.",
-      body: "Share your company, your current AI use, and the areas you want to tackle. We'll run the first assessment together.",
-      cta: "Share your situation →",
-      mailSubject: "NEW HR AI — Situation share",
+      heading: "Let's find your team's first AI move.",
+      body: "A short intro with Tolga. Free, no obligation. You leave with a concrete next step for your HR team.",
+      cta: "Book a meeting with Tolga →",
+      trustLine: "Online · Turkish or English",
+      mailSubject: "NEW HR AI — Intro meeting",
     },
     footer: {
       tagline: "AI FOR HR. BY HR.",
       pagesLabel: "PAGES",
       home: "Home",
+      workbench: "Workbench",
       assessment: "Assessment",
       about: "About",
       contact: "Contact",

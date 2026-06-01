@@ -1,5 +1,5 @@
 ---
-import { strings, assessmentPath, type Lang } from "../i18n/strings";
+import { strings, assessmentPath, newsletterUrl, type Lang } from "../i18n/strings";
 
 interface Props {
   lang?: Lang;
@@ -8,6 +8,12 @@ interface Props {
 const { lang = "tr" } = Astro.props;
 const t = strings[lang].hero;
 const assessmentHref = assessmentPath(lang);
+
+// Wrap one pivotal word in a hand-drawn teal underline.
+const titleHtml = t.heroTitle.replace(
+  t.heroEmphasis,
+  `<span class="pencil">${t.heroEmphasis}</span>`,
+);
 ---
 
 <section class="hero">
@@ -30,23 +36,18 @@ const assessmentHref = assessmentPath(lang);
 
     <p class="eyebrow">{t.eyebrow}</p>
 
-    <h1 class="hero-title">{t.heroTitle}</h1>
+    <h1 class="hero-title" set:html={titleHtml}></h1>
 
-    <div class="hero-rule"></div>
-
-    <p class="lead">
-      {t.lead1}<br>
-      {t.lead2}
-    </p>
+    <p class="lead">{t.subline}</p>
 
     <div class="hero-actions">
+      <a href={assessmentHref} class="btn-teal">{t.ctaAssessment}</a>
       <a
-        href="https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7463181925256445953"
+        href={newsletterUrl}
         class="btn-outline"
         target="_blank"
         rel="noopener noreferrer"
-      >{t.ctaPrimary}</a>
-      <a href={assessmentHref} class="btn-teal">{t.ctaSecondary}</a>
+      >{t.ctaNewsletter}</a>
     </div>
 
     <div class="stats-divider"></div>
@@ -129,16 +130,22 @@ const assessmentHref = assessmentPath(lang);
   font-size: clamp(36px, 5.5vw, 72px);
   font-weight: 800;
   color: #fff;
-  line-height: 1.04;
+  /* Slightly looser than the original 1.04 so the dotted Turkish capital
+     İ on a wrapped line clears the descenders of the line above it. */
+  line-height: 1.12;
   letter-spacing: -0.035em;
   margin-bottom: 24px;
 }
 
-.hero-rule {
-  width: 44px;
-  height: 2px;
-  background: #5DE3D3;
-  margin: 0 auto 24px;
+/* Hand-drawn teal underline under the pivotal word in the H1. The span is
+   injected via set:html so it isn't scoped by Astro; target it with :global. */
+.hero-title :global(.pencil) {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 30' preserveAspectRatio='none'%3E%3Cg fill='none' stroke='%235DE3D3' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M6 13 C 80 7 150 18 210 11 C 250 7 276 11 295 12'/%3E%3Cpath d='M8 21 C 70 16 140 25 205 18 C 250 14 278 19 293 18'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 0.55em;
+  padding-bottom: 0.1em;
+  white-space: nowrap;
 }
 
 .lead {
@@ -147,10 +154,9 @@ const assessmentHref = assessmentPath(lang);
   color: #fff;
   line-height: 1.6;
   margin-bottom: 36px;
-  /* 560px keeps the English lead1 ("Real examples. Senior HR operator.
-     One workflow at a time.") on a single line at common widths while
-     still wrapping naturally on narrow mobile viewports. */
-  max-width: 560px;
+  /* Holds the two-sentence subline to a comfortable editorial measure;
+     wraps naturally on narrow mobile viewports. */
+  max-width: 620px;
   margin-left: auto;
   margin-right: auto;
 }

@@ -1,0 +1,157 @@
+---
+import { strings, type Lang } from "../i18n/strings";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "tr" } = Astro.props;
+const t = strings[lang].offer;
+---
+
+<section class="offer" id="workbench">
+
+  <div class="offer-inner">
+
+    <p class="eyebrow">{t.eyebrow}</p>
+
+    <h2>{t.heading}</h2>
+
+    <div class="offer-card">
+
+      <div class="offer-grid">
+        {t.items.map((item) => (
+          <div class="offer-item">
+            <p class="offer-item-label">{item.label}</p>
+            <p class="offer-item-text">{item.text}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="offer-footer">
+        <p class="offer-caption">{t.caption}</p>
+        <a href="#iletisim" class="offer-button">{t.cta}</a>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<style>
+  .offer {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  .offer-inner {
+    width: min(100% - 4rem, 1400px);
+
+    margin-inline: auto;
+
+    padding-block: 2.5rem;
+  }
+
+  .offer h2 {
+    margin-top: 1rem;
+    margin-bottom: 3rem;
+
+    max-width: 24ch;
+  }
+
+  .offer-card {
+    padding: 3rem;
+
+    background: white;
+
+    border-top: 2px solid var(--color-ink);
+  }
+
+  .offer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 2.5rem;
+  }
+
+  .offer-item-label {
+    margin-bottom: 0.6rem;
+
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    color: var(--color-teal);
+  }
+
+  .offer-item-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+
+    color: var(--color-ink);
+  }
+
+  .offer-footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+
+    border-top: 1px solid #E8E8E2;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .offer-caption {
+    max-width: 38ch;
+
+    font-size: 0.95rem;
+    line-height: 1.6;
+
+    color: var(--color-ink);
+  }
+
+  .offer-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 1rem 1.75rem;
+
+    background: var(--color-teal);
+    color: var(--color-ink);
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+  }
+
+  .offer-button:hover {
+    opacity: 0.9;
+  }
+
+  @media (max-width: 900px) {
+    .offer-inner {
+      padding-block: 2rem;
+    }
+
+    .offer-card {
+      padding: 1.75rem;
+    }
+
+    .offer-grid {
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+
+    .offer-button {
+      width: 100%;
+    }
+  }
+</style>
