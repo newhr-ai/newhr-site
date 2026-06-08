@@ -199,6 +199,29 @@ const assessmentHref = assessmentPath(lang);
       font-size: 0.78rem;
     }
   }
+
+  /* Narrow phones: tighten so logo + CTA + lang toggle still fit. */
+  @media (max-width: 400px) {
+    .nav-right {
+      gap: 0.5rem;
+    }
+
+    .nav-assessment {
+      padding: 0.5rem 0.7rem;
+      font-size: 0.72rem;
+    }
+
+    .lang-toggle a {
+      padding: 0.4rem 0.55rem;
+    }
+  }
+
+  /* Very small screens: drop the header CTA (the hero still has it). */
+  @media (max-width: 340px) {
+    .nav-assessment {
+      display: none;
+    }
+  }
 </style>
 
 <script is:inline>

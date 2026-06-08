@@ -76,11 +76,9 @@ const titleHtml = t.heroTitle.replace(
 <style>
 .hero {
   position: relative;
-  width: 100vw;
-  margin-left: calc(50% - 50vw);
-  /* No forced 100vh: full-screen centring left big empty bands above/below
-     the (short) content. Height now follows the content + responsive padding. */
-  min-height: auto;
+  width: 100%;
+  /* Full-screen hero (svh keeps it correct under mobile browser chrome). */
+  min-height: 100svh;
   display: flex;
   align-items: center;
   justify-content: center;

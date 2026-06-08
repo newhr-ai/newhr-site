@@ -41,6 +41,9 @@ body {
   background: var(--color-ink);
   color: var(--color-paper);
 
+  /* Prevent the full-bleed hero (100vw) from creating a horizontal scrollbar. */
+  overflow-x: clip;
+
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
