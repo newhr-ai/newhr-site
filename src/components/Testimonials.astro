@@ -7,6 +7,13 @@ interface Props {
 
 const { lang = "tr" } = Astro.props;
 const t = strings[lang].testimonials;
+
+// Avatar photos + LinkedIn post URLs are the same in both languages.
+const cards = [
+  { photo: "/images/testimonials/ilgi-karakus.jpg", link: "https://www.linkedin.com/feed/update/urn:li:share:7452763499388166145/" },
+  { photo: "/images/testimonials/okan-tunali.jpg", link: "https://www.linkedin.com/feed/update/urn:li:share:7454552977052246016/" },
+  { photo: "/images/testimonials/baris-ozkaner.jpg", link: "https://www.linkedin.com/feed/update/urn:li:share:7450832027731451905/" },
+];
 ---
 
 <section class="testimonials" id="referanslar">
@@ -24,8 +31,14 @@ const t = strings[lang].testimonials;
         <blockquote>{t.quote1}</blockquote>
 
         <div class="testimonial-footer">
-          <p class="name">{t.name1}</p>
-          <p class="role">{t.role1}</p>
+          <div class="person">
+            <img class="avatar" src={cards[0].photo} alt={t.name1} width="56" height="56" loading="lazy" />
+            <div class="person-meta">
+              <p class="name">{t.name1}</p>
+              <p class="role">{t.role1}</p>
+            </div>
+          </div>
+          <a class="li-link" href={cards[0].link} target="_blank" rel="noopener noreferrer">{t.linkedinLabel}</a>
         </div>
       </article>
 
@@ -34,8 +47,14 @@ const t = strings[lang].testimonials;
         <blockquote>{t.quote2}</blockquote>
 
         <div class="testimonial-footer">
-          <p class="name">{t.name2}</p>
-          <p class="role">{t.role2}</p>
+          <div class="person">
+            <img class="avatar" src={cards[1].photo} alt={t.name2} width="56" height="56" loading="lazy" />
+            <div class="person-meta">
+              <p class="name">{t.name2}</p>
+              <p class="role">{t.role2}</p>
+            </div>
+          </div>
+          <a class="li-link" href={cards[1].link} target="_blank" rel="noopener noreferrer">{t.linkedinLabel}</a>
         </div>
       </article>
 
@@ -44,8 +63,14 @@ const t = strings[lang].testimonials;
         <blockquote>{t.quote3}</blockquote>
 
         <div class="testimonial-footer">
-          <p class="name">{t.name3}</p>
-          <p class="role">{t.role3}</p>
+          <div class="person">
+            <img class="avatar" src={cards[2].photo} alt={t.name3} width="56" height="56" loading="lazy" />
+            <div class="person-meta">
+              <p class="name">{t.name3}</p>
+              <p class="role">{t.role3}</p>
+            </div>
+          </div>
+          <a class="li-link" href={cards[2].link} target="_blank" rel="noopener noreferrer">{t.linkedinLabel}</a>
         </div>
       </article>
 
@@ -57,8 +82,8 @@ const t = strings[lang].testimonials;
 
 <style>
   .testimonials {
-    background: var(--color-paper);
-    color: var(--color-ink);
+    background: var(--color-ink);
+    color: var(--color-paper);
   }
 
   .testimonials-inner {
@@ -84,9 +109,11 @@ const t = strings[lang].testimonials;
   .testimonial-card {
     padding: 2rem;
 
-    background: white;
+    /* Light card so the ink text, avatar and teal-600 sector read clearly. */
+    background: #FFFFFF;
+    color: var(--color-ink);
 
-    border-top: 2px solid var(--color-ink);
+    border-top: 2px solid var(--color-teal);
 
     display: flex;
     flex-direction: column;
@@ -102,45 +129,94 @@ const t = strings[lang].testimonials;
     font-weight: 700;
     letter-spacing: 0.12em;
 
-    color: var(--color-teal);
+    /* Teal-600 for legibility on the white card. */
+    color: #28A695;
   }
 
   blockquote {
     font-size: 2rem;
     line-height: 1.25;
-    font-weight: 700;
+
+    /* 600 so the quote reads as speech, not a headline. */
+    font-weight: 600;
+
+    color: var(--color-ink);
   }
 
   .testimonial-footer {
     margin-top: 3rem;
-
     padding-top: 2rem;
 
     border-top: 1px solid #E8E8E2;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .person {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+  }
+
+  .avatar {
+    flex: 0 0 auto;
+
+    width: 56px;
+    height: 56px;
+
+    display: block;
+
+    /* Circular frame with a thin teal ring (border sits inside the 56px box). */
+    border-radius: 50%;
+    border: 2px solid var(--color-teal);
+    box-sizing: border-box;
+
+    object-fit: cover;
+    object-position: center;
+
+    /* Ink placeholder while the photo loads. */
+    background: #0A0A0A;
   }
 
   .name {
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.15rem;
 
     font-weight: 700;
+
+    color: #0A0A0A;
   }
 
   .role {
-    font-size: 0.9rem;
-    line-height: 1.5;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.4;
 
-    color: rgba(0,0,0,0.65);
+    color: #0A0A0A;
   }
 
-  .testimonial-footer a {
-    color: var(--color-ink);
+  .li-link {
+    align-self: flex-start;
+
+    display: inline-flex;
+    align-items: center;
+
+    color: #0A0A0A;
 
     text-decoration: none;
 
     font-size: 0.9rem;
     font-weight: 700;
+
+    border-bottom: 2px solid var(--color-teal);
+
+    padding-bottom: 0.25rem;
   }
 
+  .li-link:hover {
+    color: #28A695;
+  }
 
   @media (max-width: 900px) {
 

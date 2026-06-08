@@ -38,8 +38,8 @@ html {
 }
 
 body {
-  background: var(--color-paper);
-  color: var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-paper);
 
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

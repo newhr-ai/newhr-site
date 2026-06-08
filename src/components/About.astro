@@ -13,13 +13,6 @@ const t = strings[lang].about;
 
   <div class="about-inner">
 
-    <div class="about-image">
-      <img
-        src="/images/Tolga_portrait_BW.jpg"
-        alt="Tolga Temtek"
-      />
-    </div>
-
     <div class="about-content">
 
       <p class="eyebrow">{t.eyebrow}</p>
@@ -28,15 +21,27 @@ const t = strings[lang].about;
 
       <p class="about-text">{t.body}</p>
 
-      <a
-        href="https://www.linkedin.com/in/tolgatemtek/"
-        class="about-link"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {t.link}
-      </a>
+      <ul class="about-tags">
+        {t.tags.map((tag) => (
+          <li class="about-tag">{tag}</li>
+        ))}
+      </ul>
 
+      <a href={t.linkHref} class="about-link">{t.link}</a>
+
+    </div>
+
+    <div class="about-photo">
+      <img
+        src="/images/tolga_about.jpg"
+        alt={`Tolga Temtek — ${t.photoChip}`}
+        width="380"
+        height="475"
+        loading="lazy"
+      />
+      <span class="photo-pill">{t.photoPill}</span>
+      <span class="photo-chip">{t.photoChip}</span>
+      <span class="photo-bar"></span>
     </div>
 
   </div>
@@ -45,8 +50,8 @@ const t = strings[lang].about;
 
 <style>
   .about {
-    background: var(--color-paper);
-    color: var(--color-ink);
+    background: var(--color-ink);
+    color: var(--color-paper);
   }
 
   .about-inner {
@@ -57,81 +62,147 @@ const t = strings[lang].about;
     padding-block: 2.5rem;
 
     display: grid;
-    grid-template-columns: 250px 1fr;
+    grid-template-columns: 1fr 380px;
 
     gap: 5rem;
 
     align-items: center;
   }
 
-  .about-image {
-    position: relative;
-    max-width: 250px;
-    padding: 0 1rem 1rem 0;
-  }
-
-  .about-image::before {
-    content: "";
-    position: absolute;
-    inset: 1rem 0 0 1rem;
-    background: var(--color-teal);
-    border-radius: 999px 999px 0 0;
-    z-index: 0;
-  }
-
-  .about-image img {
-    position: relative;
-    z-index: 1;
-
-    width: 100%;
-
-    aspect-ratio: 4 / 5;
-
-    object-fit: cover;
-    object-position: center top;
-
-    display: block;
-
-    border-radius: 999px 999px 0 0;
-
-    filter: grayscale(100%);
-  }
-
   .about h2 {
-    max-width: 10ch;
+    max-width: 18ch;
 
     margin-top: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
 
   .about-text {
-    max-width: 40rem;
+    max-width: 46rem;
 
     margin-bottom: 2rem;
 
     font-size: 1.1rem;
     line-height: 1.8;
 
-    color: rgba(0,0,0,0.75);
+    color: var(--color-paper);
+  }
+
+  .about-tags {
+    list-style: none;
+    padding: 0;
+
+    margin-bottom: 2rem;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .about-tag {
+    border: 1px solid var(--color-paper);
+
+    color: var(--color-paper);
+
+    padding: 0.45rem 1rem;
+
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    border-radius: 999px;
+
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+
+  .about-tag:hover {
+    background: var(--color-teal);
+    color: var(--color-ink);
+    border-color: var(--color-teal);
   }
 
   .about-link {
     display: inline-flex;
     align-items: center;
 
-    color: var(--color-ink);
+    color: var(--color-paper);
 
     text-decoration: none;
 
     font-weight: 700;
 
-    border-bottom: 1px solid var(--color-teal);
+    border-bottom: 2px solid var(--color-teal);
 
     padding-bottom: 0.3rem;
   }
 
-  @media (max-width: 900px) {
+  /* Photo frame — portrait 4/5, B&W, teal bar + chip + pill. */
+  .about-photo {
+    position: relative;
 
+    max-width: 380px;
+    width: 100%;
+
+    margin-left: auto;
+  }
+
+  .about-photo img {
+    display: block;
+
+    width: 100%;
+    aspect-ratio: 4 / 5;
+
+    object-fit: cover;
+    object-position: center top;
+
+    filter: grayscale(1);
+
+    background: var(--color-ink);
+  }
+
+  .photo-bar {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    height: 5px;
+
+    background: var(--color-teal);
+  }
+
+  .photo-chip {
+    position: absolute;
+    left: 16px;
+    bottom: 21px;
+
+    background: #0A0A0A;
+    color: #FFFFFF;
+
+    padding: 0.5rem 0.85rem;
+
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+
+  .photo-pill {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+
+    background: var(--color-teal);
+    color: var(--color-ink);
+
+    padding: 0.4rem 0.8rem;
+
+    border-radius: 999px;
+
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 900px) {
     .about-inner {
       grid-template-columns: 1fr;
 
@@ -140,10 +211,8 @@ const t = strings[lang].about;
       padding-block: 2rem;
     }
 
-    .about-image {
-      max-width: 260px;
+    .about-photo {
       margin-inline: auto;
     }
-
   }
 </style>

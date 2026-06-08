@@ -1,5 +1,5 @@
 ---
-import { strings, type Lang } from "../i18n/strings";
+import { strings, assessmentPath, type Lang } from "../i18n/strings";
 
 interface Props {
   lang?: Lang;
@@ -7,6 +7,7 @@ interface Props {
 
 const { lang = "tr" } = Astro.props;
 const t = strings[lang].finalCta;
+const assessmentHref = assessmentPath(lang);
 const mailHref = `mailto:hello@newhr.ai?subject=${encodeURIComponent(t.mailSubject)}`;
 ---
 
@@ -20,9 +21,13 @@ const mailHref = `mailto:hello@newhr.ai?subject=${encodeURIComponent(t.mailSubje
 
     <p class="final-cta-text">{t.body}</p>
 
-    <a href={mailHref} class="final-cta-button">
-      {t.cta}
-    </a>
+    <div class="final-cta-actions">
+      <a href={assessmentHref} class="cta-primary">{t.primaryCta}</a>
+      <a
+        href={mailHref}
+        class="cta-secondary"
+      >{t.secondaryCta}</a>
+    </div>
 
     <p class="final-cta-trust">{t.trustLine}</p>
 
@@ -32,8 +37,8 @@ const mailHref = `mailto:hello@newhr.ai?subject=${encodeURIComponent(t.mailSubje
 
 <style>
   .final-cta {
-    background: var(--color-paper);
-    color: var(--color-ink);
+    background: var(--color-ink);
+    color: var(--color-paper);
   }
 
   .final-cta-inner {
@@ -64,26 +69,56 @@ const mailHref = `mailto:hello@newhr.ai?subject=${encodeURIComponent(t.mailSubje
     font-size: 1.15rem;
     line-height: 1.8;
 
-    color: rgba(0,0,0,0.75);
+    color: rgba(255, 255, 255, 0.75);
   }
 
-  .final-cta-button {
+  .final-cta-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .cta-primary,
+  .cta-secondary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
 
-    padding: 1.2rem 2.4rem;
-
-    background: var(--color-ink);
-    color: white;
+    padding: 1.1rem 2rem;
 
     text-decoration: none;
 
     font-weight: 700;
   }
 
-  .final-cta-button:hover {
+  .cta-primary {
+    background: var(--color-teal);
+    color: var(--color-ink);
+  }
+
+  .cta-primary:hover {
     opacity: 0.92;
+  }
+
+  .cta-secondary {
+    background: transparent;
+    color: var(--color-paper);
+
+    border: 1px solid rgba(255, 255, 255, 0.45);
+
+    transition: border-color 0.2s;
+  }
+
+  .cta-secondary:hover {
+    border-color: rgba(255, 255, 255, 0.85);
+  }
+
+  @media (max-width: 600px) {
+    .cta-primary,
+    .cta-secondary {
+      width: 100%;
+    }
   }
 
   .final-cta-trust {
@@ -93,6 +128,6 @@ const mailHref = `mailto:hello@newhr.ai?subject=${encodeURIComponent(t.mailSubje
     font-weight: 600;
     letter-spacing: 0.04em;
 
-    color: var(--color-ink);
+    color: rgba(255, 255, 255, 0.8);
   }
 </style>

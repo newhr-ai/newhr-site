@@ -1,0 +1,211 @@
+---
+import { strings, type Lang } from "../i18n/strings";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "tr" } = Astro.props;
+const t = strings[lang].workshop;
+const isExternal = t.ctaHref.startsWith("http");
+---
+
+<section class="workshop" id="workbench">
+
+  <div class="workshop-inner">
+
+    <p class="eyebrow">{t.eyebrow}</p>
+
+    <h2>{t.headline}</h2>
+
+    <p class="workshop-intro">{t.intro}</p>
+
+    <div class="method-strip">
+      {t.method.map((m) => (
+        <div class="method-beat">
+          <p class="method-label">{m.label}</p>
+          <p class="method-text">{m.text}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="workshop-card">
+
+      <div class="detail-grid">
+        {t.details.map((d) => (
+          <div class="detail-item">
+            <p class="detail-label">{d.label}</p>
+            <p class="detail-text">{d.text}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="workshop-footer">
+        <a
+          href={t.ctaHref}
+          class="workshop-cta"
+          {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+        >{t.cta}</a>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<style>
+  .workshop {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  .workshop-inner {
+    width: min(100% - 4rem, 1400px);
+
+    margin-inline: auto;
+
+    padding-block: 2.5rem;
+  }
+
+  .workshop h2 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+    max-width: 20ch;
+  }
+
+  .workshop-intro {
+    margin-bottom: 3rem;
+
+    max-width: 60ch;
+
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+
+    color: var(--color-paper);
+  }
+
+  /* Method strip — three beats. */
+  .method-strip {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+
+    margin-bottom: 1.5rem;
+  }
+
+  .method-beat {
+    padding: 1.75rem;
+
+    background: #141414;
+
+    border-top: 2px solid var(--color-teal);
+  }
+
+  .method-label {
+    margin-bottom: 0.85rem;
+
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    color: var(--color-teal);
+  }
+
+  .method-text {
+    font-size: 1rem;
+    line-height: 1.6;
+
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  /* Detail card — who / what / format / pricing + CTA. */
+  .workshop-card {
+    padding: 3rem;
+
+    background: #141414;
+
+    border-top: 2px solid var(--color-teal);
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem;
+  }
+
+  .detail-label {
+    margin-bottom: 0.6rem;
+
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    color: var(--color-teal);
+  }
+
+  .detail-text {
+    font-size: 1.05rem;
+    line-height: 1.6;
+
+    color: var(--color-paper);
+  }
+
+  .workshop-footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .workshop-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 1rem 1.75rem;
+
+    background: var(--color-teal);
+    color: var(--color-ink);
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+  }
+
+  .workshop-cta:hover {
+    opacity: 0.9;
+  }
+
+  @media (max-width: 900px) {
+    .workshop-inner {
+      padding-block: 2rem;
+    }
+
+    .method-strip {
+      grid-template-columns: 1fr;
+    }
+
+    .workshop-card {
+      padding: 1.75rem;
+    }
+
+    .detail-grid {
+      grid-template-columns: 1fr;
+      gap: 1.75rem;
+    }
+
+    .workshop-cta {
+      width: 100%;
+    }
+  }
+</style>

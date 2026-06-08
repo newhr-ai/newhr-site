@@ -1,0 +1,117 @@
+---
+import { strings, type Lang } from "../i18n/strings";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "tr" } = Astro.props;
+const t = strings[lang].newsletter;
+---
+
+<section class="newsletter">
+
+  <div class="newsletter-inner">
+
+    <div class="newsletter-image">
+      <img src={t.image} alt={t.imageAlt} loading="lazy" />
+    </div>
+
+    <div class="newsletter-cta">
+      <p class="newsletter-line">{t.line}</p>
+      <a
+        href={t.buttonHref}
+        class="newsletter-button"
+        target="_blank"
+        rel="noopener noreferrer"
+      >{t.button}</a>
+    </div>
+
+  </div>
+
+</section>
+
+<style>
+  .newsletter {
+    background: #0A0A0A;
+    color: var(--color-paper);
+  }
+
+  .newsletter-inner {
+    width: min(100% - 4rem, 1400px);
+
+    margin-inline: auto;
+
+    padding-block: 3rem;
+
+    display: grid;
+    grid-template-columns: minmax(0, 580px) 1fr;
+
+    gap: 3.5rem;
+
+    align-items: center;
+  }
+
+  .newsletter-image img {
+    display: block;
+
+    width: 100%;
+    max-width: 580px;
+    height: auto;
+
+    /* Cover already has a black background, so it blends — no border. */
+    object-fit: contain;
+  }
+
+  .newsletter-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    gap: 1.25rem;
+
+    max-width: 34ch;
+  }
+
+  .newsletter-line {
+    font-size: 1.1rem;
+    line-height: 1.6;
+
+    color: var(--color-paper);
+  }
+
+  .newsletter-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 1.1rem 2rem;
+
+    background: var(--color-teal);
+    color: var(--color-ink);
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+  }
+
+  .newsletter-button:hover {
+    opacity: 0.9;
+  }
+
+  @media (max-width: 860px) {
+    .newsletter-inner {
+      grid-template-columns: 1fr;
+
+      gap: 2rem;
+
+      padding-block: 2.5rem;
+    }
+
+    .newsletter-button {
+      width: 100%;
+    }
+  }
+</style>
