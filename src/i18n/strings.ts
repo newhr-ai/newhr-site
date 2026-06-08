@@ -5,8 +5,10 @@ export const assessmentPath = (lang: Lang) =>
   `https://assessment.newhr.ai/${lang === "tr" ? "tr" : "en"}/assessment`;
 
 // LinkedIn newsletter follow (quiet tertiary link in the hero).
-export const newsletterUrl =
-  "https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7463181925256445953";
+export const newsletterUrl = (lang: Lang) =>
+  lang === "en"
+    ? "https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7464963171129262080"
+    : "https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7463181925256445953";
 
 export const strings = {
   tr: {
