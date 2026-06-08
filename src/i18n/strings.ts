@@ -231,6 +231,7 @@ export const strings = {
     newsletter: {
       image: "/images/radar_tr.png",
       imageAlt: "HR AI Radar bülteni",
+      description: "HR profesyonelleri için HR AI bülteni. Kritik haberler, pratik yorum. İki haftada bir.",
       line: "1.200+ İK profesyoneli her iki haftada bir okuyor.",
       button: "Bültene kaydol →",
       buttonHref: "https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7463181925256445953",
@@ -478,6 +479,7 @@ export const strings = {
     newsletter: {
       image: "/images/radar_en.png",
       imageAlt: "HR AI Radar newsletter",
+      description: "Real AI news for HR professionals. Curated biweekly by New HR AI, no hype, no vendor content.",
       line: "Read by 1,200+ HR professionals every two weeks.",
       button: "Subscribe →",
       buttonHref: "https://www.linkedin.com/build-relation/newsletter-follow?entityUrn=7464963171129262080",
