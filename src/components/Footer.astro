@@ -9,6 +9,7 @@ const { lang = "tr" } = Astro.props;
 const t = strings[lang].footer;
 const home = lang === "en" ? "/en/" : "/";
 const assessmentHref = assessmentPath(lang);
+const privacyHref = lang === "en" ? "/en/privacy/" : "/privacy/";
 ---
 
 <footer class="footer">
@@ -61,7 +62,7 @@ const assessmentHref = assessmentPath(lang);
 
     <div class="footer-bottom">
 
-      <p>{t.copyright}</p>
+      <p>{t.copyright} · <a href={privacyHref}>{t.privacy}</a></p>
 
       <p>{t.mantra}</p>
 
@@ -163,6 +164,15 @@ const assessmentHref = assessmentPath(lang);
     font-size: 0.78rem;
 
     color: rgba(255,255,255,0.5);
+  }
+
+  .footer-bottom a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  .footer-bottom a:hover {
+    color: var(--color-teal);
   }
 
   @media (max-width: 700px) {

@@ -177,7 +177,7 @@ export const strings = {
     },
     assessment: {
       label: "HR AI HAZIRLIK DEĞERLENDİRMESİ · BETA",
-      headingPart1: "Buradan başlayın. Kendinizi ve ",
+      headingPart1: "Kendinizi ve ",
       headingAccent: "şirketinizi",
       headingPart2: " değerlendirin.",
       body: "İlk adım, ve ücretsiz. İki katmanlı bir öz değerlendirme: bir İK profesyoneli olarak kendi AI yetkinliğiniz ve organizasyonunuzun AI olgunluğu, 5 dakikada. Sonuçla birlikte kişisel ve kurumsal yol haritanızı alırsınız.",
@@ -193,7 +193,7 @@ export const strings = {
     },
     about: {
       eyebrow: "HAKKINDA",
-      heading: "İK'yı içeriden kurdu. Şimdi AI ile kuruyor.",
+      heading: "İK'nın içinden biri. Yapay zekayı da içeriden getiriyor.",
       body: "Tolga Temtek 15 yıl İK'nın içinde, her ölçekte çalıştı: BNP Paribas'ta 10.000 kişilik bir banka, Bank of China Türkiye'de sıfırdan kurduğu uluslararası bir banka, ColendiBank'ta baştan kurulan bir dijital banka ve bugün fintech müşterileri. New HR AI, bunun AI'a dönüştüğü yer: uygulamalı, gerçek İK işi üzerinde, teori değil.",
       tags: ["İK için Uygulamalı AI", "HR AI Atölyeleri", "AI Fluency"],
       link: "Tolga Temtek hakkında →",
@@ -255,6 +255,7 @@ export const strings = {
       contact: "İletişim",
       contactLabel: "İLETİŞİM",
       copyright: "© 2026 NEW HR AI",
+      privacy: "Gizlilik",
       mantra: "İK'da uygulanabilir AI için.",
     },
   },
@@ -425,7 +426,7 @@ export const strings = {
     },
     assessment: {
       label: "HR AI READINESS ASSESSMENT · BETA",
-      headingPart1: "Start here. Assess yourself and ",
+      headingPart1: "Assess yourself and ",
       headingAccent: "your company",
       headingPart2: ".",
       body: "Step one, and it's free. A two-layer self-assessment: your own AI readiness as an HR professional, and your organisation's AI maturity, in five minutes. You leave with a personal and an organisational roadmap.",
@@ -441,7 +442,7 @@ export const strings = {
     },
     about: {
       eyebrow: "ABOUT",
-      heading: "Built HR from the inside. Now building it with AI.",
+      heading: "From inside HR. Bringing AI in from the inside.",
       body: "Tolga Temtek has spent 15 years inside HR, across every kind of organization: a 10,000-person bank at BNP Paribas, an international bank built from scratch at Bank of China Türkiye, a digital bank launched from zero at ColendiBank, and fintech clients today. New HR AI is where that turns into AI: practical, on real HR work, not theory.",
       tags: ["Applied AI for HR", "HR AI Workshops", "AI Fluency"],
       link: "About Tolga Temtek →",
@@ -503,6 +504,7 @@ export const strings = {
       contact: "Contact",
       contactLabel: "CONTACT",
       copyright: "© 2026 NEW HR AI",
+      privacy: "Privacy",
       mantra: "Built for practical AI adoption in HR.",
     },
   },

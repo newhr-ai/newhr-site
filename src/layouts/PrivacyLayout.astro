@@ -1,0 +1,124 @@
+---
+import MainLayout from "./MainLayout.astro";
+import Footer from "../components/Footer.astro";
+import type { Lang } from "../i18n/strings";
+
+// Markdown layout: the policy markdown is rendered into <slot />.
+const { frontmatter } = Astro.props;
+const lang: Lang = frontmatter.lang === "en" ? "en" : "tr";
+---
+
+<MainLayout title={frontmatter.pageTitle} lang={lang}>
+  <section class="privacy">
+    <div class="privacy-head">
+      <div class="privacy-inner">
+        <p class="eyebrow">{frontmatter.eyebrow}</p>
+        <h1>{frontmatter.title}</h1>
+        <p class="privacy-sub">{frontmatter.org} · {frontmatter.updated}</p>
+      </div>
+    </div>
+
+    <div class="privacy-body">
+      <article class="privacy-content privacy-inner">
+        <slot />
+      </article>
+    </div>
+  </section>
+
+  <Footer lang={lang} />
+</MainLayout>
+
+<style>
+  .privacy {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  .privacy-inner {
+    width: min(100% - 3rem, 760px);
+    margin-inline: auto;
+  }
+
+  /* Dark band so the (white) site nav stays legible above the paper content. */
+  .privacy-head {
+    background: var(--color-ink);
+    color: var(--color-paper);
+
+    padding-block: 8.5rem 3rem;
+  }
+
+  .privacy-head h1 {
+    margin: 0.75rem 0 0.85rem;
+
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+
+    color: var(--color-paper);
+  }
+
+  .privacy-sub {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .privacy-body {
+    padding-block: 3.5rem 4.5rem;
+  }
+
+  .privacy-content {
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  /* Rendered-markdown elements (not Astro-scoped → target via :global). */
+  .privacy-content :global(h2) {
+    margin: 2.75rem 0 0.85rem;
+    padding-top: 1.6rem;
+
+    border-top: 1px solid #E2E2DC;
+
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+
+    color: var(--color-ink);
+  }
+
+  .privacy-content :global(h3) {
+    margin: 1.6rem 0 0.5rem;
+
+    font-size: 1.05rem;
+    font-weight: 700;
+
+    color: var(--color-ink);
+  }
+
+  .privacy-content :global(p) {
+    margin: 0 0 1rem;
+    color: var(--color-ink);
+  }
+
+  .privacy-content :global(ul) {
+    margin: 0 0 1.1rem;
+    padding-left: 1.2rem;
+  }
+
+  .privacy-content :global(li) {
+    margin-bottom: 0.45rem;
+  }
+
+  .privacy-content :global(strong) {
+    font-weight: 700;
+  }
+
+  .privacy-content :global(a) {
+    color: #28A695;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .privacy-content :global(a:hover) {
+    color: var(--color-teal);
+  }
+</style>
