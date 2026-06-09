@@ -194,6 +194,15 @@ const assessmentHref = assessmentPath(lang);
       display: none;
     }
 
+    /* With the centered links hidden, the 3-column grid mis-distributes its
+       tracks at narrow widths and leaves the right group short of the edge.
+       Switch to a simple flex row: logo flush left, controls flush right. */
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
     .nav-assessment {
       padding: 0.55rem 0.85rem;
       font-size: 0.78rem;
