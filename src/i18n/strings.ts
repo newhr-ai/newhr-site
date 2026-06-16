@@ -19,6 +19,7 @@ export const strings = {
       yaklasim: "Yaklaşım",
       hakkinda: "Hakkında",
       referanslar: "Ne diyorlar",
+      downloads: "Kaynak",
       iletisim: "İletişim",
       assessmentCta: "Değerlendirmeye Başla",
     },
@@ -245,12 +246,52 @@ export const strings = {
       trustLine: "Her mesajı kendim okur, kendim yanıtlarım.",
       mailSubject: "HR AI Projesi",
     },
+    downloads: {
+      eyebrow: "KAYNAK",
+      title: "Kaynak",
+      sub: "İK profesyonelleri için ücretsiz yapay zeka kaynakları.",
+      // Featured: links out to the assessment (no email gate).
+      assessmentEyebrow: "DEĞERLENDİRME",
+      assessmentTitle: "İK Yapay Zeka Hazırlık Değerlendirmesi",
+      assessmentDesc:
+        "Kendinizin ve şirketinizin yapay zekaya ne kadar hazır olduğunu 5 dakikada görün. Sonuçla birlikte size özel bir yol haritası alın.",
+      assessmentCta: "Değerlendirmeye Başla →",
+      // Downloadable, email-gated resources.
+      resourcesHeading: "İndirilebilir kaynaklar",
+      formHeading: "E-posta adresiniz",
+      nameLabel: "İsim (isteğe bağlı)",
+      namePlaceholder: "Adınız",
+      emailLabel: "İş e-postanız",
+      emailPlaceholder: "siz@sirket.com",
+      submit: "İndirmeyi al →",
+      invalidEmail: "Lütfen geçerli bir e-posta adresi girin.",
+      successHeading: "İşte dosyanız.",
+      successNote:
+        "İndirme otomatik başlamalı. Başlamazsa aşağıdaki düğmeyi kullanın.",
+      downloadCta: "Dosyayı indir →",
+      privacyNotePre: "E-postanızı ",
+      privacyNoteLink: "gizlilik politikamız",
+      privacyNotePost: " doğrultusunda kullanırız. Dilediğiniz zaman çıkabilirsiniz.",
+      // The resource list. To add a file later: drop it in public/downloads/,
+      // add an entry here (and the EN one), redeploy. `file`/`fileName` are the
+      // single source of truth per resource.
+      resources: [
+        {
+          title: "Mayıs 2026 · 1426 HR İlanı Datası",
+          desc: "Mayıs 2026'da toplanan 1.426 İK ilanının yapılandırılmış verisi.",
+          meta: "Excel · ücretsiz",
+          file: "/downloads/hr-ilan-datasi-mayis-2026.xlsx",
+          fileName: "hr-ilan-datasi-mayis-2026.xlsx",
+        },
+      ],
+    },
     footer: {
       tagline: "İK'DAN İK'YA.",
       pagesLabel: "SAYFALAR",
       home: "Ana Sayfa",
       workbench: "Workbench",
       assessment: "Değerlendirme",
+      downloads: "Kaynak",
       about: "Hakkında",
       contact: "İletişim",
       contactLabel: "İLETİŞİM",
@@ -268,6 +309,7 @@ export const strings = {
       yaklasim: "Approach",
       hakkinda: "About",
       referanslar: "What they say",
+      downloads: "Resources",
       iletisim: "Contact",
       assessmentCta: "Take Assessment",
     },
@@ -494,12 +536,52 @@ export const strings = {
       trustLine: "I read and reply to every message myself.",
       mailSubject: "HR AI Challenge",
     },
+    downloads: {
+      eyebrow: "RESOURCES",
+      title: "Resources",
+      sub: "Free AI resources for HR professionals.",
+      // Featured: links out to the assessment (no email gate).
+      assessmentEyebrow: "ASSESSMENT",
+      assessmentTitle: "HR AI Readiness Assessment",
+      assessmentDesc:
+        "See how ready you and your company are for AI in 5 minutes, and leave with a roadmap tailored to you.",
+      assessmentCta: "Take the Assessment →",
+      // Downloadable, email-gated resources.
+      resourcesHeading: "Downloadable resources",
+      formHeading: "Your email address",
+      nameLabel: "Name (optional)",
+      namePlaceholder: "Your name",
+      emailLabel: "Work email",
+      emailPlaceholder: "you@company.com",
+      submit: "Get the download →",
+      invalidEmail: "Please enter a valid email address.",
+      successHeading: "Here's your download.",
+      successNote:
+        "Your download should start automatically. If it doesn't, use the button below.",
+      downloadCta: "Download the file →",
+      privacyNotePre: "We use your email per our ",
+      privacyNoteLink: "privacy policy",
+      privacyNotePost: ". You can unsubscribe anytime.",
+      // The resource list. To add a file later: drop it in public/downloads/,
+      // add an entry here (and the TR one), redeploy. `file`/`fileName` are the
+      // single source of truth per resource.
+      resources: [
+        {
+          title: "May 2026 · 1,426 HR Job Postings Dataset",
+          desc: "Structured data from 1,426 HR job postings collected in May 2026.",
+          meta: "Excel · free",
+          file: "/downloads/hr-ilan-datasi-mayis-2026.xlsx",
+          fileName: "hr-ilan-datasi-mayis-2026.xlsx",
+        },
+      ],
+    },
     footer: {
       tagline: "AI FOR HR. BY HR.",
       pagesLabel: "PAGES",
       home: "Home",
       workbench: "Workbench",
       assessment: "Assessment",
+      downloads: "Resources",
       about: "About",
       contact: "Contact",
       contactLabel: "CONTACT",

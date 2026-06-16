@@ -8,6 +8,7 @@ interface Props {
 const { lang = "tr" } = Astro.props;
 const t = strings[lang].footer;
 const home = lang === "en" ? "/en/" : "/";
+const downloadsHref = lang === "en" ? "/en/downloads/" : "/downloads/";
 const assessmentHref = assessmentPath(lang);
 const privacyHref = lang === "en" ? "/en/privacy/" : "/privacy/";
 ---
@@ -35,6 +36,7 @@ const privacyHref = lang === "en" ? "/en/privacy/" : "/privacy/";
           <a href={home}>{t.home}</a>
           <a href={`${home}#workbench`}>{t.workbench}</a>
           <a href={assessmentHref}>{t.assessment}</a>
+          <a href={downloadsHref}>{t.downloads}</a>
           <a href={`${home}#hakkinda`}>{t.about}</a>
           <a href="mailto:hello@newhr.ai">{t.contact}</a>
         </nav>

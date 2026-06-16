@@ -1,0 +1,477 @@
+---
+import { strings, assessmentPath, type Lang } from "../i18n/strings";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "tr" } = Astro.props;
+const t = strings[lang].downloads;
+const privacyHref = lang === "en" ? "/en/privacy/" : "/privacy/";
+const assessmentHref = assessmentPath(lang);
+
+// The webhook is a public Apps Script "Anyone" endpoint, so exposing it in the
+// client is fine. Configure PUBLIC_SHEET_WEBHOOK_URL on the Netlify site (and a
+// local .env for dev). When unset, the form still unlocks the download — it
+// just skips the lead capture (useful for local preview before the URL exists).
+const webhook = import.meta.env.PUBLIC_SHEET_WEBHOOK_URL ?? "";
+---
+
+<section class="downloads">
+  <div class="downloads-head">
+    <div class="downloads-inner">
+      <p class="eyebrow">{t.eyebrow}</p>
+      <h1>{t.title}</h1>
+      <p class="downloads-sub">{t.sub}</p>
+    </div>
+  </div>
+
+  <div class="downloads-body">
+    <div class="downloads-inner">
+
+      <!-- Featured: the assessment (links out, no email gate) -->
+      <a class="dl-assessment" href={assessmentHref}>
+        <div class="dl-assessment-text">
+          <p class="eyebrow">{t.assessmentEyebrow}</p>
+          <h2 class="dl-assessment-title">{t.assessmentTitle}</h2>
+          <p class="dl-assessment-desc">{t.assessmentDesc}</p>
+        </div>
+        <span class="dl-assessment-cta">{t.assessmentCta}</span>
+      </a>
+
+      <!-- Downloadable, email-gated resources -->
+      <h2 class="dl-section-heading">{t.resourcesHeading}</h2>
+
+      {
+        t.resources.map((res) => (
+          <div
+            class="dl-card"
+            data-webhook={webhook}
+            data-file={res.file}
+            data-filename={res.fileName}
+            data-lang={lang}
+          >
+            <div class="dl-resource">
+              <p class="dl-resource-meta">{res.meta}</p>
+              <h3 class="dl-resource-title">{res.title}</h3>
+              <p class="dl-resource-desc">{res.desc}</p>
+            </div>
+
+            <form class="dl-form" novalidate>
+              <p class="dl-form-heading">{t.formHeading}</p>
+
+              <label class="dl-label" for={`dl-email-${res.fileName}`}>
+                {t.emailLabel}
+              </label>
+              <input
+                class="dl-input dl-email"
+                id={`dl-email-${res.fileName}`}
+                name="email"
+                type="email"
+                required
+                autocomplete="email"
+                placeholder={t.emailPlaceholder}
+              />
+
+              <label class="dl-label" for={`dl-name-${res.fileName}`}>
+                {t.nameLabel}
+              </label>
+              <input
+                class="dl-input dl-name"
+                id={`dl-name-${res.fileName}`}
+                name="name"
+                type="text"
+                autocomplete="name"
+                placeholder={t.namePlaceholder}
+              />
+
+              <p class="dl-error" hidden>
+                {t.invalidEmail}
+              </p>
+
+              <button class="dl-submit" type="submit">
+                {t.submit}
+              </button>
+
+              <p class="dl-privacy">
+                {t.privacyNotePre}
+                <a href={privacyHref}>{t.privacyNoteLink}</a>
+                {t.privacyNotePost}
+              </p>
+            </form>
+
+            <div class="dl-success" hidden>
+              <p class="dl-success-heading">{t.successHeading}</p>
+              <p class="dl-success-note">{t.successNote}</p>
+              <a class="dl-download" href={res.file} download={res.fileName}>
+                {t.downloadCta}
+              </a>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .downloads {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  .downloads-inner {
+    width: min(100% - 3rem, 760px);
+    margin-inline: auto;
+  }
+
+  /* Dark band so the (white) site nav stays legible above the paper content. */
+  .downloads-head {
+    background: var(--color-ink);
+    color: var(--color-paper);
+
+    padding-block: 8.5rem 3rem;
+  }
+
+  .downloads-head h1 {
+    margin: 0.75rem 0 0.85rem;
+
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+
+    color: var(--color-paper);
+  }
+
+  .downloads-sub {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .downloads-body {
+    padding-block: 3.5rem 4.5rem;
+  }
+
+  /* --- Featured assessment block --- */
+  .dl-assessment {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+
+    margin-bottom: 3.5rem;
+    padding: 2rem;
+
+    background: var(--color-ink);
+    color: var(--color-paper);
+
+    text-decoration: none;
+
+    border: 1px solid var(--color-ink);
+
+    transition: transform 0.18s ease;
+  }
+
+  .dl-assessment:hover {
+    transform: translateY(-2px);
+  }
+
+  .dl-assessment .eyebrow {
+    color: var(--color-teal);
+  }
+
+  .dl-assessment-text {
+    flex: 1 1 22rem;
+  }
+
+  .dl-assessment-title {
+    margin-bottom: 0.6rem;
+
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+
+    color: var(--color-paper);
+  }
+
+  .dl-assessment-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .dl-assessment-cta {
+    flex: 0 0 auto;
+
+    padding: 0.85rem 1.3rem;
+
+    background: var(--color-teal);
+    color: var(--color-ink);
+
+    font-size: 0.9rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  /* --- Resource list --- */
+  .dl-section-heading {
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.75rem;
+
+    border-bottom: 1px solid #e2e2dc;
+
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+
+    color: var(--color-ink);
+  }
+
+  .dl-card {
+    display: block;
+
+    margin-bottom: 1.5rem;
+
+    border: 1px solid var(--color-bone);
+    background: var(--color-white);
+  }
+
+  .dl-resource {
+    padding: 2rem;
+    border-bottom: 1px solid var(--color-bone);
+  }
+
+  .dl-resource-meta {
+    margin-bottom: 0.75rem;
+
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+
+    color: #28a695;
+  }
+
+  .dl-resource-title {
+    margin-bottom: 0.6rem;
+
+    font-size: 1.35rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+
+    color: var(--color-ink);
+  }
+
+  .dl-resource-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+
+    color: #3a3a3a;
+  }
+
+  .dl-form,
+  .dl-success {
+    padding: 2rem;
+  }
+
+  .dl-form-heading {
+    margin-bottom: 1.25rem;
+
+    font-size: 1.05rem;
+    font-weight: 700;
+
+    color: var(--color-ink);
+  }
+
+  .dl-label {
+    display: block;
+
+    margin-bottom: 0.35rem;
+
+    font-size: 0.78rem;
+    font-weight: 600;
+
+    color: #3a3a3a;
+  }
+
+  .dl-input {
+    width: 100%;
+
+    margin-bottom: 1rem;
+    padding: 0.7rem 0.85rem;
+
+    border: 1px solid #d4d4cc;
+    background: var(--color-paper);
+
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--color-ink);
+  }
+
+  .dl-input:focus {
+    outline: none;
+    border-color: #28a695;
+  }
+
+  .dl-error {
+    margin: -0.25rem 0 0.85rem;
+
+    font-size: 0.82rem;
+    color: #c0392b;
+  }
+
+  .dl-submit {
+    width: 100%;
+
+    padding: 0.85rem 1.1rem;
+
+    border: 0;
+    background: var(--color-teal);
+    color: var(--color-ink);
+
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+
+    cursor: pointer;
+
+    transition: transform 0.18s ease;
+  }
+
+  .dl-submit:hover {
+    transform: translateY(-1px);
+  }
+
+  .dl-privacy {
+    margin-top: 1rem;
+
+    font-size: 0.78rem;
+    line-height: 1.5;
+
+    color: #6a6a64;
+  }
+
+  .dl-privacy a {
+    color: #28a695;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .dl-success-heading {
+    margin-bottom: 0.6rem;
+
+    font-size: 1.2rem;
+    font-weight: 800;
+
+    color: var(--color-ink);
+  }
+
+  .dl-success-note {
+    margin-bottom: 1.5rem;
+
+    font-size: 0.95rem;
+    line-height: 1.6;
+
+    color: #3a3a3a;
+  }
+
+  .dl-download {
+    display: inline-block;
+
+    padding: 0.85rem 1.4rem;
+
+    background: var(--color-ink);
+    color: var(--color-white);
+
+    text-decoration: none;
+
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .dl-download:hover {
+    opacity: 0.9;
+  }
+
+  @media (max-width: 700px) {
+    .dl-assessment-cta {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // One gate per resource card — wire each independently.
+    document.querySelectorAll(".dl-card").forEach(function (card) {
+      var form = card.querySelector(".dl-form");
+      var success = card.querySelector(".dl-success");
+      var emailInput = card.querySelector(".dl-email");
+      var nameInput = card.querySelector(".dl-name");
+      var error = card.querySelector(".dl-error");
+
+      if (!form || !success || !emailInput) return;
+
+      var webhook = card.getAttribute("data-webhook") || "";
+      var file = card.getAttribute("data-file") || "";
+      var fileName = card.getAttribute("data-filename") || "";
+      var lang = card.getAttribute("data-lang") || "en";
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        var email = (emailInput.value || "").trim();
+        var name = nameInput ? (nameInput.value || "").trim() : "";
+
+        if (!EMAIL_RE.test(email)) {
+          if (error) error.hidden = false;
+          emailInput.focus();
+          return;
+        }
+        if (error) error.hidden = true;
+
+        // Fire-and-forget lead capture. no-cors + text/plain so the browser
+        // does not preflight; Apps Script reads e.postData.contents regardless.
+        // We cannot read the response (opaque), so we unlock the download anyway.
+        if (webhook) {
+          try {
+            fetch(webhook, {
+              method: "POST",
+              mode: "no-cors",
+              headers: { "Content-Type": "text/plain;charset=utf-8" },
+              body: JSON.stringify({
+                type: "download",
+                name: name,
+                email: email,
+                file: fileName,
+                language: lang,
+                timestamp: new Date().toISOString(),
+              }),
+            }).catch(function () {});
+          } catch (err) {}
+        }
+
+        // Reveal the success state and start the download.
+        form.hidden = true;
+        success.hidden = false;
+
+        if (file) {
+          var a = document.createElement("a");
+          a.href = file;
+          a.download = fileName || "";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        }
+      });
+    });
+  })();
+</script>
