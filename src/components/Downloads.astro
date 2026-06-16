@@ -10,11 +10,13 @@ const t = strings[lang].downloads;
 const privacyHref = lang === "en" ? "/en/privacy/" : "/privacy/";
 const assessmentHref = assessmentPath(lang);
 
-// The webhook is a public Apps Script "Anyone" endpoint, so exposing it in the
-// client is fine. Configure PUBLIC_SHEET_WEBHOOK_URL on the Netlify site (and a
-// local .env for dev). When unset, the form still unlocks the download — it
-// just skips the lead capture (useful for local preview before the URL exists).
-const webhook = import.meta.env.PUBLIC_SHEET_WEBHOOK_URL ?? "";
+// The webhook is a public Apps Script "Anyone" endpoint, so embedding it in the
+// client is fine. Defaults to the live Apps Script web app URL; can be overridden
+// per-environment with PUBLIC_SHEET_WEBHOOK_URL. The form submits here (no-cors)
+// to log the lead in the Google Sheet "Downloads" tab.
+const webhook =
+  import.meta.env.PUBLIC_SHEET_WEBHOOK_URL ||
+  "https://script.google.com/macros/s/AKfycbwksdXYMMVEJYJagiqav3MvHWitZuXA0n_XK3E6SskPOihUv_Tlpqs6eKRD3IyszCoM/exec";
 ---
 
 <section class="downloads">
