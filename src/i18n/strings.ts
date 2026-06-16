@@ -263,7 +263,7 @@ export const strings = {
       namePlaceholder: "Adınız",
       emailLabel: "İş e-postanız",
       emailPlaceholder: "siz@sirket.com",
-      submit: "İndirmeyi al →",
+      submit: "Dosyayı İndir →",
       invalidEmail: "Lütfen geçerli bir e-posta adresi girin.",
       successHeading: "İşte dosyanız.",
       successNote:
@@ -553,7 +553,7 @@ export const strings = {
       namePlaceholder: "Your name",
       emailLabel: "Work email",
       emailPlaceholder: "you@company.com",
-      submit: "Get the download →",
+      submit: "Download list →",
       invalidEmail: "Please enter a valid email address.",
       successHeading: "Here's your download.",
       successNote:
