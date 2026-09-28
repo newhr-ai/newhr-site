@@ -18,17 +18,17 @@ const {
 const consent =
   lang === "en"
     ? {
-        text: "We use cookies to understand how this site is used. You can accept or decline.",
+        text: "We use cookies to understand how this site is used.",
         accept: "Accept",
         decline: "Decline",
-        privacy: "Privacy policy",
+        privacy: "Privacy",
         privacyHref: "/en/privacy/",
       }
     : {
-        text: "Sitenin nasıl kullanıldığını anlamak için çerez kullanıyoruz. Kabul edebilir veya reddedebilirsiniz.",
+        text: "Sitenin nasıl kullanıldığını anlamak için çerez kullanıyoruz.",
         accept: "Kabul et",
         decline: "Reddet",
-        privacy: "Gizlilik politikası",
+        privacy: "Gizlilik",
         privacyHref: "/privacy/",
       };
 ---
@@ -165,98 +165,53 @@ const consent =
     width: 100%;
   }
 
-  /* Cookie consent banner — hidden until JS shows it (first visit only). */
+  /* Compact consent card. */
   .nh-consent {
     display: none;
     position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    right: 1rem;
+    bottom: 1rem;
     z-index: 1000;
-
-    align-items: center;
-    justify-content: center;
-    gap: 1.25rem;
-    flex-wrap: wrap;
-
-    padding: 1rem 1.25rem;
-
+    width: min(100% - 2rem, 380px);
+    padding: 0.9rem 1rem;
     background: #0A0A0A;
     color: #fff;
-
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-
+    border: 1px solid rgba(255,255,255,0.2);
     font-family: var(--font-primary);
-    font-size: 0.9rem;
+    font-size: 0.82rem;
+    gap: 0.7rem;
+    flex-direction: column;
   }
 
-  .nh-consent.show {
-    display: flex;
-  }
-
-  .nh-consent-text {
-    margin: 0;
-    max-width: 70ch;
-    line-height: 1.5;
-    color: rgba(255, 255, 255, 0.92);
-  }
-
-  .nh-consent-text a {
-    color: #5DE3D3;
-    text-decoration: underline;
-    white-space: nowrap;
-  }
-
-  .nh-consent-actions {
-    display: flex;
-    gap: 0.6rem;
-    flex: 0 0 auto;
-  }
-
+  .nh-consent.show { display: flex; }
+  .nh-consent-text { margin: 0; font-size: 0.82rem; line-height: 1.45; }
+  .nh-consent-text a { color: #5DE3D3; white-space: nowrap; }
+  .nh-consent-actions { display: flex; gap: 0.5rem; }
   .nh-consent-btn {
+    flex: 1;
     font-family: inherit;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 700;
-
-    padding: 0.6rem 1.2rem;
-
+    padding: 0.55rem 0.8rem;
     border: 0;
     cursor: pointer;
   }
+  .nh-consent-btn.accept { background: #5DE3D3; color: #0A0A0A; }
+  .nh-consent-btn.decline { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.45); }
 
-  .nh-consent-btn.accept {
-    background: #5DE3D3;
-    color: #0A0A0A;
-  }
-
-  .nh-consent-btn.accept:hover {
-    opacity: 0.9;
-  }
-
-  .nh-consent-btn.decline {
-    background: transparent;
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-  }
-
-  .nh-consent-btn.decline:hover {
-    border-color: rgba(255, 255, 255, 0.8);
-  }
-
-  @media (max-width: 640px) {
+  @media (max-width: 700px) {
     .nh-consent {
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0.85rem;
-      text-align: center;
+      right: 0.6rem;
+      bottom: 0.6rem;
+      width: min(100% - 1.2rem, 300px);
+      padding: 0.55rem 0.7rem;
+      gap: 0.45rem;
+      flex-direction: row;
+      align-items: center;
+      font-size: 0.72rem;
     }
-
-    .nh-consent-actions {
-      justify-content: center;
-    }
-
-    .nh-consent-btn {
-      flex: 1;
-    }
+    .nh-consent-text { font-size: 0.72rem; line-height: 1.3; }
+    .nh-consent-actions { flex: 0 0 auto; gap: 0.3rem; }
+    .nh-consent-btn { flex: 0 0 auto; font-size: 0.7rem; padding: 0.4rem 0.55rem; }
   }
 </style>

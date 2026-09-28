@@ -1,240 +1,125 @@
 ---
 import { strings, type Lang } from "../i18n/strings";
 
-interface Props {
-  lang?: Lang;
-}
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const look = "cards";
+const id = "yorumlar";
+const t = strings[lang].quotes;
 
-const { lang = "tr" } = Astro.props;
-const t = strings[lang].testimonials;
-
-// Avatar photos + LinkedIn post URLs are the same in both languages.
-const cards = [
+const meta = [
   { photo: "/images/testimonials/ilgi-karakus.jpg", link: "https://www.linkedin.com/feed/update/urn:li:share:7452763499388166145/" },
   { photo: "/images/testimonials/okan-tunali.jpg", link: "https://www.linkedin.com/feed/update/urn:li:share:7454552977052246016/" },
   { photo: "/images/testimonials/baris-ozkaner.jpg", link: "https://www.linkedin.com/feed/update/urn:li:share:7450832027731451905/" },
 ];
 ---
 
-<section class="testimonials" id="referanslar">
-
-  <div class="testimonials-inner">
-
+<section class={`quotes ${look}`} id={id}>
+  <div class="wrap">
     <p class="eyebrow">{t.eyebrow}</p>
-
     <h2>{t.heading}</h2>
 
-    <div class="testimonials-grid">
-
-      <article class="testimonial-card">
-        <p class="sector">{t.sector1}</p>
-        <blockquote>{t.quote1}</blockquote>
-
-        <div class="testimonial-footer">
-          <div class="person">
-            <img class="avatar" src={cards[0].photo} alt={t.name1} width="56" height="56" loading="lazy" />
-            <div class="person-meta">
-              <p class="name">{t.name1}</p>
-              <p class="role">{t.role1}</p>
+    <div class="grid">
+      {t.items.map((q, i) => (
+        <article class="q">
+          <p class="sector">{q.sector}</p>
+          <blockquote>“{q.quote}”</blockquote>
+          <div class="foot">
+            <div class="person">
+              <img src={meta[i].photo} alt={q.name} width="48" height="48" loading="lazy" />
+              <div>
+                <p class="name">{q.name}</p>
+                <p class="role">{q.role}</p>
+              </div>
             </div>
+            <a class="li" href={meta[i].link} target="_blank" rel="noopener noreferrer">{t.linkedin}</a>
           </div>
-          <a class="li-link" href={cards[0].link} target="_blank" rel="noopener noreferrer">{t.linkedinLabel}</a>
-        </div>
-      </article>
-
-      <article class="testimonial-card">
-        <p class="sector">{t.sector2}</p>
-        <blockquote>{t.quote2}</blockquote>
-
-        <div class="testimonial-footer">
-          <div class="person">
-            <img class="avatar" src={cards[1].photo} alt={t.name2} width="56" height="56" loading="lazy" />
-            <div class="person-meta">
-              <p class="name">{t.name2}</p>
-              <p class="role">{t.role2}</p>
-            </div>
-          </div>
-          <a class="li-link" href={cards[1].link} target="_blank" rel="noopener noreferrer">{t.linkedinLabel}</a>
-        </div>
-      </article>
-
-      <article class="testimonial-card">
-        <p class="sector">{t.sector3}</p>
-        <blockquote>{t.quote3}</blockquote>
-
-        <div class="testimonial-footer">
-          <div class="person">
-            <img class="avatar" src={cards[2].photo} alt={t.name3} width="56" height="56" loading="lazy" />
-            <div class="person-meta">
-              <p class="name">{t.name3}</p>
-              <p class="role">{t.role3}</p>
-            </div>
-          </div>
-          <a class="li-link" href={cards[2].link} target="_blank" rel="noopener noreferrer">{t.linkedinLabel}</a>
-        </div>
-      </article>
-
+        </article>
+      ))}
     </div>
-
   </div>
-
 </section>
 
 <style>
-  .testimonials {
-    background: var(--color-ink);
-    color: var(--color-paper);
-  }
+  .quotes { padding-block: 5rem; background: var(--bg); }
+  h2 { margin-bottom: 2.5rem; }
 
-  .testimonials-inner {
-    width: min(100% - 4rem, 1400px);
-
-    margin-inline: auto;
-
-    padding-block: 2.5rem;
-  }
-
-  .testimonials h2 {
-    margin-top: 1rem;
-    margin-bottom: 4rem;
-  }
-
-  .testimonials-grid {
+  .grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-
-    gap: 1.5rem;
+    gap: 1.2rem;
   }
 
-  .testimonial-card {
-    padding: 2rem;
-
-    /* Light card so the ink text, avatar and teal-600 sector read clearly. */
-    background: #FFFFFF;
-    color: var(--color-ink);
-
-    border-top: 2px solid var(--color-teal);
-
+  .q {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    gap: 1.4rem;
+  }
 
-    min-height: 460px;
+  .cards .q {
+    background: var(--card);
+    color: var(--card-fg);
+    padding: 1.8rem 1.6rem;
+    border-top: 2px solid var(--accent);
+  }
+
+  .editorial .grid { gap: 3rem; }
+
+  .editorial .q {
+    padding-top: 1.2rem;
+    border-top: 2px solid var(--fg);
   }
 
   .sector {
-    margin-bottom: 2rem;
-
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-
-    /* Teal-600 for legibility on the white card. */
-    color: #28A695;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
   }
+
+  .cards .sector { color: #1E9484; }
+  .editorial .sector { color: var(--accent-text); }
 
   blockquote {
-    font-size: 2rem;
-    line-height: 1.25;
-
-    /* 600 so the quote reads as speech, not a headline. */
-    font-weight: 600;
-
-    color: var(--color-ink);
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    flex: 1;
   }
 
-  .testimonial-footer {
-    margin-top: 3rem;
-    padding-top: 2rem;
+  .editorial blockquote { font-size: 1.55rem; font-weight: 800; letter-spacing: -0.03em; }
 
-    border-top: 1px solid #E8E8E2;
-
+  .foot {
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
+    gap: 0.8rem;
+    padding-top: 1rem;
+    border-top: 0.5px solid rgba(10,10,10,0.2);
   }
 
-  .person {
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-  }
+  .editorial .foot { border-top-color: var(--line); }
 
-  .avatar {
-    flex: 0 0 auto;
+  .person { display: flex; align-items: center; gap: 0.8rem; }
 
-    width: 56px;
-    height: 56px;
+  img { width: 48px; height: 48px; border-radius: 50%; object-fit: cover; }
 
-    display: block;
+  .name { font-size: 0.95rem; font-weight: 800; line-height: 1.2; }
+  .role { font-size: 0.85rem; line-height: 1.3; }
 
-    /* Circular frame with a thin teal ring (border sits inside the 56px box). */
-    border-radius: 50%;
-    border: 2px solid var(--color-teal);
-    box-sizing: border-box;
-
-    object-fit: cover;
-    object-position: center;
-
-    /* Ink placeholder while the photo loads. */
-    background: #0A0A0A;
-  }
-
-  .name {
-    margin-bottom: 0.15rem;
-
+  .li {
+    font-size: 0.82rem;
     font-weight: 700;
-
-    color: #0A0A0A;
-  }
-
-  .role {
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 1.4;
-
-    color: #0A0A0A;
-  }
-
-  .li-link {
-    align-self: flex-start;
-
-    display: inline-flex;
-    align-items: center;
-
-    color: #0A0A0A;
-
     text-decoration: none;
-
-    font-size: 0.9rem;
-    font-weight: 700;
-
-    border-bottom: 2px solid var(--color-teal);
-
-    padding-bottom: 0.25rem;
-  }
-
-  .li-link:hover {
-    color: #28A695;
+    color: inherit;
+    border-bottom: 1.5px solid var(--accent);
+    align-self: flex-start;
   }
 
   @media (max-width: 900px) {
-
-  .testimonials-grid {
-    grid-template-columns: 1fr;
+    .quotes { padding-block: 3.5rem; }
+    .grid { grid-template-columns: 1fr; }
+    .editorial .grid { gap: 1.8rem; }
+    .editorial blockquote { font-size: 1.35rem; }
   }
-
-  .testimonial-card {
-    min-height: auto;
-  }
-
-  blockquote {
-    font-size: 1.5rem;
-  }
-
-  .testimonials-inner {
-    padding-block: 2rem;
-  }
-
-}
 </style>

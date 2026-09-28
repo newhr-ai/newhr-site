@@ -1,0 +1,92 @@
+---
+import { strings, type Lang } from "../i18n/strings";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = strings[lang].refs;
+---
+
+<section class="refs" id="referanslar">
+  <div class="wrap refs-grid">
+    <div class="lead-ref">
+      <p class="label">{t.trainedLabel}</p>
+      <p class="big">Turkcell</p>
+      <p class="sub">{t.leadNote}</p>
+    </div>
+
+    <div class="group">
+      <p class="label">{t.sessionsLabel}</p>
+      <ul>
+        {t.sessions.map((n) => <li>{n}</li>)}
+      </ul>
+      <a href="#yorumlar" class="textlink small">{t.quotesLink}</a>
+    </div>
+
+    <div class="group">
+      <p class="label">{t.partnerLabel}</p>
+      <ul>
+        {t.partners.map((n) => <li>{n}</li>)}
+      </ul>
+      <p class="small-note">{t.partnerNote}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .refs {
+    background: var(--bg);
+    border-top: 0.5px solid var(--line);
+    border-bottom: 0.5px solid var(--line);
+    padding-block: 2rem;
+  }
+
+  .refs-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+
+  .label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    margin-bottom: 0.7rem;
+  }
+
+  .big {
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: var(--fg);
+    margin-bottom: 0.5rem;
+  }
+
+  .sub { font-size: 0.92rem; color: var(--fg-soft); }
+
+  ul {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.2rem;
+    margin-bottom: 0.6rem;
+  }
+
+  li {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--fg);
+  }
+
+  .small { font-size: 0.85rem; }
+  .small-note { font-size: 0.82rem; color: var(--fg-soft); }
+
+  @media (max-width: 820px) {
+    .refs-grid { grid-template-columns: 1fr; gap: 1.6rem; }
+    .lead-ref { padding-bottom: 1.2rem; border-bottom: 0.5px solid var(--line); }
+  }
+</style>

@@ -66,36 +66,105 @@ section {
   padding-block: 0;
 }
 
-h1,
-h2,
-h3,
-h4 {
-  letter-spacing: -0.04em;
-  line-height: 0.95;
-}
 
 h1 {
   font-size: clamp(4rem, 10vw, 6rem);
   font-weight: 800;
 }
 
-h2 {
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  font-weight: 700;
-}
+/* Site theme tokens and shared primitives (September 2026 redesign). */
+  /* Theme tokens. Brand: Inter, ink #0A0A0A, paper #F8F8F5, teal #5DE3D3.
+     No grey body text: ink on light, white on dark. Teal is the only accent. */
+  body {
+    --bg: #0A0A0A;
+    --bg-alt: #111111;
+    --fg: #FFFFFF;
+    --fg-soft: rgba(255, 255, 255, 0.86);
+    --card: #FFFFFF;
+    --card-fg: #0A0A0A;
+    --line: rgba(255, 255, 255, 0.18);
+    --line-strong: rgba(255, 255, 255, 0.5);
+    --accent: #5DE3D3;
+    --accent-text: #5DE3D3;
+    --btn-bg: #5DE3D3;
+    --btn-fg: #0A0A0A;
+    background: var(--bg);
+    color: var(--fg);
+  }
 
-p {
-  font-size: 1rem;
-  line-height: 1.6;
-}
 
-.eyebrow {
-  margin-bottom: 1rem;
+  .site-main { width: 100%; }
 
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  .wrap {
+    width: min(100% - 2rem, 1200px);
+    margin-inline: auto;
+  }
 
-  color: var(--color-teal);
-}
+  @media (min-width: 700px) {
+    .wrap { width: min(100% - 4rem, 1200px); }
+  }
+
+  .eyebrow {
+    margin-bottom: 0.9rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+  }
+
+  .eyebrow::after {
+    content: "";
+    display: block;
+    width: 2.25rem;
+    height: 2px;
+    margin-top: 0.6rem;
+    background: var(--accent);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 1rem 1.6rem;
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    border: 1.5px solid var(--btn-bg);
+    transition: transform 0.15s ease, opacity 0.15s ease;
+  }
+
+  .btn:hover { transform: translateY(-1px); opacity: 0.92; }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    padding: 1rem 1.4rem;
+    background: transparent;
+    color: var(--fg);
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-decoration: none;
+    border: 1.5px solid var(--line-strong);
+  }
+
+  .btn-ghost:hover { border-color: var(--fg); }
+
+  .textlink {
+    color: var(--fg);
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1.5px solid var(--accent);
+    padding-bottom: 1px;
+  }
+
+  .textlink:hover { border-bottom-color: var(--fg); }
+
+  h1, h2, h3 { letter-spacing: -0.035em; line-height: 1.05; }
+  h2 { font-size: clamp(2rem, 4.2vw, 3.1rem); font-weight: 800; }
+  h3 { font-size: 1.35rem; font-weight: 800; }
+  p { font-size: 1.02rem; line-height: 1.6; }

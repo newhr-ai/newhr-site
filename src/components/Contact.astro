@@ -1,0 +1,86 @@
+---
+import { strings, mailto, assessmentPath, newsletterUrl, type Lang } from "../i18n/strings";
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = strings[lang].contact;
+---
+
+<section class="contact" id="iletisim">
+  <div class="wrap grid">
+    <div class="main">
+      <p class="eyebrow">{t.eyebrow}</p>
+      <h2>{t.heading}</h2>
+      <p class="body">{t.body}</p>
+      <div class="actions">
+        <a href={mailto(lang)} class="btn">{t.cta}</a>
+        <a href={assessmentPath(lang)} class="textlink">{t.secondary}</a>
+      </div>
+      <p class="trust">{t.trust} {t.langLine}</p>
+    </div>
+
+    <aside class="helps">
+      <p class="label">{t.helpsLabel}</p>
+      <ol>
+        {t.helps.map((h) => <li>{h}</li>)}
+      </ol>
+      <p class="mail">hello@newhr.ai</p>
+    </aside>
+  </div>
+
+  <div class="wrap newsletter">
+    <p>{t.newsletter} <a href={newsletterUrl(lang)} class="textlink" target="_blank" rel="noopener noreferrer">{t.newsletterCta}</a></p>
+  </div>
+</section>
+
+<style>
+  .contact { padding-block: 5rem 3rem; background: var(--bg-alt); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  h2 { margin-bottom: 1rem; }
+  .body { max-width: 560px; margin-bottom: 1.8rem; font-size: 1.08rem; }
+
+  .actions { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
+  .btn { font-size: 1.05rem; padding: 1.1rem 1.8rem; }
+
+  .trust { font-size: 0.88rem; font-weight: 600; }
+
+  .helps {
+    padding: 1.6rem;
+    border: 0.5px solid var(--line-strong);
+  }
+
+  .label {
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    margin-bottom: 0.9rem;
+  }
+
+  ol { padding-left: 1.2rem; display: grid; gap: 0.5rem; margin-bottom: 1.2rem; }
+  li { font-size: 0.98rem; line-height: 1.45; }
+
+  .mail { font-size: 1.15rem; font-weight: 800; letter-spacing: -0.02em; }
+
+  .newsletter {
+    margin-top: 3rem;
+    padding-top: 1.2rem;
+    border-top: 0.5px solid var(--line);
+  }
+
+  .newsletter p { font-size: 0.9rem; }
+
+  @media (max-width: 800px) {
+    .contact { padding-block: 3.5rem 2.5rem; }
+    .grid { grid-template-columns: 1fr; gap: 1.6rem; }
+    .btn { width: 100%; }
+  }
+</style>

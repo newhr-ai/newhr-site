@@ -1,43 +1,38 @@
 ---
-import { strings, assessmentPath, type Lang } from "../i18n/strings";
+import { strings, mailto, type Lang } from "../i18n/strings";
 
 interface Props {
   lang?: Lang;
 }
 
 const { lang = "tr" } = Astro.props;
+const trHref = "/";
+const enHref = "/en/";
 const t = strings[lang].nav;
-const home = lang === "en" ? "/en/" : "/";
-const downloadsHref = lang === "en" ? "/en/downloads/" : "/downloads/";
-const assessmentHref = assessmentPath(lang);
+const home = lang === "en" ? enHref : trHref;
+const resourcesHref = lang === "en" ? "/en/downloads/" : "/downloads/";
+const cta = t.cta;
 ---
 
 <header class="nav">
-  <div class="nav-inner">
+  <div class="wrap nav-inner">
+    <a href={home} class="nav-logo">new<span>hr.ai</span></a>
 
-    <a href={home} class="nav-logo">
-      new<span>hr.ai</span>
-    </a>
-
-    <nav class="nav-links">
-      <a href={`${home}#yaklasim`}>{t.yaklasim}</a>
-      <a href={`${home}#hakkinda`}>{t.hakkinda}</a>
-      <a href={`${home}#referanslar`}>{t.referanslar}</a>
-      <a href={downloadsHref}>{t.downloads}</a>
-      <a href="mailto:hello@newhr.ai">{t.iletisim}</a>
+    <nav class="nav-links" aria-label="sections">
+      <a href={`${home}#hizmetler`}>{t.services}</a>
+      <a href={`${home}#yaklasim`}>{t.approach}</a>
+      <a href={`${home}#referanslar`}>{t.refs}</a>
+      <a href={`${home}#hakkinda`}>{t.about}</a>
+      <a href={resourcesHref}>{t.resources}</a>
+      <a href={`${home}#iletisim`}>{t.contact}</a>
     </nav>
 
     <div class="nav-right">
-
-      <a href={assessmentHref} class="nav-assessment">
-        {t.assessmentCta}
-      </a>
-
-      <nav class="lang-toggle">
-        <a href="/" data-lang="tr" aria-current={lang === "tr" ? "true" : "false"}>TR</a>
-        <a href="/en/" data-lang="en" aria-current={lang === "en" ? "true" : "false"}>EN</a>
+      <a href={mailto(lang)} class="nav-cta">{cta}</a>
+      <nav class="lang-toggle" aria-label="language">
+        <a href={trHref} data-lang="tr" aria-current={lang === "tr" ? "true" : "false"}>TR</a>
+        <a href={enHref} data-lang="en" aria-current={lang === "en" ? "true" : "false"}>EN</a>
       </nav>
-
     </div>
   </div>
 </header>
@@ -45,13 +40,9 @@ const assessmentHref = assessmentPath(lang);
 <style>
   .nav {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     z-index: 100;
-    padding-block: 0.75rem;
-    background: transparent;
-    border-bottom: none;
+    padding-block: 0.9rem;
   }
 
   .nav-inner {
@@ -61,177 +52,84 @@ const assessmentHref = assessmentPath(lang);
     gap: 1rem;
   }
 
-  .nav-inner > .nav-logo {
-    justify-self: start;
-  }
-
-  .nav-inner > .nav-links {
-    justify-self: center;
-  }
-
-  .nav-inner > .nav-right {
-    justify-self: end;
-  }
-
   .nav-logo {
+    justify-self: start;
     text-decoration: none;
-
-    font-size: 1.4rem;
+    font-size: 1.35rem;
     font-weight: 800;
     letter-spacing: -0.04em;
-
-    color: #fff;
+    color: var(--fg);
   }
 
-  .nav-logo span {
-    color: var(--color-teal);
+  .nav-logo span { color: var(--accent-text); }
+
+  .nav-links {
+    justify-self: center;
+    display: flex;
+    gap: 1.6rem;
   }
+
+  .nav-links a {
+    text-decoration: none;
+    color: var(--fg);
+    font-size: 0.88rem;
+    font-weight: 600;
+  }
+
+  .nav-links a:hover { color: var(--accent-text); }
 
   .nav-right {
+    justify-self: end;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.9rem;
+  }
+
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.65rem 1.05rem;
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 800;
+    white-space: nowrap;
   }
 
   .lang-toggle {
     display: flex;
-
-    border: 1.5px solid rgba(255,255,255,0.6);
+    border: 1.5px solid var(--line-strong);
   }
 
   .lang-toggle a {
-    padding: 0.45rem 0.75rem;
-
+    padding: 0.42rem 0.7rem;
     text-decoration: none;
-
-    color: #fff;
-
-    font-size: 0.78rem;
+    color: var(--fg);
+    font-size: 0.76rem;
     font-weight: 700;
     letter-spacing: 0.08em;
   }
 
   .lang-toggle a[aria-current="true"] {
-    background: rgba(255,255,255,0.9);
-    color: #0A0A0A;
-  }
-
-  .nav-cta {
-    padding: 0.9rem 1.2rem;
-
-    background: var(--color-ink);
-    color: white;
-
-    text-decoration: none;
-
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-  }
-
-  .nav-cta:hover {
-    opacity: 0.9;
-  }
-
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 1.75rem;
-    line-height: 1;
-  }
-
-  .nav-links a {
-    display: inline-flex;
-    align-items: center;
-    line-height: 1;
-    text-decoration: none;
-    color: rgba(255,255,255,0.85);
-    font-size: 0.9rem;
-    font-weight: 600;
-  }
-
-  .nav-links a:hover {
-    color: var(--color-teal);
-  }
-
-  .nav-assessment {
-    display: inline-flex;
-    align-items: center;
-
-    padding: 0.7rem 1.1rem;
-
-    background: var(--color-teal);
-    color: var(--color-ink);
-
-    text-decoration: none;
-
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 0.01em;
-
-    animation: nav-assessment-glow 2.4s ease-in-out infinite;
-
-    transition: transform 0.18s ease;
-  }
-
-  .nav-assessment:hover {
-    transform: translateY(-1px);
-  }
-
-  @keyframes nav-assessment-glow {
-    0%, 100% {
-      box-shadow:
-        0 0 0 0 rgba(93,227,211,0.55),
-        0 0 12px 2px rgba(93,227,211,0.35);
-    }
-    50% {
-      box-shadow:
-        0 0 0 8px rgba(93,227,211,0.0),
-        0 0 28px 8px rgba(93,227,211,0.65);
-    }
+    background: var(--fg);
+    color: var(--bg);
   }
 
   @media (max-width: 900px) {
-    .nav-links {
-      display: none;
-    }
-
-    /* With the centered links hidden, the 3-column grid mis-distributes its
-       tracks at narrow widths and leaves the right group short of the edge.
-       Switch to a simple flex row: logo flush left, controls flush right. */
+    .nav-links { display: none; }
     .nav-inner {
       display: flex;
-      align-items: center;
       justify-content: space-between;
     }
-
-    .nav-assessment {
-      padding: 0.55rem 0.85rem;
-      font-size: 0.78rem;
-    }
+    .nav-cta { padding: 0.55rem 0.8rem; font-size: 0.78rem; }
+    .nav-right { gap: 0.5rem; }
+    .lang-toggle a { padding: 0.4rem 0.55rem; }
   }
 
-  /* Narrow phones: tighten so logo + CTA + lang toggle still fit. */
-  @media (max-width: 400px) {
-    .nav-right {
-      gap: 0.5rem;
-    }
-
-    .nav-assessment {
-      padding: 0.5rem 0.7rem;
-      font-size: 0.72rem;
-    }
-
-    .lang-toggle a {
-      padding: 0.4rem 0.55rem;
-    }
-  }
-
-  /* Very small screens: drop the header CTA (the hero still has it). */
-  @media (max-width: 340px) {
-    .nav-assessment {
-      display: none;
-    }
+  @media (max-width: 360px) {
+    .nav-logo { font-size: 1.15rem; }
+    .nav-cta { padding: 0.5rem 0.65rem; font-size: 0.72rem; }
   }
 </style>
 
@@ -241,8 +139,7 @@ const assessmentHref = assessmentPath(lang);
       try {
         var l = a.getAttribute("data-lang");
         localStorage.setItem("nh_lang", l);
-        // Cookie so the Netlify Edge Function on / respects the manual choice
-        // on subsequent visits (Edge Functions cannot read localStorage).
+        // Cookie so the Netlify Edge Function on / respects the manual choice.
         document.cookie = "nh_lang=" + l + "; path=/; max-age=" + 60 * 60 * 24 * 365 + "; SameSite=Lax";
       } catch (e) {}
     });

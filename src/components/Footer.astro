@@ -1,191 +1,85 @@
 ---
-import { strings, assessmentPath, type Lang } from "../i18n/strings";
+import { strings, linkedin, type Lang } from "../i18n/strings";
 
-interface Props {
-  lang?: Lang;
-}
-
+interface Props { lang?: Lang }
 const { lang = "tr" } = Astro.props;
 const t = strings[lang].footer;
+const n = strings[lang].nav;
 const home = lang === "en" ? "/en/" : "/";
-const downloadsHref = lang === "en" ? "/en/downloads/" : "/downloads/";
-const assessmentHref = assessmentPath(lang);
+const resourcesHref = lang === "en" ? "/en/downloads/" : "/downloads/";
 const privacyHref = lang === "en" ? "/en/privacy/" : "/privacy/";
+const logo = "/logos/newhr_ai_logo_horizontal_dark.png";
 ---
 
 <footer class="footer">
-
-  <div class="footer-inner">
-
-    <div class="footer-top">
-
-      <a href={home} class="footer-logo">
-        new<span>hr.ai</span>
-      </a>
-
-      <p class="footer-tagline">{t.tagline}</p>
-
+  <div class="wrap grid">
+    <div class="brand">
+      <img src={logo} alt="New HR AI" class="logo" loading="lazy" />
+      <p class="tagline">{t.tagline}</p>
     </div>
-
-    <div class="footer-grid">
-
-      <div>
-        <p class="footer-label">{t.pagesLabel}</p>
-
-        <nav class="footer-links">
-          <a href={home}>{t.home}</a>
-          <a href={`${home}#workbench`}>{t.workbench}</a>
-          <a href={assessmentHref}>{t.assessment}</a>
-          <a href={downloadsHref}>{t.downloads}</a>
-          <a href={`${home}#hakkinda`}>{t.about}</a>
-          <a href="mailto:hello@newhr.ai">{t.contact}</a>
-        </nav>
-      </div>
-
-      <div>
-        <p class="footer-label">{t.contactLabel}</p>
-
-        <nav class="footer-links">
-          <a href="mailto:hello@newhr.ai">
-            hello@newhr.ai
-          </a>
-
-          <a
-            href="https://www.linkedin.com/in/tolgatemtek/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            LinkedIn
-          </a>
-        </nav>
-      </div>
-
+    <div class="col">
+      <p class="label">{t.pages}</p>
+      <a href={home}>{t.home}</a>
+      <a href={`${home}#hizmetler`}>{n.services}</a>
+      <a href={`${home}#yaklasim`}>{n.approach}</a>
+      <a href={`${home}#referanslar`}>{n.refs}</a>
+      <a href={`${home}#hakkinda`}>{n.about}</a>
+      <a href={resourcesHref}>{t.resources}</a>
     </div>
-
-    <div class="footer-bottom">
-
-      <p>{t.copyright} · <a href={privacyHref}>{t.privacy}</a></p>
-
-      <p>{t.mantra}</p>
-
+    <div class="col">
+      <p class="label">{t.contactLabel}</p>
+      <a href="mailto:hello@newhr.ai">hello@newhr.ai</a>
+      <a href={linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a href={privacyHref}>{t.privacy}</a>
     </div>
-
   </div>
-
+  <div class="wrap bottom">
+    <span>{t.copyright}</span>
+    <span>{t.mantra}</span>
+  </div>
 </footer>
 
 <style>
   .footer {
-    background: var(--color-ink);
-    color: white;
+    background: #0A0A0A;
+    color: #fff;
+    padding-block: 3rem 1.5rem;
   }
 
-  .footer-inner {
-    width: min(100% - 4rem, 1400px);
-
-    margin-inline: auto;
-
-    padding-top: 2.5rem;
-    padding-bottom: 1.25rem;
-  }
-
-  .footer-top {
-    margin-bottom: 1.75rem;
-  }
-
-  .footer-logo {
-    display: inline-block;
-
-    margin-bottom: 0.4rem;
-
-    color: white;
-
-    text-decoration: none;
-
-    font-size: 1.4rem;
-    font-weight: 800;
-    letter-spacing: -0.04em;
-  }
-
-  .footer-logo span {
-    color: var(--color-teal);
-  }
-
-  .footer-tagline {
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-
-    color: rgba(255,255,255,0.55);
-  }
-
-  .footer-grid {
+  .grid {
     display: grid;
-    grid-template-columns: max-content max-content;
-
-    gap: 1rem 5rem;
-
-    margin-bottom: 1.75rem;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 0.5px solid rgba(255,255,255,0.2);
   }
 
-  .footer-label {
-    margin-bottom: 0.6rem;
+  .logo { height: 28px; width: auto; margin-bottom: 0.8rem; }
+  .tagline { font-size: 0.9rem; font-weight: 700; }
 
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-
-    color: var(--color-teal);
+  .label {
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #5DE3D3;
+    margin-bottom: 0.7rem;
   }
 
-  .footer-links {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
+  .col { display: flex; flex-direction: column; gap: 0.4rem; }
+  .col a { color: #fff; text-decoration: none; font-size: 0.92rem; }
+  .col a:hover { color: #5DE3D3; }
 
-  .footer-links a {
-    color: white;
-
-    text-decoration: none;
-
-    font-size: 0.88rem;
-  }
-
-  .footer-links a:hover {
-    color: var(--color-teal);
-  }
-
-  .footer-bottom {
+  .bottom {
     display: flex;
     justify-content: space-between;
-
-    padding-top: 1rem;
-
-    border-top: 1px solid rgba(255,255,255,0.1);
-
-    font-size: 0.78rem;
-
-    color: rgba(255,255,255,0.5);
-  }
-
-  .footer-bottom a {
-    color: inherit;
-    text-decoration: underline;
-  }
-
-  .footer-bottom a:hover {
-    color: var(--color-teal);
+    gap: 1rem;
+    flex-wrap: wrap;
+    padding-top: 1.2rem;
+    font-size: 0.8rem;
   }
 
   @media (max-width: 700px) {
-    .footer-grid {
-      grid-template-columns: 1fr;
-      gap: 1.25rem;
-    }
-
-    .footer-bottom {
-      flex-direction: column;
-      gap: 0.4rem;
-    }
+    .grid { grid-template-columns: 1fr; gap: 1.5rem; }
   }
 </style>
