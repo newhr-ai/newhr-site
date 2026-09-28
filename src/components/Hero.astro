@@ -1,172 +1,157 @@
 ---
-import { strings, mailto, assessmentPath, type Lang } from "../i18n/strings";
+import { strings, type Lang } from "../i18n/strings";
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = strings[lang].hero;
-const sv = strings[lang].services;
-const titleHtml = t.title.replace(t.emphasis, `<span class="mark">${t.emphasis}</span>`);
 ---
 
 <section class="hero">
-  <video class="hero-bg" autoplay muted loop playsinline preload="auto" poster="/hero-poster.jpg" aria-hidden="true">
-    <source src="/hero-bg.mp4" type="video/mp4" />
-  </video>
-  <div class="hero-overlay"></div>
-
-  <div class="wrap hero-grid">
-    <div class="hero-main">
-      <p class="eyebrow">{t.eyebrow}</p>
-      <h1 set:html={titleHtml}></h1>
+  <div class="wrap">
+    <div class="hero-text">
+      <h1>{t.titleLine1}{" "}<br />{t.titleLine2}</h1>
       <p class="lead">{t.lead}</p>
-      <div class="actions">
-        <a href={mailto(lang)} class="btn">{t.cta}</a>
-        <a href={assessmentPath(lang)} class="textlink secondary">{t.secondary}</a>
-      </div>
-      <p class="note">{t.note}</p>
+      <a href="#iletisim" class="btn">{t.cta}</a>
     </div>
 
-    <aside class="hero-side" aria-label={sv.eyebrow}>
-      <p class="side-label">{sv.eyebrow}</p>
-      {sv.items.map((s) => (
-        <a href="#hizmetler" class="side-row">
-          <span class="side-num">{s.num}</span>
-          <span class="side-text">
-            <strong>{s.title}</strong>
-            <span>{s.who}</span>
-          </span>
-          <span class="side-arrow">→</span>
+    <nav class="deck" aria-label={t.cardsLabel}>
+      {t.cards.map((c) => (
+        <a href="#hizmetler">
+          <img src={c.img} alt="" width="1200" height="900" loading="eager" decoding="async" />
+          <span>{c.title} <i>{c.num}</i></span>
         </a>
       ))}
-    </aside>
+    </nav>
   </div>
 </section>
 
 <style>
   .hero {
     position: relative;
-    min-height: 82svh;
+    background: var(--bg);
+    padding-block: 7rem 2.5rem;
+    text-align: center;
+  }
+
+  .hero-text {
+    max-width: 880px;
+    margin: 0 auto 2.2rem;
     display: flex;
-    align-items: center;
-    background: #0A0A0A;
-    overflow: hidden;
-    padding-top: 5rem;
-    padding-bottom: 3rem;
-  }
-
-  .hero-bg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    opacity: 0.75;
-  }
-
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to right, rgba(10,10,10,0.94) 0%, rgba(10,10,10,0.78) 50%, rgba(10,10,10,0.2) 100%);
-  }
-
-  .hero-grid {
-    position: relative;
-    z-index: 2;
-    display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 4rem;
+    flex-direction: column;
     align-items: center;
   }
-
-  .hero-main { max-width: 760px; }
-
-  .hero-side {
-    border-top: 2px solid var(--accent);
-    padding-top: 1rem;
-  }
-
-  .side-label {
-    font-size: 0.68rem;
-    font-weight: 800;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.4rem;
-  }
-
-  .side-row {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 0.9rem;
-    align-items: center;
-    padding: 0.9rem 0;
-    border-bottom: 0.5px solid rgba(255,255,255,0.25);
-    text-decoration: none;
-    color: #fff;
-  }
-
-  .side-row:hover .side-arrow { transform: translateX(4px); }
-
-  .side-num { font-size: 0.7rem; font-weight: 800; color: var(--accent); letter-spacing: 0.1em; }
-  .side-text { display: flex; flex-direction: column; gap: 0.15rem; }
-  .side-text strong { font-size: 1.05rem; letter-spacing: -0.02em; }
-  .side-text span { font-size: 0.82rem; line-height: 1.35; color: rgba(255,255,255,0.86); }
-  .side-arrow { font-weight: 800; transition: transform 0.15s ease; }
 
   h1 {
-    font-size: clamp(2.3rem, 5.6vw, 4.4rem);
+    font-size: clamp(2rem, 4vw, 3.1rem);
     font-weight: 800;
     color: #fff;
-    margin-bottom: 1.4rem;
-    text-wrap: balance;
-  }
-
-  h1 :global(.mark) {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 30' preserveAspectRatio='none'%3E%3Cg fill='none' stroke='%235DE3D3' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M6 13 C 80 7 150 18 210 11 C 250 7 276 11 295 12'/%3E%3Cpath d='M8 21 C 70 16 140 25 205 18 C 250 14 278 19 293 18'/%3E%3C/g%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: 0 100%;
-    background-size: 100% 0.5em;
-    padding-bottom: 0.08em;
+    margin-bottom: 1rem;
+    text-wrap: pretty;
   }
 
   .lead {
-    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
     font-weight: 500;
     color: #fff;
-    max-width: 620px;
-    margin-bottom: 2rem;
+    max-width: 600px;
+    margin-bottom: 1.5rem;
   }
 
-  .actions {
+  .btn { font-size: 1rem; padding: 0.95rem 1.6rem; }
+
+  /* Three service cards, fanned. Hover/focus lifts one and dims the others. */
+  .deck {
+    position: relative;
+    height: 330px;
+    width: min(100%, 720px);
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  .deck a {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 250px;
+    background: #F8F8F5;
+    color: var(--color-ink);
+    text-decoration: none;
+    padding: 0.4rem 0.4rem 0.6rem;
+    box-shadow: 0 24px 50px -28px rgba(0, 0, 0, 0.9);
+    transform: translate(var(--x), var(--y)) rotate(var(--r));
+    transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.45s ease, opacity 0.45s ease, filter 0.45s ease;
+    will-change: transform;
+  }
+
+  .deck a img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .deck a span {
     display: flex;
-    align-items: center;
-    gap: 1.6rem;
-    flex-wrap: wrap;
-    margin-bottom: 1.1rem;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+    padding: 0.55rem 0.3rem 0;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
   }
 
-  .btn { font-size: 1.05rem; padding: 1.1rem 1.9rem; }
-
-  .secondary { font-size: 0.95rem; }
-
-  .note {
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    color: var(--accent);
+  .deck a span i {
+    font-style: normal;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: #12A594;
   }
 
-  @media (max-width: 980px) {
-    .hero-grid { grid-template-columns: 1fr; }
-    .hero-side { display: none; }
+  .deck a:nth-child(1) { --x: 0px;   --y: 34px; --r: -6deg; z-index: 1; }
+  .deck a:nth-child(2) { --x: 235px; --y: 0px;  --r: 0deg;  z-index: 2; }
+  .deck a:nth-child(3) { --x: 470px; --y: 34px; --r: 6deg;  z-index: 3; }
+
+  .deck:hover a,
+  .deck:focus-within a { opacity: 0.55; filter: saturate(0.6); }
+
+  .deck a:hover,
+  .deck a:focus-visible {
+    opacity: 1;
+    filter: none;
+    transform: translate(var(--x), calc(var(--y) - 34px)) rotate(0deg) scale(1.1);
+    z-index: 10;
+    box-shadow: 0 50px 80px -30px rgba(0, 0, 0, 1), 0 0 0 1px rgba(93, 227, 211, 0.35);
+    outline: none;
+  }
+
+  .deck a:focus-visible { box-shadow: 0 0 0 3px var(--accent); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .deck a { transition: none; }
+  }
+
+  @media (max-width: 900px) {
+    .hero { padding-block: 3rem 2rem; }
+    h1 br { display: none; }
+    .deck {
+      height: auto;
+      width: 100%;
+      display: flex;
+      gap: 0.8rem;
+      overflow-x: auto;
+      padding: 0.5rem 0.2rem 1rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+    .deck a { position: static; flex: 0 0 220px; transform: none; scroll-snap-align: start; }
+    .deck:hover a, .deck:focus-within a { opacity: 1; filter: none; }
+    .deck a:hover { transform: none; }
   }
 
   @media (max-width: 700px) {
-    .hero { min-height: 0; padding-top: 5.5rem; padding-bottom: 2.5rem; }
-    .hero-overlay { background: rgba(10,10,10,0.82); }
-    h1 { font-size: clamp(2rem, 9vw, 2.6rem); }
-    .actions { gap: 1rem; }
-    .btn { width: 100%; }
+    h1 { font-size: clamp(1.9rem, 8vw, 2.4rem); }
   }
 </style>

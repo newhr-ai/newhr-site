@@ -1,13 +1,12 @@
 ---
-import { strings, mailto, type Lang } from "../i18n/strings";
+import { strings, type Lang } from "../i18n/strings";
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
-const layout = "cards";
 const t = strings[lang].services;
 ---
 
-<section class={`services ${layout}`} id="hizmetler">
+<section class="services" id="hizmetler">
   <div class="wrap">
     <div class="head">
       <div>
@@ -17,25 +16,22 @@ const t = strings[lang].services;
       <p class="intro">{t.intro}</p>
     </div>
 
-    <p class="difference">{t.difference}</p>
-
-    <div class="list">
+    <div class="cards">
       {t.items.map((s) => (
-        <a class="item" href={mailto(lang, s.subject)}>
-          <div class="item-head">
+        <article class="card">
+          <div class="card-head">
             <span class="num">{s.num}</span>
             <h3>{s.title}</h3>
           </div>
-          <dl>
-            <div><dt>{t.whoLabel}</dt><dd>{s.who}</dd></div>
-            <div><dt>{t.whatLabel}</dt><dd>{s.what}</dd></div>
-            <div><dt>{t.leaveLabel}</dt><dd>{s.leave}</dd></div>
-          </dl>
-          <div class="item-foot">
-            <span class="format">{t.format}</span>
-            <span class="cta">{t.cardCta}</span>
+          <p class="quote">“{s.quote}”</p>
+          <div class="body">
+            {s.body.map((p) => <p>{p}</p>)}
           </div>
-        </a>
+          <div class="card-foot">
+            <span class="format">{t.format}</span>
+            <a href="#iletisim">{t.cardCta}</a>
+          </div>
+        </article>
       ))}
     </div>
 
@@ -51,111 +47,77 @@ const t = strings[lang].services;
     grid-template-columns: 1.1fr 1fr;
     gap: 2rem;
     align-items: end;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.6rem;
   }
 
   .intro { font-size: 1.05rem; color: var(--fg-soft); max-width: 480px; }
 
-  .difference {
-    font-size: 1.15rem;
-    font-weight: 600;
-    line-height: 1.5;
-    max-width: 780px;
-    padding: 1rem 0 1rem 1.1rem;
-    border-left: 3px solid var(--accent);
-    margin-bottom: 2.5rem;
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.75rem;
   }
 
-  .list { display: grid; gap: 1.2rem; }
-
-  .cards .list { grid-template-columns: repeat(3, 1fr); }
-
-  .item {
+  .card {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
-    text-decoration: none;
-    color: inherit;
-    transition: transform 0.15s ease, border-color 0.15s ease;
-  }
-
-  .cards .item {
+    gap: 1.1rem;
     background: var(--card);
     color: var(--card-fg);
     padding: 1.8rem 1.6rem 1.5rem;
     border-top: 3px solid var(--accent);
   }
 
-  .cards .item:hover { transform: translateY(-3px); }
-
-  .rows .list { gap: 0; }
-
-  .rows .item {
-    display: grid;
-    grid-template-columns: 1.1fr 2fr;
-    gap: 1.5rem 3rem;
-    padding: 2rem 0;
-    border-top: 0.5px solid var(--line-strong);
-  }
-
-  .rows .item:last-child { border-bottom: 0.5px solid var(--line-strong); }
-  .rows .item:hover h3 { color: var(--accent-text); }
-
-  .item-head { display: flex; align-items: baseline; gap: 0.8rem; }
+  .card-head { display: flex; align-items: baseline; gap: 0.7rem; }
 
   .num {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 800;
     letter-spacing: 0.12em;
-    color: var(--accent-text);
+    color: #12A594;
   }
 
-  .cards .num { color: #1E9484; }
+  h3 { font-size: 1.3rem; }
 
-  h3 { font-size: 1.5rem; }
-  .rows h3 { font-size: 2rem; }
-
-  dl { display: grid; gap: 0.9rem; }
-  .rows dl { grid-template-columns: 1fr; }
-
-  dt {
-    font-size: 0.68rem;
-    font-weight: 800;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    margin-bottom: 0.25rem;
+  .quote {
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    color: #12A594;
   }
 
-  .cards dt { color: #1E9484; }
-  .rows dt { color: var(--accent-text); }
+  .body { display: grid; gap: 0.6rem; }
+  .body p { font-size: 0.95rem; line-height: 1.55; }
 
-  dd { font-size: 0.98rem; line-height: 1.55; }
-
-  .item-foot {
+  .card-foot {
     margin-top: auto;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    padding-top: 1rem;
-    border-top: 0.5px solid rgba(10,10,10,0.2);
+    gap: 0.4rem;
+    padding-top: 0.9rem;
+    border-top: 0.5px solid rgba(10, 10, 10, 0.2);
   }
 
-  .rows .item-foot { grid-column: 2; border-top: 0; padding-top: 0; flex-direction: row; justify-content: space-between; flex-wrap: wrap; }
+  .format { font-size: 0.78rem; font-weight: 600; }
 
-  .format { font-size: 0.8rem; font-weight: 600; }
+  .card-foot a {
+    font-size: 0.92rem;
+    font-weight: 800;
+    text-decoration: none;
+    color: var(--color-ink);
+  }
 
-  .cta { font-size: 0.95rem; font-weight: 800; }
-  .cards .cta { color: #0A0A0A; }
-  .rows .cta { color: var(--fg); border-bottom: 1.5px solid var(--accent); align-self: flex-start; }
+  .card-foot a:hover { color: #12A594; }
 
   .caption { margin-top: 1.5rem; font-size: 0.92rem; color: var(--fg-soft); }
 
+  @media (max-width: 1000px) {
+    .cards { grid-template-columns: 1fr; }
+  }
+
   @media (max-width: 900px) {
     .services { padding-block: 3.5rem; }
-    .head { grid-template-columns: 1fr; gap: 1rem; }
-    .cards .list { grid-template-columns: 1fr; }
-    .rows .item { grid-template-columns: 1fr; gap: 1rem; padding: 1.5rem 0; }
-    .rows .item-foot { grid-column: 1; }
-    .rows h3 { font-size: 1.6rem; }
+    .head { grid-template-columns: 1fr; gap: 0.8rem; }
   }
 </style>

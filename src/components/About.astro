@@ -1,53 +1,38 @@
 ---
-import { strings, linkedin, type Lang } from "../i18n/strings";
+import { strings, linkedin, linkedinPosts, newsletterUrl, type Lang } from "../i18n/strings";
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
-const variant = "a";
 const t = strings[lang].about;
-const hb = t;
-const stats = [
-  { num: hb.stat1, label: hb.stat1Label },
-  { num: hb.stat2, label: hb.stat2Label },
-  { num: hb.stat3, label: hb.stat3Label },
-];
-const body = t.body;
-const photo = "/images/Tolga_portrait_BW.jpg";
-const captionSub = t.captionSub;
+const photo = "/images/about-tolga-egitim-bw.jpg";
 ---
 
-<section class={`about v-${variant}`} id="hakkinda">
+<section class="about" id="hakkinda">
   <div class="wrap grid">
     <figure class="photo">
-      <img src={photo} alt={t.photoAlt} />
-      <figcaption><strong>{t.photoAlt}</strong><span>{captionSub}</span></figcaption>
+      <img src={photo} alt={t.photoAlt} width="1166" height="1458" loading="lazy" decoding="async" />
+      <figcaption>
+        <a class="name-link" href={linkedin} target="_blank" rel="noopener noreferrer" aria-label={t.linkedinAria}>
+          {t.name}
+          <svg class="li-ico" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+        </a>
+      </figcaption>
     </figure>
+
     <div class="text">
       <p class="eyebrow">{t.eyebrow}</p>
       <h2>{t.heading}</h2>
+      {t.body.map((p) => <p class="body">{p}</p>)}
+
       <ul class="stats">
-        {stats.map((x) => (
-          <li><span class="num">{x.num}</span><span class="lbl">{x.label}</span></li>
-        ))}
+        <li><span class="num">{t.stat1}</span><span class="lbl">{t.stat1Label}</span></li>
+        <li><span class="num">{t.stat2}</span><span class="lbl">{t.stat2Label}</span></li>
       </ul>
-      <p class="body">{body}</p>
-      <p class="trust">{t.trust}</p>
 
-      <div class="career">
-        <p class="label">{t.careerLabel}</p>
-        <ul>
-          {t.career.map((c) => (
-            <li><strong>{c.org}</strong><span>{c.role}</span></li>
-          ))}
-        </ul>
-        <p class="note">{t.careerNote}</p>
+      <div class="links">
+        <a href={linkedinPosts} class="textlink" target="_blank" rel="noopener noreferrer">{t.postsLink}</a>
+        <a href={newsletterUrl(lang)} class="textlink" target="_blank" rel="noopener noreferrer">{t.newsletterLink}</a>
       </div>
-
-      <ul class="tags">
-        {t.tags.map((x) => <li>{x}</li>)}
-      </ul>
-
-      <a href={linkedin} class="textlink" target="_blank" rel="noopener noreferrer">{t.link}</a>
     </div>
   </div>
 </section>
@@ -57,100 +42,70 @@ const captionSub = t.captionSub;
 
   .grid {
     display: grid;
-    grid-template-columns: 1fr 1.5fr;
+    grid-template-columns: 0.7fr 1.7fr;
     gap: 3rem;
     align-items: start;
   }
-
-  .v-a .grid { grid-template-columns: 0.7fr 1.7fr; }
-
-  .stats {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.2rem 2.2rem;
-    margin-top: 0.4rem;
-    margin-bottom: 1.4rem;
-    padding-bottom: 1.2rem;
-    border-bottom: 0.5px solid var(--line);
-  }
-
-  .stats li { display: flex; flex-direction: column; gap: 0.15rem; }
-  .num { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: var(--accent-text); }
-  .lbl { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
 
   .photo { margin: 0; }
 
   .photo img {
     width: 100%;
+    height: auto;
     aspect-ratio: 4 / 5;
     object-fit: cover;
     object-position: center top;
     filter: grayscale(1);
   }
 
-
   figcaption {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
     padding-top: 0.6rem;
     border-top: 2px solid var(--accent);
-    font-size: 0.82rem;
   }
 
-  .trust {
-    font-size: 1.05rem;
+  .name-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-decoration: none;
+    color: var(--fg);
     font-weight: 700;
-    padding-left: 1rem;
-    border-left: 3px solid var(--accent);
-    margin-bottom: 1.8rem;
+    font-size: 0.9rem;
   }
+
+  .li-ico { color: var(--fg); flex: 0 0 auto; }
+  .name-link:hover, .name-link:hover .li-ico { color: var(--accent-text); }
 
   h2 { font-size: clamp(1.7rem, 3.2vw, 2.4rem); margin-bottom: 1rem; }
-  .body { margin-bottom: 1.2rem; max-width: 620px; }
 
-  .career { margin-bottom: 1.6rem; }
-
-  .label {
-    font-size: 0.68rem;
-    font-weight: 800;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--accent-text);
-    margin-bottom: 0.6rem;
+  .body {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    max-width: 620px;
+    margin-bottom: 1.2rem;
   }
 
-  .career ul { list-style: none; display: grid; gap: 0.35rem; }
-
-  .career li {
-    display: grid;
-    grid-template-columns: 200px 1fr;
-    gap: 1rem;
-    padding: 0.5rem 0;
-    border-top: 0.5px solid var(--line);
-    font-size: 0.95rem;
+  .stats {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem 2.2rem;
+    margin-top: 0.6rem;
+    margin-bottom: 1.6rem;
+    padding-bottom: 1.2rem;
+    border-bottom: 0.5px solid var(--line);
   }
 
-  .career li:last-child { border-bottom: 0.5px solid var(--line); }
+  .stats li { display: flex; flex-direction: column; gap: 0.15rem; }
+  .num { font-size: 1.6rem; font-weight: 800; letter-spacing: -0.04em; line-height: 1; color: var(--accent-text); }
+  .lbl { font-size: 0.85rem; font-weight: 600; }
 
-  .note { font-size: 0.8rem; margin-top: 0.5rem; }
-
-  .tags { list-style: none; display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.4rem; }
-
-  .tags li {
-    font-size: 0.78rem;
-    font-weight: 700;
-    padding: 0.35rem 0.7rem;
-    border: 1px solid var(--line-strong);
-  }
+  .links { display: flex; gap: 1.2rem; flex-wrap: wrap; }
 
   @media (max-width: 800px) {
     .about { padding-block: 3.5rem; }
-    .grid, .v-a .grid { grid-template-columns: 1fr; gap: 1.6rem; }
+    .grid { grid-template-columns: 1fr; gap: 1.6rem; }
     .photo { max-width: 320px; }
-    .photo img { aspect-ratio: 4 / 3; object-position: center 25%; }
     .stats { gap: 1rem 1.6rem; }
-    .career li { grid-template-columns: 1fr; gap: 0.2rem; }
   }
 </style>

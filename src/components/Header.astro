@@ -1,5 +1,5 @@
 ---
-import { strings, mailto, type Lang } from "../i18n/strings";
+import { strings, type Lang } from "../i18n/strings";
 
 interface Props {
   lang?: Lang;
@@ -11,29 +11,41 @@ const enHref = "/en/";
 const t = strings[lang].nav;
 const home = lang === "en" ? enHref : trHref;
 const resourcesHref = lang === "en" ? "/en/downloads/" : "/downloads/";
-const cta = t.cta;
+const logo = "/logos/newhrai-logo_for-dark-bg.svg";
 ---
 
 <header class="nav">
   <div class="wrap nav-inner">
-    <a href={home} class="nav-logo">new<span>hr.ai</span></a>
+    <a href={home} class="nav-logo" aria-label="newhr.ai">
+      <img src={logo} alt="newhr.ai" width="130" height="26" />
+    </a>
 
     <nav class="nav-links" aria-label="sections">
-      <a href={`${home}#hizmetler`}>{t.services}</a>
-      <a href={`${home}#yaklasim`}>{t.approach}</a>
-      <a href={`${home}#referanslar`}>{t.refs}</a>
+      <div class="dd" data-dd>
+        <a href={`${home}#hizmetler`} class="dd-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="dd-services">{t.services}<span class="caret" aria-hidden="true">▾</span></a>
+        <div class="dd-menu" id="dd-services">
+          {t.servicesMenu.map((m) => <a href={`${home}${m.href}`}>{m.label}</a>)}
+        </div>
+      </div>
       <a href={`${home}#hakkinda`}>{t.about}</a>
       <a href={resourcesHref}>{t.resources}</a>
-      <a href={`${home}#iletisim`}>{t.contact}</a>
     </nav>
 
     <div class="nav-right">
-      <a href={mailto(lang)} class="nav-cta">{cta}</a>
+      <a href={`${home}#iletisim`} class="nav-cta">{t.cta}</a>
       <nav class="lang-toggle" aria-label="language">
         <a href={trHref} data-lang="tr" aria-current={lang === "tr" ? "true" : "false"}>TR</a>
         <a href={enHref} data-lang="en" aria-current={lang === "en" ? "true" : "false"}>EN</a>
       </nav>
+      <button type="button" class="burger" id="nav-burger" aria-controls="nav-mobile" aria-expanded="false" data-open={t.menu} data-close={t.close}>{t.menu}</button>
     </div>
+  </div>
+
+  <div class="wrap nav-mobile" id="nav-mobile" hidden>
+    <a href={`${home}#hizmetler`}>{t.services}</a>
+    {t.servicesMenu.map((m) => <a class="sub" href={`${home}${m.href}`}>{m.label}</a>)}
+    <a href={`${home}#hakkinda`}>{t.about}</a>
+    <a href={resourcesHref}>{t.resources}</a>
   </div>
 </header>
 
@@ -52,31 +64,57 @@ const cta = t.cta;
     gap: 1rem;
   }
 
-  .nav-logo {
-    justify-self: start;
-    text-decoration: none;
-    font-size: 1.35rem;
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    color: var(--fg);
-  }
-
-  .nav-logo span { color: var(--accent-text); }
+  .nav-logo { justify-self: start; display: block; }
+  .nav-logo img { height: 26px; width: auto; display: block; }
 
   .nav-links {
     justify-self: center;
     display: flex;
     gap: 1.6rem;
+    align-items: center;
   }
 
-  .nav-links a {
+  .nav-links > a,
+  .dd-trigger {
     text-decoration: none;
     color: var(--fg);
     font-size: 0.88rem;
     font-weight: 600;
   }
 
-  .nav-links a:hover { color: var(--accent-text); }
+  .nav-links > a:hover,
+  .dd-trigger:hover { color: var(--accent-text); }
+
+  .dd { position: relative; }
+  .caret { font-size: 0.75em; margin-left: 0.25rem; }
+
+  .dd-menu {
+    position: absolute;
+    top: calc(100% + 0.6rem);
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 280px;
+    background: var(--bg);
+    border: 0.5px solid var(--line-strong);
+    display: none;
+    flex-direction: column;
+  }
+
+  .dd-menu a {
+    padding: 0.8rem 1rem;
+    text-decoration: none;
+    color: var(--fg);
+    font-size: 0.88rem;
+    font-weight: 600;
+    border-top: 0.5px solid var(--line);
+  }
+
+  .dd-menu a:first-child { border-top: 0; }
+  .dd-menu a:hover, .dd-menu a:focus-visible { color: var(--accent-text); }
+
+  .dd:hover .dd-menu,
+  .dd:focus-within .dd-menu,
+  .dd.open .dd-menu { display: flex; }
 
   .nav-right {
     justify-self: end;
@@ -116,32 +154,110 @@ const cta = t.cta;
     color: var(--bg);
   }
 
+  .burger {
+    display: none;
+    background: none;
+    border: 1.5px solid var(--line-strong);
+    color: var(--fg);
+    font: inherit;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.45rem 0.7rem;
+    cursor: pointer;
+  }
+
+  .nav-mobile {
+    display: none;
+    margin-top: 0.8rem;
+    padding: 0.4rem 0 1rem;
+    border-top: 0.5px solid var(--line);
+    background: var(--bg);
+  }
+
+  .nav-mobile a {
+    display: block;
+    padding: 0.8rem 0;
+    text-decoration: none;
+    color: var(--fg);
+    font-weight: 700;
+    border-bottom: 0.5px solid var(--line);
+  }
+
+  .nav-mobile a.sub { padding-left: 1.2rem; font-weight: 500; font-size: 0.95rem; }
+  .nav-mobile:not([hidden]) { display: block; }
+
   @media (max-width: 900px) {
+    .nav { background: var(--bg); position: relative; }
     .nav-links { display: none; }
     .nav-inner {
       display: flex;
       justify-content: space-between;
     }
+    .burger { display: inline-block; }
     .nav-cta { padding: 0.55rem 0.8rem; font-size: 0.78rem; }
     .nav-right { gap: 0.5rem; }
     .lang-toggle a { padding: 0.4rem 0.55rem; }
   }
 
-  @media (max-width: 360px) {
-    .nav-logo { font-size: 1.15rem; }
+  @media (max-width: 400px) {
+    .nav-logo img { height: 22px; }
     .nav-cta { padding: 0.5rem 0.65rem; font-size: 0.72rem; }
+    .burger { padding: 0.4rem 0.55rem; font-size: 0.72rem; }
   }
 </style>
 
 <script is:inline>
-  document.querySelectorAll(".lang-toggle a[data-lang]").forEach(function (a) {
-    a.addEventListener("click", function () {
-      try {
-        var l = a.getAttribute("data-lang");
-        localStorage.setItem("nh_lang", l);
-        // Cookie so the Netlify Edge Function on / respects the manual choice.
-        document.cookie = "nh_lang=" + l + "; path=/; max-age=" + 60 * 60 * 24 * 365 + "; SameSite=Lax";
-      } catch (e) {}
+  (function () {
+    document.querySelectorAll(".lang-toggle a[data-lang]").forEach(function (a) {
+      a.addEventListener("click", function () {
+        try {
+          var l = a.getAttribute("data-lang");
+          localStorage.setItem("nh_lang", l);
+          // Cookie so the Netlify Edge Function on / respects the manual choice.
+          document.cookie = "nh_lang=" + l + "; path=/; max-age=" + 60 * 60 * 24 * 365 + "; SameSite=Lax";
+        } catch (e) {}
+      });
     });
-  });
+
+    // Mobile menu
+    var b = document.getElementById("nav-burger");
+    var m = document.getElementById("nav-mobile");
+    if (b && m) {
+      b.addEventListener("click", function () {
+        var open = m.hasAttribute("hidden");
+        if (open) m.removeAttribute("hidden"); else m.setAttribute("hidden", "");
+        b.setAttribute("aria-expanded", open ? "true" : "false");
+        b.textContent = open ? b.getAttribute("data-close") : b.getAttribute("data-open");
+      });
+      m.querySelectorAll("a").forEach(function (a) {
+        a.addEventListener("click", function () {
+          m.setAttribute("hidden", "");
+          b.setAttribute("aria-expanded", "false");
+          b.textContent = b.getAttribute("data-open");
+        });
+      });
+    }
+
+    // Desktop dropdown: keyboard support
+    var dd = document.querySelector("[data-dd]");
+    if (dd) {
+      var trig = dd.querySelector(".dd-trigger");
+      trig.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          dd.classList.add("open");
+          trig.setAttribute("aria-expanded", "true");
+          var first = dd.querySelector(".dd-menu a");
+          if (first) first.focus();
+        }
+      });
+      dd.addEventListener("mouseenter", function () { trig.setAttribute("aria-expanded", "true"); });
+      dd.addEventListener("mouseleave", function () { trig.setAttribute("aria-expanded", "false"); });
+    }
+    document.addEventListener("keydown", function (e) {
+      if (e.key !== "Escape") return;
+      if (dd) { dd.classList.remove("open"); var tr = dd.querySelector(".dd-trigger"); if (tr) tr.setAttribute("aria-expanded", "false"); }
+      if (m && !m.hasAttribute("hidden")) { m.setAttribute("hidden", ""); b.setAttribute("aria-expanded", "false"); b.textContent = b.getAttribute("data-open"); }
+    });
+  })();
 </script>

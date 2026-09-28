@@ -1,35 +1,46 @@
 ---
-import { strings, type Lang } from "../i18n/strings";
+import { strings, references, type Lang } from "../i18n/strings";
+import fs from "node:fs";
+import path from "node:path";
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = strings[lang].refs;
+
+// A reference renders as a logo when public/logos/refs/<slug>.svg or .png
+// exists at build time; otherwise its name renders as text. No code change
+// is needed when a logo file is added: drop it in and redeploy.
+const logoDir = path.resolve("public/logos/refs");
+const items = references.map((r) => {
+  const svg = path.join(logoDir, `${r.slug}.svg`);
+  const png = path.join(logoDir, `${r.slug}.png`);
+  const logo = fs.existsSync(svg) ? `/logos/refs/${r.slug}.svg` : fs.existsSync(png) ? `/logos/refs/${r.slug}.png` : null;
+  return { ...r, logo };
+});
 ---
 
-<section class="refs" id="referanslar">
-  <div class="wrap refs-grid">
-    <div class="lead-ref">
-      <p class="label">{t.trainedLabel}</p>
-      <p class="big">Turkcell</p>
-      <p class="sub">{t.leadNote}</p>
-    </div>
+<section class="refs" id="referanslar" aria-label={t.eyebrow}>
+  <div class="wrap head">
+    <p class="eyebrow">{t.eyebrow}</p>
+  </div>
 
-    <div class="group">
-      <p class="label">{t.sessionsLabel}</p>
-      <ul>
-        {t.sessions.map((n) => <li>{n}</li>)}
-      </ul>
-      <a href="#yorumlar" class="textlink small">{t.quotesLink}</a>
-    </div>
-
-    <div class="group">
-      <p class="label">{t.partnerLabel}</p>
-      <ul>
-        {t.partners.map((n) => <li>{n}</li>)}
-      </ul>
-      <p class="small-note">{t.partnerNote}</p>
+  <div class="marquee" tabindex="0" aria-label={t.marqueeLabel}>
+    <div class="track">
+      {[false, true].map((dup) => (
+        <ul class="set" aria-hidden={dup ? "true" : undefined}>
+          {items.map((r) => (
+            <li class="item">
+              {r.logo
+                ? <img src={r.logo} alt={r.name} loading="lazy" decoding="async" />
+                : <span class="mark">{r.name}</span>}
+            </li>
+          ))}
+        </ul>
+      ))}
     </div>
   </div>
+
+  <div class="wrap"><p class="note">{t.note}</p></div>
 </section>
 
 <style>
@@ -37,56 +48,86 @@ const t = strings[lang].refs;
     background: var(--bg);
     border-top: 0.5px solid var(--line);
     border-bottom: 0.5px solid var(--line);
-    padding-block: 2rem;
+    padding-block: 1.4rem 1.6rem;
   }
 
-  .refs-grid {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr;
-    gap: 2.5rem;
-    align-items: start;
+  .head .eyebrow { margin-bottom: 0.6rem; }
+  .head .eyebrow::after { display: none; }
+
+  .marquee {
+    overflow: hidden;
+    outline: none;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
   }
 
-  .label {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--accent-text);
-    margin-bottom: 0.7rem;
+  .marquee:focus-visible { box-shadow: inset 0 0 0 2px var(--accent); }
+
+  .track {
+    display: flex;
+    width: max-content;
+    animation: slide 40s linear infinite;
   }
 
-  .big {
-    font-size: clamp(2.2rem, 4vw, 3.2rem);
+  .marquee:hover .track,
+  .marquee:focus-within .track,
+  .marquee:focus .track { animation-play-state: paused; }
+
+  .set { list-style: none; display: flex; }
+
+  .item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.9rem 2.6rem;
+    border-right: 0.5px solid var(--line);
+    min-width: 200px;
+  }
+
+  /* Logos: monochrome, on the dark ground. */
+  .item img {
+    height: 34px;
+    width: auto;
+    max-width: 180px;
+    object-fit: contain;
+    filter: grayscale(1) brightness(10);
+    opacity: 0.9;
+  }
+
+  .mark {
+    font-size: 1.5rem;
     font-weight: 800;
     letter-spacing: -0.04em;
     line-height: 1;
-    color: var(--fg);
-    margin-bottom: 0.5rem;
+    white-space: nowrap;
+    color: #d9d9d9;
   }
 
-  .sub { font-size: 0.92rem; color: var(--fg-soft); }
-
-  ul {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem 1.2rem;
-    margin-bottom: 0.6rem;
+  .note {
+    margin-top: 0.9rem;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: var(--fg-soft);
   }
 
-  li {
-    font-size: 1.15rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    color: var(--fg);
+  @keyframes slide {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
   }
 
-  .small { font-size: 0.85rem; }
-  .small-note { font-size: 0.82rem; color: var(--fg-soft); }
+  @media (max-width: 700px) {
+    .refs { padding-block: 1.2rem 1.4rem; }
+    .track { animation-duration: 32s; }
+    .item { padding: 0.7rem 1.4rem; min-width: 150px; }
+    .item img { height: 26px; }
+    .mark { font-size: 1.2rem; }
+  }
 
-  @media (max-width: 820px) {
-    .refs-grid { grid-template-columns: 1fr; gap: 1.6rem; }
-    .lead-ref { padding-bottom: 1.2rem; border-bottom: 0.5px solid var(--line); }
+  @media (prefers-reduced-motion: reduce) {
+    .track { animation: none; flex-wrap: wrap; width: auto; }
+    .set[aria-hidden="true"] { display: none; }
+    .set { flex-wrap: wrap; }
+    .item { border-bottom: 0.5px solid var(--line); }
+    .marquee { -webkit-mask-image: none; mask-image: none; }
   }
 </style>

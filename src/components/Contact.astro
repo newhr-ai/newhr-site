@@ -1,86 +1,204 @@
 ---
-import { strings, mailto, assessmentPath, newsletterUrl, type Lang } from "../i18n/strings";
+import { strings, type Lang } from "../i18n/strings";
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = strings[lang].contact;
+const privacyHref = lang === "en" ? "/en/privacy/" : "/privacy/";
+// Netlify Forms: the form is detected at deploy time from the static HTML
+// (name + data-netlify). Submissions land in the Netlify dashboard; the email
+// notification to hello@newhr.ai is a one-time setting there
+// (Site configuration > Forms > Form notifications). Free tier: 100/month.
+const formName = "contact";
 ---
 
 <section class="contact" id="iletisim">
-  <div class="wrap grid">
-    <div class="main">
-      <p class="eyebrow">{t.eyebrow}</p>
-      <h2>{t.heading}</h2>
-      <p class="body">{t.body}</p>
-      <div class="actions">
-        <a href={mailto(lang)} class="btn">{t.cta}</a>
-        <a href={assessmentPath(lang)} class="textlink">{t.secondary}</a>
+  <div class="wrap">
+    <p class="eyebrow">{t.eyebrow}</p>
+    <h2>{t.heading}</h2>
+    <p class="lead">{t.lead}</p>
+
+    <form
+      class="form"
+      id="contact-form"
+      name={formName}
+      method="POST"
+      action="/"
+      data-netlify="true"
+      netlify-honeypot="bot-field"
+      novalidate
+    >
+      <input type="hidden" name="form-name" value={formName} />
+      <input type="hidden" name="lang" value={lang} />
+      <p class="hp" aria-hidden="true"><label>Do not fill this in: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+
+      <label for="cf-name"><span>{t.name} <em aria-label={t.required}>*</em></span><input type="text" id="cf-name" name="name" autocomplete="name" required /></label>
+      <label for="cf-email"><span>{t.email} <em aria-label={t.required}>*</em></span><input type="email" id="cf-email" name="email" autocomplete="email" required /></label>
+      <label class="full" for="cf-org"><span>{t.org}</span><input type="text" id="cf-org" name="org" autocomplete="organization" /></label>
+      <label class="full" for="cf-msg"><span>{t.message} <em aria-label={t.required}>*</em></span><textarea id="cf-msg" name="message" required placeholder={t.messagePlaceholder}></textarea></label>
+
+      <div class="row">
+        <button type="submit" id="cf-submit" data-label={t.submit} data-sending={t.sending}>{t.submit}</button>
+        <small>{t.privacyPre}<a href={privacyHref}>{t.privacyLink}</a></small>
       </div>
-      <p class="trust">{t.trust} {t.langLine}</p>
-    </div>
 
-    <aside class="helps">
-      <p class="label">{t.helpsLabel}</p>
-      <ol>
-        {t.helps.map((h) => <li>{h}</li>)}
-      </ol>
-      <p class="mail">hello@newhr.ai</p>
-    </aside>
-  </div>
+      <div class="form-msg" id="cf-msg-box" hidden role="status" aria-live="polite"
+        data-success={t.success}
+        data-invalid={t.invalid}
+        data-error-pre={t.errorPre}
+        data-error-post={t.errorPost}
+      ></div>
+    </form>
 
-  <div class="wrap newsletter">
-    <p>{t.newsletter} <a href={newsletterUrl(lang)} class="textlink" target="_blank" rel="noopener noreferrer">{t.newsletterCta}</a></p>
+    <p class="alt">{t.altPre}<a href="mailto:hello@newhr.ai">hello@newhr.ai</a></p>
   </div>
 </section>
 
 <style>
   .contact { padding-block: 5rem 3rem; background: var(--bg-alt); }
 
-  .grid {
+  h2 { margin-bottom: 0.8rem; }
+  .lead { font-size: 1.05rem; max-width: 560px; margin-bottom: 0.4rem; }
+
+  .form {
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    gap: 3rem;
-    align-items: start;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    max-width: 720px;
+    margin-top: 1.4rem;
   }
 
-  h2 { margin-bottom: 1rem; }
-  .body { max-width: 560px; margin-bottom: 1.8rem; font-size: 1.08rem; }
+  .hp { display: none; }
 
-  .actions { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1rem; }
-  .btn { font-size: 1.05rem; padding: 1.1rem 1.8rem; }
-
-  .trust { font-size: 0.88rem; font-weight: 600; }
-
-  .helps {
-    padding: 1.6rem;
-    border: 0.5px solid var(--line-strong);
+  .form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
   }
 
-  .label {
-    font-size: 0.68rem;
+  .form label span {
+    display: flex;
+    align-items: baseline;
+    gap: 0.3rem;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+
+  .form label span em { font-style: normal; color: var(--accent-text); }
+  .form label.full { grid-column: 1 / -1; }
+
+  .form input,
+  .form textarea {
+    font: inherit;
+    font-size: 1rem;
+    padding: 0.75rem 0.85rem;
+    background: var(--bg);
+    color: var(--fg);
+    border: 1.5px solid var(--line-strong);
+  }
+
+  .form input:focus,
+  .form textarea:focus { outline: none; border-color: var(--accent); }
+
+  .form textarea { min-height: 120px; resize: vertical; }
+  .form ::placeholder { color: rgba(255, 255, 255, 0.55); }
+
+  .row {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+  }
+
+  .form button {
+    font: inherit;
+    font-size: 1rem;
     font-weight: 800;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
+    padding: 1rem 1.6rem;
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    border: 0;
+    cursor: pointer;
+  }
+
+  .form button[disabled] { opacity: 0.7; cursor: default; }
+
+  .form small { font-size: 0.9rem; color: var(--fg-soft); }
+  .form small a { color: var(--accent-text); }
+
+  .form-msg {
+    grid-column: 1 / -1;
+    padding: 0.8rem 1rem;
+    border-left: 3px solid var(--accent);
+    font-size: 1rem;
+  }
+
+  .form-msg.err { border-left-color: #ff6b6b; }
+  .form-msg a { color: var(--accent-text); }
+
+  .alt { margin-top: 1.4rem; font-size: 1rem; }
+  .alt a {
     color: var(--accent-text);
-    margin-bottom: 0.9rem;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1.5px solid var(--accent);
   }
-
-  ol { padding-left: 1.2rem; display: grid; gap: 0.5rem; margin-bottom: 1.2rem; }
-  li { font-size: 0.98rem; line-height: 1.45; }
-
-  .mail { font-size: 1.15rem; font-weight: 800; letter-spacing: -0.02em; }
-
-  .newsletter {
-    margin-top: 3rem;
-    padding-top: 1.2rem;
-    border-top: 0.5px solid var(--line);
-  }
-
-  .newsletter p { font-size: 0.9rem; }
 
   @media (max-width: 800px) {
     .contact { padding-block: 3.5rem 2.5rem; }
-    .grid { grid-template-columns: 1fr; gap: 1.6rem; }
-    .btn { width: 100%; }
+  }
+
+  @media (max-width: 600px) {
+    .form { grid-template-columns: 1fr; }
+    .form button { width: 100%; }
   }
 </style>
+
+<script is:inline>
+  (function () {
+    var f = document.getElementById("contact-form");
+    var box = document.getElementById("cf-msg-box");
+    var btn = document.getElementById("cf-submit");
+    if (!f || !box || !btn) return;
+
+    function show(html, isErr) {
+      box.hidden = false;
+      box.className = "form-msg" + (isErr ? " err" : "");
+      box.innerHTML = html;
+    }
+
+    function errorHtml() {
+      return box.getAttribute("data-error-pre") +
+        '<a href="mailto:hello@newhr.ai">hello@newhr.ai</a>' +
+        box.getAttribute("data-error-post");
+    }
+
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var name = f.elements["name"], email = f.elements["email"], msg = f.elements["message"];
+      var bad = !name.value.trim() ? name : !email.value.trim() || email.validity.typeMismatch ? email : !msg.value.trim() ? msg : null;
+      if (bad) { show(box.getAttribute("data-invalid"), true); bad.focus(); return; }
+
+      btn.disabled = true;
+      btn.textContent = btn.getAttribute("data-sending");
+      var data = new FormData(f);
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(data).toString(),
+      })
+        .then(function (r) {
+          if (!r.ok) throw new Error("status " + r.status);
+          show(box.getAttribute("data-success"), false);
+          f.reset();
+          if (window.gtag) { try { window.gtag("event", "contact_form_submit"); } catch (err) {} }
+        })
+        .catch(function () { show(errorHtml(), true); })
+        .finally(function () {
+          btn.disabled = false;
+          btn.textContent = btn.getAttribute("data-label");
+        });
+    });
+  })();
+</script>
