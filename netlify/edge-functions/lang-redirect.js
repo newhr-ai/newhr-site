@@ -18,6 +18,18 @@ export default async (request, context) => {
   // data by turning the POST into a GET.
   if (request.method !== "GET") return;
 
+  // Link-preview crawlers (WhatsApp, Facebook, Twitter/X, LinkedIn, Telegram,
+  // Slack, Discord, ...) must always get a direct 200 with the real Open
+  // Graph tags for "/". A redirect here is a known cause of broken or
+  // missing previews, since some of these crawlers don't reliably resolve
+  // a 302 before timing out.
+  const ua = (request.headers.get("user-agent") || "").toLowerCase();
+  const isCrawler =
+    /facebookexternalhit|whatsapp|telegrambot|twitterbot|linkedinbot|slackbot|discordbot|pinterest|redditbot|skypeuripreview|vkshare|embedly|w3c_validator|opengraph/.test(
+      ua
+    );
+  if (isCrawler) return;
+
   const cookies = request.headers.get("cookie") || "";
   const match = cookies.match(/(?:^|;\s*)nh_lang=(tr|en)/);
 
