@@ -13,6 +13,11 @@ export default async (request, context) => {
 
   if (url.pathname !== "/") return;
 
+  // Only redirect GET page loads. Anything else (Netlify Forms POSTs, etc.)
+  // must pass through untouched, or a 302 here silently drops the submitted
+  // data by turning the POST into a GET.
+  if (request.method !== "GET") return;
+
   const cookies = request.headers.get("cookie") || "";
   const match = cookies.match(/(?:^|;\s*)nh_lang=(tr|en)/);
 
