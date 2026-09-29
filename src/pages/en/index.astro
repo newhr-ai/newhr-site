@@ -9,9 +9,28 @@ import Contact from "../../components/Contact.astro";
 import Footer from "../../components/Footer.astro";
 
 const lang = "en";
+
+const meta = {
+  title: "New HR AI | Practical AI Capability for HR Teams",
+  description:
+    "We help HR teams build practical AI capability through training, workshops and project advisory.",
+  canonical: "https://newhr.ai/en/",
+  ogImage: "https://newhr.ai/og/newhr-ai-en.png",
+  ogImageAlt:
+    "New HR AI logo with the message “We move AI from HR’s agenda into HR’s work.”",
+  locale: "en_US",
+};
 ---
 
-<MainLayout title="New HR AI" lang={lang}>
+<MainLayout
+  title={meta.title}
+  lang={lang}
+  description={meta.description}
+  canonical={meta.canonical}
+  ogImage={meta.ogImage}
+  ogImageAlt={meta.ogImageAlt}
+  locale={meta.locale}
+>
   <Hero lang={lang} />
   <References lang={lang} />
   <Services lang={lang} />
