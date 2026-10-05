@@ -45,10 +45,9 @@ export const strings = {
     nav: {
       services: "Hizmetler",
       servicesMenu: [
-        { label: "Kurumsal eğitim ve workshop", href: "#hizmetler" },
+        { label: "Kurumsal eğitim ve workshoplar", href: "#egitim" },
         { label: "HR AI proje danışmanlığı", href: "#hizmetler" },
         { label: "Konuşmalar", href: "#hizmetler" },
-        { label: "Paydaş Yönetimi Atölyesi", href: "#hizmetler" },
       ],
       about: "Hakkımızda",
       resources: "Kaynaklar",
@@ -105,11 +104,13 @@ export const strings = {
       items: [
         {
           num: "01",
-          title: "Kurumsal eğitim ve workshop",
-          quote: "Ekibimiz yapay zekâyı İK işlerinde kullanmak istiyor.",
-          body: [
-            "ChatGPT, Claude veya Gemini’yi kendi İK senaryolarınız üzerinden çalışırız. Anlatımı uygulamayla birleştirir, ekibinizin günlük işlerinde kullanabileceği örnekler geliştiririz.",
-            "Kurumsal lisansınız varsa çalışmayı kullandığınız platforma göre şekillendiririz.",
+          title: "Kurumsal eğitim ve workshoplar",
+          list: [
+            "İK İçin Uygulamalı Yapay Zekâ Atölyesi",
+            "Yapay Zekâ Dönüşümünde İK’nın Rolü: Önce Kendi İşimizi Dönüştürmek",
+            "İş Birimleriyle Stratejik Ortaklık: Veriyle Konuşan İK",
+            "Paydaş Yönetimi ve Etkileme",
+            "İhtiyacınıza Özel Eğitim Tasarımı",
           ],
         },
         {
@@ -270,10 +271,9 @@ export const strings = {
     nav: {
       services: "Services",
       servicesMenu: [
-        { label: "Corporate training and workshops", href: "#hizmetler" },
+        { label: "Corporate training and workshops", href: "#egitim" },
         { label: "HR AI project advisory", href: "#hizmetler" },
         { label: "Talks", href: "#hizmetler" },
-        { label: "Stakeholder Management Workshop", href: "#hizmetler" },
       ],
       about: "About",
       resources: "Resources",
@@ -331,10 +331,12 @@ export const strings = {
         {
           num: "01",
           title: "Corporate training and workshops",
-          quote: "Our team wants to use AI in its HR work.",
-          body: [
-            "We work with ChatGPT, Claude or Gemini on your own HR scenarios. We combine explanation with hands-on practice and build examples your team can use in its daily work.",
-            "If you have an enterprise licence, we shape the work around the platform you already use.",
+          list: [
+            "Hands-on AI Workshop for HR",
+            "HR’s Role in AI Transformation: Start with Our Own Work",
+            "Strategic Partnership with the Business: HR That Speaks with Data",
+            "Stakeholder Management and Influence",
+            "Training Designed Around Your Needs",
           ],
         },
         {

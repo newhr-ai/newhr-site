@@ -18,15 +18,23 @@ const t = strings[lang].services;
 
     <div class="cards">
       {t.items.map((s) => (
-        <article class="card">
+        <article class="card" id={s.num === "01" ? "egitim" : undefined}>
           <div class="card-head">
             <span class="num">{s.num}</span>
             <h3>{s.title}</h3>
           </div>
-          <p class="quote">“{s.quote}”</p>
-          <div class="body">
-            {s.body.map((p) => <p>{p}</p>)}
-          </div>
+          {"list" in s ? (
+            <ul class="tlist">
+              {s.list.map((item) => <li>{item}</li>)}
+            </ul>
+          ) : (
+            <>
+              <p class="quote">“{s.quote}”</p>
+              <div class="body">
+                {s.body.map((p) => <p>{p}</p>)}
+              </div>
+            </>
+          )}
           <div class="card-foot">
             <span class="format">{t.format}</span>
             <a href="#iletisim">{t.cardCta}</a>
@@ -86,6 +94,23 @@ const t = strings[lang].services;
     letter-spacing: -0.01em;
     color: #12A594;
   }
+
+  .tlist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 0.5px solid rgba(10, 10, 10, 0.2);
+  }
+
+  .tlist li {
+    padding: 0.7rem 0;
+    border-bottom: 0.5px solid rgba(10, 10, 10, 0.2);
+    font-size: 0.92rem;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+
+  .tlist li:last-child { border-bottom: 0; }
 
   .body { display: grid; gap: 0.6rem; }
   .body p { font-size: 0.95rem; line-height: 1.55; }
