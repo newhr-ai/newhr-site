@@ -1,5 +1,6 @@
 ---
-import { strings, assessmentPath, type Lang } from "../i18n/strings";
+import { strings, type Lang } from "../i18n/strings";
+import Research from "./Research.astro";
 
 interface Props {
   lang?: Lang;
@@ -8,7 +9,6 @@ interface Props {
 const { lang = "tr" } = Astro.props;
 const t = strings[lang].downloads;
 const privacyHref = lang === "en" ? "/en/privacy/" : "/privacy/";
-const assessmentHref = assessmentPath(lang);
 
 // The webhook is a public Apps Script "Anyone" endpoint, so embedding it in the
 // client is fine. Defaults to the live Apps Script web app URL; can be overridden
@@ -28,21 +28,18 @@ const webhook =
     </div>
   </div>
 
+  <!-- Filtered list of sources referenced in the LinkedIn posts. -->
+  <Research lang={lang} />
+
+  <!-- The email-gated dataset as a slim strip. The assessment block was removed
+       from this page on 5 Oct 2026 (its strings stay in downloads.* for later). -->
   <div class="downloads-body">
     <div class="downloads-inner">
 
-      <!-- Featured: the assessment (links out, no email gate) -->
-      <a class="dl-assessment" href={assessmentHref}>
-        <div class="dl-assessment-text">
-          <p class="eyebrow">{t.assessmentEyebrow}</p>
-          <h2 class="dl-assessment-title">{t.assessmentTitle}</h2>
-          <p class="dl-assessment-desc">{t.assessmentDesc}</p>
-        </div>
-        <span class="dl-assessment-cta">{t.assessmentCta}</span>
-      </a>
 
-      <!-- Downloadable, email-gated resources -->
-      <h2 class="dl-section-heading">{t.resourcesHeading}</h2>
+      <!-- Downloadable, email-gated resources. Each card is a slim strip; the
+           form opens when the strip's button is pressed (without JS the form
+           simply stays visible). -->
 
       {
         t.resources.map((res) => (
@@ -54,12 +51,21 @@ const webhook =
             data-lang={lang}
           >
             <div class="dl-resource">
-              <p class="dl-resource-meta">{res.meta}</p>
-              <h3 class="dl-resource-title">{res.title}</h3>
-              <p class="dl-resource-desc">{res.desc}</p>
+              <div class="dl-resource-text">
+                <p class="dl-resource-meta">{t.ownData} · {res.meta}</p>
+                <h2 class="dl-resource-title">{res.title}</h2>
+              </div>
+              <button
+                class="dl-open"
+                type="button"
+                aria-expanded="true"
+                aria-controls={`dl-form-${res.fileName}`}
+              >
+                {t.stripCta}
+              </button>
             </div>
 
-            <form class="dl-form" novalidate>
+            <form class="dl-form" id={`dl-form-${res.fileName}`} novalidate>
               <p class="dl-form-heading">{t.formHeading}</p>
 
               <label class="dl-label" for={`dl-email-${res.fileName}`}>
@@ -145,78 +151,23 @@ const webhook =
     color: var(--color-paper);
   }
 
+  .downloads-head h1 {
+    max-width: 16ch;
+  }
+
   .downloads-sub {
-    font-size: 0.95rem;
-    color: rgba(255, 255, 255, 0.6);
+    max-width: 60ch;
+
+    font-size: 1.02rem;
+    line-height: 1.6;
+
+    color: var(--color-paper);
   }
 
   .downloads-body {
-    padding-block: 3.5rem 4.5rem;
+    padding-block: 0 4.5rem;
   }
 
-  /* --- Featured assessment block --- */
-  .dl-assessment {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-    flex-wrap: wrap;
-
-    margin-bottom: 3.5rem;
-    padding: 2rem;
-
-    background: var(--color-ink);
-    color: var(--color-paper);
-
-    text-decoration: none;
-
-    border: 1px solid var(--color-ink);
-
-    transition: transform 0.18s ease;
-  }
-
-  .dl-assessment:hover {
-    transform: translateY(-2px);
-  }
-
-  .dl-assessment .eyebrow {
-    color: var(--color-teal);
-  }
-
-  .dl-assessment-text {
-    flex: 1 1 22rem;
-  }
-
-  .dl-assessment-title {
-    margin-bottom: 0.6rem;
-
-    font-size: 1.6rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-
-    color: var(--color-paper);
-  }
-
-  .dl-assessment-desc {
-    font-size: 0.95rem;
-    line-height: 1.6;
-
-    color: rgba(255, 255, 255, 0.7);
-  }
-
-  .dl-assessment-cta {
-    flex: 0 0 auto;
-
-    padding: 0.85rem 1.3rem;
-
-    background: var(--color-teal);
-    color: var(--color-ink);
-
-    font-size: 0.9rem;
-    font-weight: 700;
-    white-space: nowrap;
-  }
 
   /* --- Resource list --- */
   .dl-section-heading {
@@ -237,17 +188,55 @@ const webhook =
 
     margin-bottom: 1.5rem;
 
-    border: 1px solid var(--color-bone);
+    border: 1px solid var(--color-ink);
     background: var(--color-white);
   }
 
+  /* Slim strip: meta + title on the left, download button on the right. */
   .dl-resource {
-    padding: 2rem;
-    border-bottom: 1px solid var(--color-bone);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1.5rem;
+    flex-wrap: wrap;
+
+    padding: 1.25rem 1.5rem;
+  }
+
+  .dl-resource-text {
+    flex: 1 1 18rem;
+  }
+
+  .dl-open {
+    flex: 0 0 auto;
+
+    padding: 0 0 0.2rem;
+
+    border: 0;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    background: none;
+    color: var(--color-ink);
+
+    font-family: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+
+    cursor: pointer;
+  }
+
+  .dl-open:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 4px;
+  }
+
+  .dl-form,
+  .dl-success {
+    border-top: 1px solid var(--color-bone);
   }
 
   .dl-resource-meta {
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.35rem;
 
     font-size: 0.7rem;
     font-weight: 700;
@@ -258,21 +247,12 @@ const webhook =
   }
 
   .dl-resource-title {
-    margin-bottom: 0.6rem;
-
-    font-size: 1.35rem;
+    font-size: 1rem;
     font-weight: 800;
     letter-spacing: -0.01em;
     line-height: 1.15;
 
     color: var(--color-ink);
-  }
-
-  .dl-resource-desc {
-    font-size: 0.95rem;
-    line-height: 1.6;
-
-    color: #3a3a3a;
   }
 
   .dl-form,
@@ -400,12 +380,6 @@ const webhook =
     opacity: 0.9;
   }
 
-  @media (max-width: 700px) {
-    .dl-assessment-cta {
-      width: 100%;
-      text-align: center;
-    }
-  }
 </style>
 
 <script is:inline>
@@ -421,6 +395,19 @@ const webhook =
       var error = card.querySelector(".dl-error");
 
       if (!form || !success || !emailInput) return;
+
+      // Strip toggle: start collapsed, open the form on click.
+      var openBtn = card.querySelector(".dl-open");
+      if (openBtn) {
+        form.hidden = true;
+        openBtn.setAttribute("aria-expanded", "false");
+        openBtn.addEventListener("click", function () {
+          var willOpen = form.hidden && success.hidden;
+          if (success.hidden) form.hidden = !willOpen;
+          openBtn.setAttribute("aria-expanded", willOpen ? "true" : "false");
+          if (willOpen) emailInput.focus();
+        });
+      }
 
       var webhook = card.getAttribute("data-webhook") || "";
       var file = card.getAttribute("data-file") || "";

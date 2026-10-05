@@ -2,7 +2,8 @@
 // Rule: a copy change edits tr and en in the same commit.
 // Section order on the home page (28 Sept 2026 redesign): nav, hero (with
 // service cards), refs (logo strip), services, quotes, about, contact (form),
-// footer. `downloads` feeds the Kaynaklar / Resources page.
+// footer. `downloads` feeds the Kaynaklar / Resources page; `research` holds the
+// labels of the source list on that page; the sources live in src/data/research.ts.
 // Decisions and rationale: Website Project/Website_Approved_Changes.md
 
 export type Lang = "tr" | "en";
@@ -186,8 +187,8 @@ export const strings = {
     },
     downloads: {
       eyebrow: "KAYNAKLAR",
-      title: "Kaynaklar",
-      sub: "İK profesyonelleri için ücretsiz yapay zekâ kaynakları.",
+      title: "Yazdıklarımın kaynağı burada.",
+      sub: "İK ve yapay zekâ üzerine yazarken dayandığım raporlar, araştırmalar, davalar ve mevzuat. Birincil kaynaklar ve onları yorumlayan analizler bir arada, her biri yayımlandığı sayfaya bağlı.",
       // Featured: links out to the assessment (no email gate).
       assessmentEyebrow: "DEĞERLENDİRME",
       assessmentTitle: "İK Yapay Zekâ Hazırlık Değerlendirmesi",
@@ -196,6 +197,9 @@ export const strings = {
       assessmentCta: "Değerlendirmeye Başla →",
       // Downloadable, email-gated resources.
       resourcesHeading: "İndirilebilir kaynaklar",
+      // Slim dataset strip at the bottom of the page; the form opens on click.
+      ownData: "Kendi verim",
+      stripCta: "İndir →",
       formHeading: "E-posta adresiniz",
       nameLabel: "İsim (isteğe bağlı)",
       namePlaceholder: "Adınız",
@@ -222,6 +226,40 @@ export const strings = {
           fileName: "hr-ilan-datasi-mayis-2026.xlsx",
         },
       ],
+    },
+    research: {
+      // Filter bar above the list.
+      filterLabel: "Konuya göre filtrele",
+      all: "Tümü",
+      cta: "Kaynağa git →",
+      post: "Bu kaynağı kullandığım yazı →",
+      // Screen reader only, appended to the title / post links.
+      newTab: "(yeni sekmede açılır)",
+      newTabLinkedIn: "(LinkedIn, yeni sekmede açılır)",
+      // Filter groups. Keys match `category` on each item; the HR question the
+      // source answers. Group order lives in Research.astro.
+      categories: {
+        risk: "İşe alım ve çalışan kararlarında risk",
+        mevzuat: "Mevzuat ve yönetişim",
+        getiri: "AI'dan getiri ve iş etkisi",
+        adaptasyon: "Ekip adaptasyonu ve yetkinlik",
+        ornek: "İK'da kullanım örnekleri",
+        kurs: "Ücretsiz kurslar",
+      },
+      // Document type, shown in the small line above each title. Keys match `type`.
+      types: {
+        rapor: "Rapor",
+        arastirma: "Araştırma",
+        dava: "Dava",
+        mevzuat: "Mevzuat",
+        egitim: "Eğitim",
+        haber: "Haber",
+        makale: "Makale",
+        basin: "Basın bülteni",
+        cerceve: "Çerçeve",
+        politika: "Politika",
+        kurs: "Kurs",
+      },
     },
   },
 
@@ -374,8 +412,8 @@ export const strings = {
     },
     downloads: {
       eyebrow: "RESOURCES",
-      title: "Resources",
-      sub: "Free AI resources for HR professionals.",
+      title: "The sources behind my posts.",
+      sub: "The reports, research, court cases and regulation I rely on when writing about HR and AI. Primary sources and the analyses that interpret them, each linked to where it was published.",
       // Featured: links out to the assessment (no email gate).
       assessmentEyebrow: "ASSESSMENT",
       assessmentTitle: "HR AI Readiness Assessment",
@@ -384,6 +422,9 @@ export const strings = {
       assessmentCta: "Take the Assessment →",
       // Downloadable, email-gated resources.
       resourcesHeading: "Downloadable resources",
+      // Slim dataset strip at the bottom of the page; the form opens on click.
+      ownData: "My own data",
+      stripCta: "Download →",
       formHeading: "Your email address",
       nameLabel: "Name (optional)",
       namePlaceholder: "Your name",
@@ -410,6 +451,40 @@ export const strings = {
           fileName: "hr-ilan-datasi-mayis-2026.xlsx",
         },
       ],
+    },
+    research: {
+      // Filter bar above the list.
+      filterLabel: "Filter by topic",
+      all: "All",
+      cta: "Go to source →",
+      post: "The post where I used this (in Turkish) →",
+      // Screen reader only, appended to the title / post links.
+      newTab: "(opens in a new tab)",
+      newTabLinkedIn: "(LinkedIn, opens in a new tab)",
+      // Filter groups. Keys match `category` on each item; the HR question the
+      // source answers. Group order lives in Research.astro.
+      categories: {
+        risk: "Risk in hiring and employee decisions",
+        mevzuat: "Regulation and governance",
+        getiri: "Return on AI and business impact",
+        adaptasyon: "Team adoption and capability",
+        ornek: "HR use cases",
+        kurs: "Free courses",
+      },
+      // Document type, shown in the small line above each title. Keys match `type`.
+      types: {
+        rapor: "Report",
+        arastirma: "Research",
+        dava: "Court case",
+        mevzuat: "Regulation",
+        egitim: "Training",
+        haber: "News",
+        makale: "Article",
+        basin: "Press release",
+        cerceve: "Framework",
+        politika: "Policy",
+        kurs: "Course",
+      },
     },
   },
 };

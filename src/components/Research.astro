@@ -1,0 +1,374 @@
+---
+import { strings, type Lang } from "../i18n/strings";
+import { researchItems } from "../data/research";
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang = "tr" } = Astro.props;
+const t = strings[lang].research;
+
+// Group order on the page. Keys match `category` on each item and the keys of
+// `t.categories`. A category with no items is skipped.
+const order = ["risk", "mevzuat", "getiri", "adaptasyon", "ornek", "kurs"] as const;
+
+const groups = order
+  .map((key) => ({
+    key,
+    label: t.categories[key],
+    items: researchItems.filter((item) => item.category === key),
+  }))
+  .filter((group) => group.items.length > 0);
+---
+
+<!-- Sources referenced in Tolga's LinkedIn posts. Rendered by Downloads.astro
+     right under the dark page header, which carries the page message.
+     The filter bar needs the small inline script below; without JS every
+     group stays visible. -->
+<section class="research" id="arastirmalar">
+  <div class="research-inner">
+    <div class="rs-filter" role="group" aria-label={t.filterLabel}>
+      <button type="button" class="rs-chip" data-filter="all" aria-pressed="true">
+        {t.all}<span class="rs-count">{researchItems.length}</span>
+      </button>
+      {
+        groups.map((group) => (
+          <button type="button" class="rs-chip" data-filter={group.key} aria-pressed="false">
+            {group.label}<span class="rs-count">{group.items.length}</span>
+          </button>
+        ))
+      }
+    </div>
+
+    {
+      groups.map((group) => (
+        <div class="rs-group" data-cat={group.key}>
+          <h2 class="eyebrow rs-group-label">{group.label}</h2>
+
+          <ul class="rs-grid">
+            {group.items.map((item) => (
+              <li class="rs-card">
+                <p class="rs-meta">
+                  {[t.types[item.type], item.publisher, item.year].filter(Boolean).join(" · ")}
+                </p>
+                <h3 class="rs-title">
+                  <a
+                    class="rs-link"
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {lang === "tr" ? item.titleTr : item.title}
+                    <span class="rs-visually-hidden"> {t.newTab}</span>
+                  </a>
+                </h3>
+                {lang === "tr" && <p class="rs-orig" lang="en">{item.title}</p>}
+                <p class="rs-desc">{item.desc[lang]}</p>
+                <div class="rs-foot">
+                  <span class="rs-cta" aria-hidden="true">
+                    {t.cta}
+                  </span>
+                  {item.postUrl && (
+                    <a
+                      class="rs-post"
+                      href={item.postUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {t.post}
+                      <span class="rs-visually-hidden"> {t.newTabLinkedIn}</span>
+                    </a>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .research {
+    background: var(--color-paper);
+    color: var(--color-ink);
+
+    padding-block: 3rem 3.5rem;
+  }
+
+  /* Same column as .downloads-inner so the left edges line up. */
+  .research-inner {
+    width: min(100% - 3rem, 760px);
+    margin-inline: auto;
+  }
+
+  /* Category labels on paper use the darker teal for contrast. */
+  .rs-group-label {
+    color: #28a695;
+  }
+
+  /* --- Filter bar --- */
+  .rs-filter {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+
+    margin-bottom: 2.5rem;
+  }
+
+  .rs-chip {
+    padding: 0.5rem 0.9rem;
+
+    border: 1px solid var(--color-ink);
+    border-radius: 999px;
+    background: var(--color-white);
+    color: var(--color-ink);
+
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .rs-chip:hover {
+    border-color: #28a695;
+  }
+
+  .rs-chip:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
+  .rs-chip[aria-pressed="true"] {
+    background: var(--color-ink);
+    color: var(--color-white);
+    border-color: var(--color-ink);
+  }
+
+  .rs-count {
+    margin-left: 0.35rem;
+    color: #28a695;
+  }
+
+  .rs-chip[aria-pressed="true"] .rs-count {
+    color: var(--color-teal);
+  }
+
+  .rs-group[hidden] {
+    display: none;
+  }
+
+  /* With one category selected, its label repeats the chip, so hide it. */
+  .is-filtered .rs-group-label {
+    display: none;
+  }
+
+  .rs-group {
+    margin-bottom: 2.5rem;
+  }
+
+  .rs-group:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Category label: the global .eyebrow look, one step smaller. */
+  .rs-group-label {
+    margin-bottom: 1rem;
+
+    font-size: 0.7rem;
+    line-height: 1.4;
+  }
+
+  /* Two columns by default, one column at 700px and below (same breakpoint
+     as Downloads.astro). */
+  .rs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+
+    list-style: none;
+  }
+
+  .rs-card {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 1.5rem;
+
+    border: 1px solid var(--color-bone);
+    background: var(--color-white);
+    color: var(--color-ink);
+
+    transition: transform 0.18s ease;
+  }
+
+  /* Same 2px lift as .dl-assessment. */
+  .rs-card:hover,
+  .rs-card:focus-within {
+    transform: translateY(-2px);
+  }
+
+  .rs-card:focus-within {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
+  /* Matches .dl-resource-meta. */
+  .rs-meta {
+    margin-bottom: 0.6rem;
+
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    line-height: 1.5;
+    text-transform: uppercase;
+
+    color: #28a695;
+  }
+
+  .rs-title {
+    margin-bottom: 0.35rem;
+
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+
+    color: var(--color-ink);
+  }
+
+  .rs-link {
+    color: var(--color-ink);
+    text-decoration: none;
+  }
+
+  /* Stretch the title link over the whole card so the card is one target. */
+  .rs-link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+
+  .rs-link:focus {
+    outline: none;
+  }
+
+  /* Original (English) title under the short Turkish one. */
+  .rs-orig {
+    margin-bottom: 0.6rem;
+
+    font-size: 0.78rem;
+    line-height: 1.4;
+
+    color: #6b6b66;
+  }
+
+  .rs-desc {
+    margin-bottom: 1rem;
+
+    font-size: 0.9rem;
+    line-height: 1.55;
+
+    color: var(--color-ink);
+  }
+
+  /* Bottom row: "go to source" plus, when present, the post link. Sits at
+     the bottom so cards in a row align. */
+  .rs-foot {
+    margin-top: auto;
+
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    align-items: baseline;
+  }
+
+  .rs-cta {
+    font-size: 0.85rem;
+    font-weight: 700;
+
+    color: var(--color-ink);
+  }
+
+  /* Raised above the stretched title link so it stays clickable. */
+  .rs-post {
+    position: relative;
+    z-index: 1;
+
+    font-size: 0.85rem;
+    font-weight: 700;
+
+    color: #28a695;
+    text-decoration: none;
+  }
+
+  .rs-post:hover {
+    text-decoration: underline;
+  }
+
+  .rs-post:focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
+  /* Screen reader only: "opens in a new tab". */
+  .rs-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 700px) {
+    .rs-grid {
+      grid-template-columns: 1fr;
+    }
+
+    /* Chips stay on one line and scroll sideways on phones. */
+    .rs-filter {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+
+      margin-inline: -1.5rem;
+      padding-inline: 1.5rem;
+      padding-bottom: 0.25rem;
+
+      scrollbar-width: none;
+    }
+
+    .rs-chip {
+      flex: 0 0 auto;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var section = document.getElementById("arastirmalar");
+    if (!section) return;
+    var chips = section.querySelectorAll(".rs-chip");
+    var groups = section.querySelectorAll(".rs-group");
+
+    chips.forEach(function (chip) {
+      chip.addEventListener("click", function () {
+        var f = chip.getAttribute("data-filter");
+        chips.forEach(function (c) {
+          c.setAttribute("aria-pressed", c === chip ? "true" : "false");
+        });
+        groups.forEach(function (g) {
+          g.hidden = f !== "all" && g.getAttribute("data-cat") !== f;
+        });
+        section.classList.toggle("is-filtered", f !== "all");
+      });
+    });
+  })();
+</script>
