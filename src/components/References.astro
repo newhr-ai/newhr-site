@@ -20,10 +20,6 @@ const items = references.map((r) => {
 ---
 
 <section class="refs" id="referanslar" aria-label={t.eyebrow}>
-  <div class="wrap head">
-    <p class="eyebrow">{t.eyebrow}</p>
-  </div>
-
   <div class="marquee" tabindex="0" aria-label={t.marqueeLabel}>
     <div class="track">
       {[false, true].map((dup) => (
@@ -51,8 +47,6 @@ const items = references.map((r) => {
     padding-block: 1.4rem 1.6rem;
   }
 
-  .head .eyebrow { margin-bottom: 0.6rem; }
-  .head .eyebrow::after { display: none; }
 
   .marquee {
     overflow: hidden;

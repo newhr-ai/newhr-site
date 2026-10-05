@@ -1,5 +1,5 @@
 ---
-import { strings, type Lang } from "../i18n/strings";
+import { strings, discoveryMailto, type Lang } from "../i18n/strings";
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
@@ -11,7 +11,8 @@ const t = strings[lang].hero;
     <div class="hero-text">
       <h1>{t.titleLine1}{" "}<br />{t.titleLine2}</h1>
       <p class="lead">{t.lead}</p>
-      <a href="#iletisim" class="btn">{t.cta}</a>
+      <a href={discoveryMailto(lang)} class="btn">{t.cta}</a>
+      <p class="cta-note">{t.ctaNote}</p>
     </div>
 
     <nav class="deck" aria-label={t.cardsLabel}>
@@ -55,6 +56,14 @@ const t = strings[lang].hero;
     color: #fff;
     max-width: 600px;
     margin-bottom: 1.5rem;
+  }
+
+  .cta-note {
+    margin-top: 0.9rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #fff;
+    max-width: 480px;
   }
 
   .btn { font-size: 1rem; padding: 0.95rem 1.6rem; }

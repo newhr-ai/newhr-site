@@ -13,6 +13,17 @@ export const mailto = (lang: Lang, subject?: string) => {
   return `mailto:hello@newhr.ai?subject=${encodeURIComponent(s)}`;
 };
 
+// Discovery call CTA (hero + nav). Decision 5 Oct 2026: no scheduler, mailto with a
+// pre-filled subject and body so the first reply already carries the basics.
+export const discoveryMailto = (lang: Lang) => {
+  const subject = lang === "tr" ? "Keşif görüşmesi talebi" : "Discovery call request";
+  const body =
+    lang === "tr"
+      ? "Merhaba Tolga Bey,\n\nŞirket: \nİK ekibi büyüklüğü: \nŞu an bizi en çok zorlayan konu: \n\nUygun olduğum günler: "
+      : "Hi Tolga,\n\nCompany: \nHR team size: \nWhat is hardest for us right now: \n\nDays that work for me: ";
+  return `mailto:hello@newhr.ai?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+};
+
 export const assessmentPath = (lang: Lang) =>
   `https://assessment.newhr.ai/${lang}/assessment`;
 
@@ -51,15 +62,16 @@ export const strings = {
       ],
       about: "Hakkımızda",
       resources: "Kaynaklar",
-      cta: "İletişime geçin",
+      cta: "Keşif görüşmesi talep edin",
       menu: "Menü",
       close: "Kapat",
     },
     hero: {
       titleLine1: "Yapay zekâyı İK'nın gündeminden",
       titleLine2: "işine taşıyoruz.",
-      lead: "İK ekiplerinin yapay zekâ yetkinliğini kendi süreçleri üzerinde geliştiriyoruz.",
-      cta: "İletişime geçin →",
+      lead: "İK ekiplerinin yapay zekâ dönüşümünü kendi süreçleri üzerinde yapılandırıyor, hızlandırıyor ve iş sonucuna bağlıyoruz.",
+      cta: "Keşif görüşmesi talep edin →",
+      ctaNote: "30 dakika. Önce durumunuzu anlıyoruz, sonra uygun adımı öneriyoruz.",
       cardsLabel: "Hizmetler",
       cards: [
         { num: "01", title: "Kurumsal eğitim ve workshop", img: "/images/illustrations/card-1-egitim-workshop.jpg" },
@@ -277,15 +289,16 @@ export const strings = {
       ],
       about: "About",
       resources: "Resources",
-      cta: "Get in touch",
+      cta: "Request a discovery call",
       menu: "Menu",
       close: "Close",
     },
     hero: {
       titleLine1: "We move AI from HR's agenda",
       titleLine2: "into HR's work.",
-      lead: "We build HR teams' AI capability on their own processes.",
-      cta: "Get in touch →",
+      lead: "We structure, accelerate and connect HR teams' AI transformation to business results, working on their own processes.",
+      cta: "Request a discovery call →",
+      ctaNote: "30 minutes. We understand your situation first, then recommend the right next step.",
       cardsLabel: "Services",
       cards: [
         { num: "01", title: "Corporate training and workshops", img: "/images/illustrations/card-1-egitim-workshop.jpg" },
