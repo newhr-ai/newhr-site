@@ -100,8 +100,19 @@ const logo = "/logos/newhrai-logo_for-dark-bg.svg";
     flex-direction: column;
   }
 
+  /* Invisible bridge over the gap between trigger and menu, so the pointer
+     can travel down without closing the menu. */
+  .dd-menu::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -0.7rem;
+    height: 0.7rem;
+  }
+
   .dd-menu a {
-    padding: 0.8rem 1rem;
+    padding: 0.9rem 1.1rem;
     text-decoration: none;
     color: var(--fg);
     font-size: 0.88rem;
